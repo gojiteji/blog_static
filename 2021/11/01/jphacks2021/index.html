@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> JPHACKS2021に参加しました! · gojiteji's Blog</title><meta name="description" content="JPHACKS2021に参加しました! - gojiteji"><title>gojiteji's Blog</title><meta name="description" content="gojiteji's Blog"><meta name="twitter:title" content="gojiteji's Blog"><meta name="twitter:description" content="gojiteji's Blog"><meta name="og:title" content="gojiteji's Blog"><meta name="og:description" content="gojiteji's Blog"><meta name="og:image" content="https://blog.gojiteji.com/logo.png"><meta name="twitter:image" content="https://blog.gojiteji.com/logo.png"><meta name="twitter:site" content="@gojiteji"><meta name="twitter:creator" content="@gojiteji"><meta name="og:site_name" content="gojiteji's Blog"><meta name="og:type" content="article"><meta name="og:url" content="https://blog.gojtieji.com/2021/11/01/jphacks2021/"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://blog.gojtieji.com/atom.xml" title="gojiteji's Blog"><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="gojiteji's Blog" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://gojiteji.com" target="_blank" class="nav-list-link">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">JPHACKS2021に参加しました!</h1><div class="post-info">Nov 1, 2021</div><div class="post-content"><p>お久しぶりです。ブログを書くのも約半年ぶりとなりました。タイトルにある通り、<a target="_blank" rel="noopener" href="https://jphacks.com/">JPHACKS2021</a> Hacking Sprint(いわゆる地方予選に相当) に参加してきました。</p>
+<p>結果から申しますと、なんと<strong>Aブロック(北海道・東北ブロック)で優勝しました！！🏅🎉</strong></p>
+<h2 id="作ったもの"><a href="#作ったもの" class="headerlink" title="作ったもの"></a>作ったもの</h2><p>今回、サークル<a target="_blank" rel="noopener" href="https://huitgroup.github.io/">HUIT</a>のメンバー私含め5人と共に出場しました。私たちが作ったのは、COCOA(新型コロナウイルス接触確認アプリ)の信号でマスクを自動開閉するアプリとデバイス、サムネイルにもある「ココノマスク」を作成しました。</p>
+<span id="more"></span>
+<p><img src="https://pbs.twimg.com/media/FC9ayn-aUAAaavJ?format=jpg&name=large" alt="ココノマスクのアプリとデバイス"></p>
+<p>私は主にデバイスの作成を行いました。使用技術は以下の通りです。<br><img src="https://pbs.twimg.com/media/FC9bKszacAEb6PR?format=jpg&name=large" alt="使用した技術"></p>
+<p>デバイスはRaspberry Pi Zeroの上にPythonのプログラムで動作しており、これがBluetooth LEを見張ることで、COCOAの信号を識別します。チームにはネイティブアプリをかける人がいなかったため、Web(React.js)をベースにアプリを開発しました。従って、Web Bluetoothをデバイスとのペアリングに採用しました。</p>
+<p>デバイスの動作こんな感じです(GIF)。</p>
+<blockquote class="twitter-tweet"><p lang="und" dir="ltr"><a target="_blank" rel="noopener" href="https://t.co/onBxV0Fxxw">pic.twitter.com/onBxV0Fxxw</a></p>&mdash; Koki (@gojiteji) <a target="_blank" rel="noopener" href="https://twitter.com/gojiteji/status/1454487043610796035?ref_src=twsrc%5Etfw">October 30, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>作っていて面白かったものは、COCOAの通信の仕様書<a target="_blank" rel="noopener" href="https://www.google.com/covid19/exposurenotifications/">Google&#x2F;Apple Exposure Notifications System</a>を読んでいた時です。一年ほど前になんとなくインストールしていたCOCOAの裏側ではいくつものプライバシーを配慮した技術があり(ex.送信電力の暗号化)、これには逆にCOCOAを応用した設計をするのにに苦労する場面もありました。実装の詳細は<a target="_blank" rel="noopener" href="https://github.com/jphacks/A_2111">GitHubを参照ください</a>。実は私は数年前にBLE通信で心が折れた経験があり、正直完成するかめちゃめちゃ不安でした。</p>
+<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>本ブログに何度か登場している<a target="_blank" rel="noopener" href="https://twitter.com/takapiro_99">たかぴろ</a>とはおそらく最後になるハッカソンイベントだったので、共に栄誉ある賞を受賞できたことがとても嬉しかったです。また、他3人のメンバーについても、僕と初対面にも関わらずチーム開発に受け入れてくれた事にも感謝します。<br>1週間でハードウェア・ソフトウェア共に突貫工事で進めたため、Award Day 進出になった際にはもっと技術を磨こうと思います。</p>
+<p>最後に、発表で使用したスライドを載せておきます。</p>
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSDdz9wtoaqWwp9J3if5AZR-36ecevJdxNyXyJ7Ji4ghFfAptug0QxjFISP8JmJCWudaysbajGu4hpY/embed?start=false&loop=false&delayms=3000" frameborder="0" width="320" height="190" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+
+<h2 id="links"><a href="#links" class="headerlink" title="links"></a>links</h2><ul>
+<li><p>GitHub<br>  <a target="_blank" rel="noopener" href="https://github.com/jphacks/A_2111">https://github.com/jphacks/A_2111</a></p>
+</li>
+<li><p>Exposure Notifications System<br>  <a target="_blank" rel="noopener" href="https://www.google.com/covid19/exposurenotifications">https://www.google.com/covid19/exposurenotifications</a></p>
+</li>
+<li><p>たかぴろと参加したハッカソン記事</p>
+<ul>
+<li>I created an AR haiku app.<br>  <a target="_blank" rel="noopener" href="https://blog.gojiteji.com/2021/02/19/unitygps/">https://blog.gojiteji.com/2021/02/19/unitygps/</a></li>
+<li>JPhacks 2020　award dayに進出&amp;参加しました!<br>  <a target="_blank" rel="noopener" href="https://blog.gojiteji.com/2020/11/28/jphacks2020/">https://blog.gojiteji.com/2020/11/28/jphacks2020/</a></li>
+<li>Discovery hackathon 2020 参加記<br>  <a target="_blank" rel="noopener" href="https://blog.gojiteji.com/2020/10/26/discoveryhackathon/">https://blog.gojiteji.com/2020/10/26/discoveryhackathon/</a></li>
+<li>北大ハッカソン参加記<br>  <a target="_blank" rel="noopener" href="https://blog.gojiteji.com/2020/08/03/hu-hack/">https://blog.gojiteji.com/2020/08/03/hu-hack/</a></li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2021/11/22/jphacks2021-ad/" class="prev">PREV</a><a href="/2021/05/09/heroku/" class="next">NEXT</a></div><div class="copyright"><p>© 2020 - 2022 <a href="https://blog.gojtieji.com">gojiteji</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
