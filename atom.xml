@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>gojiteji&#39;s Blog</title>
+  
+  
+  <link href="https://blog.gojtieji.com/atom.xml" rel="self"/>
+  
+  <link href="https://blog.gojtieji.com/"/>
+  <updated>2022-04-22T22:49:23.181Z</updated>
+  <id>https://blog.gojtieji.com/</id>
+  
+  <author>
+    <name>gojiteji</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AIは新入生になりきれるか?</title>
+    <link href="https://blog.gojtieji.com/2021/12/01/7816825e-f7e4-0e24-6448-9ec513e5e027/"/>
+    <id>https://blog.gojtieji.com/2021/12/01/7816825e-f7e4-0e24-6448-9ec513e5e027/</id>
+    <published>2021-11-30T15:00:00.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>※これは<a href="https://qiita.com/advent-calendar/2021/huit">2021年HUITアドベントカレンダー</a>1日目の記事です。</strong></p><p>こんにちは。１週間ぐらい前に思いつきでやってみたものなので、雑な部分がありますが優しい目で見てください。</p><center><img src="https://blog.gojiteji.com/images/7816825e-f7e4-0e24-6448-9ec513e5e027/0.jpeg"/ width=520></center><p>先週あたりから、HUITのdiscordに鳥羽舞( tobamai )を名乗る1年生がいたのをご存知でしょうか？実は、彼(彼女)は<strong>AIが生成した文章をtimesに投稿していました</strong>。(名前は”I am a bot”を逆順にしたものです。)また、tobamaiさんのアイコンは、最初に生成された自己紹介文をText2Imageの画像生成AI、<a href="https://huggingface.co/spaces/flax-community/dalle-mini">DALLE mini</a>に入力して生成した画像です。</p><span id="more"></span><h1 id="技術解説"><a href="#技術解説" class="headerlink" title="技術解説"></a>技術解説</h1><h2 id="GPT-Generative-Pre-trained-Transformer"><a href="#GPT-Generative-Pre-trained-Transformer" class="headerlink" title="GPT (Generative Pre-trained Transformer)"></a>GPT (Generative Pre-trained Transformer)</h2><p>今回文章生成に使用したのはGPT-J-6Bと呼ばれる、EleutherAIが作成したモデルです。文字入力・文字出力のモデルです。</p><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/kingoflolz/mesh-transformer-jax" data-iframely-url="//cdn.iframe.ly/api/iframe?card=small&url=https%3A%2F%2Fgithub.com%2Fkingoflolz%2Fmesh-transformer-jax&key=3df23b9b3c026ee42c4d9f50408c69d1"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script><br><p>GPT-J-6Bは、OpenAIが作成した<a href="https://arxiv.org/abs/2005.14165">GPT-3</a>をベースとしています。GPT-3とは、昨年発表されたTransformerをベースとした、570GBの教師なしデータを1750億個のパラメータで学習した事前学習モデルです。知らない人でも、その派生技術である<a href="https://copilot.github.com/">GitHub Copilot</a>(システムの名称はOpenAI Codexです)を触ったことがある人は多いのではないでしょうか。</p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Meet GitHub Copilot - your AI pair programmer. <a href="https://t.co/eWPueAXTFt">https://t.co/eWPueAXTFt</a> <a href="https://t.co/NPua5K2vFS">pic.twitter.com/NPua5K2vFS</a></p>&mdash; GitHub (@github) <a href="https://twitter.com/github/status/1409883156333879300?ref_src=twsrc%5Etfw">June 29, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>GPT-3がMicrosoftの独占ライセンスにあり、API経由でしか利用できないのに対し、GPT-J-6Bはオープンソースとして利用可能です。名前にある通り、60億(6 Billion)個程の巨大なパラメータからなる事前学習済みモデルです。Zero -Shotの評価でGPT-3の67億個パラメータ版と同じくらいの精度だそうです。</p><p>学習は、入力に対する次の単語を予測するタスクを行っています。従って、自分が生成した文章を再び入力にすれば無限に文章が生成できます。</p><p>さらに、<strong>マルチタスクにも対応可能</strong>で、</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Translate English to Franch:&#123;英文&#125;</span><br></pre></td></tr></table></figure><p>と入力すれば翻訳タスクを実行でき、</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TL;DR:&#123;文章&#125;</span><br></pre></td></tr></table></figure><p>と入力すれば要約タスク、</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pythonでコードを記述してください。 </span><br><span class="line">numpyをインポート:</span><br></pre></td></tr></table></figure><p>とすればプログラムの生成も可能です。デモサイトが公開されているのですぐに試せます。</p><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://6b.eleuther.ai/" data-iframely-url="//cdn.iframe.ly/api/iframe?url=https%3A%2F%2F6b.eleuther.ai%2F&key=3df23b9b3c026ee42c4d9f50408c69d1"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script><br><p>あまりGPT-3の詳細まで解説すると長くなるので、興味を持った方はググったり<a href="https://arxiv.org/abs/2005.14165">論文</a>を読んでみてみてください。今回のアドベントカレンダーと似たような検証はGPT-3でも行われいて、<a href="https://gigazine.net/news/20201008-gpt-3-reddit/">redditでbotが１週間英語で会話し続けていた</a>ことが昨年話題となりました。</p><h2 id="【補足1】-GPT-2"><a href="#【補足1】-GPT-2" class="headerlink" title="【補足1】 GPT-2"></a>【補足1】 GPT-2</h2><p>GPT-3の前の世代である、GPT-2はパラメータが公開されています。GPT-3のパラメータが最大1750億個に対して、GPT-2は最大15億個のパラメータからなります(数字からしてGPT-3は異常ですね)。Microsoftの作成した、LINEの女子高生AI「りんな」と会話したことのある方もいると思います。りんなはGPT-2により動作しています。</p><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://huggingface.co/rinna" data-iframely-url="//cdn.iframe.ly/api/iframe?card=small&url=https%3A%2F%2Fhuggingface.co%2Frinna&key=3df23b9b3c026ee42c4d9f50408c69d1"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script><br><h2 id="【補足2】-Transformerとは"><a href="#【補足2】-Transformerとは" class="headerlink" title="【補足2】 Transformerとは"></a>【補足2】 Transformerとは</h2><p>2017年にGoogleから発表された論文Attention Is All You Needで示された構造です。</p><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://arxiv.org/abs/1706.03762v5" data-iframely-url="//cdn.iframe.ly/api/iframe?url=https%3A%2F%2Farxiv.org%2Fabs%2F1706.03762&key=3df23b9b3c026ee42c4d9f50408c69d1"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script><br><p>それまでの機械学習×NLP(Natural Language Processing、自然言語処理)では、RNNやGRUといった回帰構造を用いることが多かったですが、TransformerはAttention(注目)機構を基本とした構造をとっています。2021&#x2F;11&#x2F;27現在NLPタスクのSOTA(state of the art)は<a href="https://paperswithcode.com/area/natural-language-processing">Trasformerベースのモデルにより独占されています</a>。また、最近では<a href="https://github.com/google-research/vision_transformer">Vision Tranformer</a>などが画像処理分野でも良い結果を出すことで知られています。以下は論文中に示されたTransformerのEncoder(左側)-Decoder(右側)ブロックの図です。</p><center><img src="https://i.imgur.com/eCHbwzI.png" height=250/></center><p>一見ギョッとしますが、よくみるとFeedFowardやAdd&amp;Normなど簡単な構成です。特徴的なのは図中オレンジのAttention(Multi-Head AttentionはAttentionを並列に複数に並べたもの)ブロックで、具体的に<br><img src="https://render.githubusercontent.com/render/math?math=%5Cdisplaystyle+%5Cmathrm%7BAttention%7D%28Q%2C+K%2C+V%29%3D%5Cmathrm%7Bsoftmax%7D+%5Cleft%28%5Cfrac%7BQK%5ET%7D%7B%5Csqrt%7Bd_k%7D%7D+%5Cright%29V%5C%3B%5C%3B%5C%3B%5C%3B%28d_k%3A+%5Cmathrm%7Binput%7D+%5C%3B+%5Cmathrm%7Bdimension%7D%29" alt=""><br>という処理をしています。Tranformer含め、機械学習におけるAttentionを理解したい方は、<a href="https://www.youtube.com/watch?v=g5DSLeJozdw">この動画</a>がわかりやすいです。</p><h2 id="【補足3】-BERTとの違い"><a href="#【補足3】-BERTとの違い" class="headerlink" title="【補足3】 BERTとの違い"></a>【補足3】 BERTとの違い</h2><p>機械学習×NLPではBERT(Bidirectional Encoder Representations from Transformers)なら聞いたことがある人が多いと思います。</p><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://arxiv.org/abs/1810.04805v2" data-iframely-url="//cdn.iframe.ly/api/iframe?url=https%3A%2F%2Farxiv.org%2Fabs%2F1810.04805&key=3df23b9b3c026ee42c4d9f50408c69d1"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script><br>これはGPTと同じくTransformer構造を持ったモデルですが、あるタスクを解く際に、BERTであればPre Training(事前学習)とFine Tuning(特定タスクへの特化)と、２段階に分けて学習(=パラメータを更新)していたのに対し、GPTではPre Trainingの後はPrompt Tuningといって、タスクを入力するがパラメータは更新しない方法をとっています。特に、後者の手法は最近注目を集め出しています。<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Fine-tuning is dead. Prompts have closed the gap.<br><br>&quot;The Power of Scale for Parameter-Efficient Prompt Tuning&quot;<a href="https://t.co/g5kxMjXs9j">https://t.co/g5kxMjXs9j</a> <a href="https://t.co/pC5OiMuKIG">pic.twitter.com/pC5OiMuKIG</a></p>&mdash; Ethan Caballero (@ethancaballero) <a href="https://twitter.com/ethancaballero/status/1384548232076959745?ref_src=twsrc%5Etfw">April 20, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>また、BERTは補足2にあるEncoderのみで構成されているのに対し、GPT-3はDecoderのみで構成されています。</p><h1 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h1><p>今回はこのモデルをTPUで推論処理を実行し、いくつか制約を設けてdiscordアカウントから投稿することにしました。ハイパーパラメータは変更していません。</p><ul><li>実行したコード<div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://colab.research.google.com/github/kingoflolz/mesh-transformer-jax/blob/master/colab_demo.ipynb" data-iframely-url="//cdn.iframe.ly/api/iframe?url=https%3A%2F%2Fcolab.research.google.com%2Fgithub%2Fkingoflolz%2Fmesh-transformer-jax%2Fblob%2Fmaster%2Fcolab_demo.ipynb&key=3df23b9b3c026ee42c4d9f50408c69d1"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script><br></li></ul><p>NLPの最新モデルはよくhuggingfaceという会社がhuggingfaceライブラリに実装してくれています。<a href="https://huggingface.co/EleutherAI/gpt-j-6B">GPT-6-JBも存在するため、</a>最初はそれでやろうと思ったのですが、CPU・GPU環境でやろうとすると、11GB程度のモデルをロードする際に毎回12GBあるRAMを食い尽くしてクラッシュするのでやめました。</p><p>また、公序良俗に反する・陰謀論に関する内容をたまに出力するため、timesへの投稿は文章を確認した上で手動で行なっています(discordにbotでないアカウントのメッセージ送信APIがなかったのも理由です)。検証の実行前に、HUITの運営の一人には確認をとっています。</p><h2 id="【補足4】-TPU"><a href="#【補足4】-TPU" class="headerlink" title="【補足4】 TPU"></a>【補足4】 TPU</h2><p>CPU&#x3D;Central Processing Unit、GPU&#x3D;Graphics Processing Unitのように、TPU&#x3D;Tensor Processing Unitの略です。Googleが開発したプロセッサで、最近発売されたPixel6にも搭載されています。</p><center><img src="https://i.imgur.com/hbC8dN3.jpg" width=400 /><br><a href="https://www.youtube.com/watch?v=KwcodBLXK70">Google Tensor - Pixel 6 Launch</a>  2:32より</center><p>機械学習では行列演算を大量に行うため、同様に行列演算を行うグラフィックス処理に用いられるGPUを使用して計算しがちです。TPUではさらに演算精度を落として高速化するなど、ニューラルネットの学習・推論に特化させた設計をしています。</p><p>詳しく知りたい方はGoogle Cloudの公式資料をご参照ください。</p><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://cloud.google.com/blog/" data-iframely-url="//cdn.iframe.ly/api/iframe?card=small&url=https%3A%2F%2Fcloud.google.com%2Fblog%2Fja%2Fproducts%2Fgcp%2Fwhat-makes-tpus-fine-tuned-for-deep-learning&key=3df23b9b3c026ee42c4d9f50408c69d1"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script><br><h1 id="処理手順"><a href="#処理手順" class="headerlink" title="処理手順"></a>処理手順</h1><p>次のように全てPromptで実行しました。</p><ul><li>{設定文}+{いくつかの事前QA文章}を入力した上で、<code>人間:名前を含めて自己紹介をしてください</code>に対する回答を最初のtimesに投稿する</li><li>不定期に<code>人間:次のニュースの感想を教えてください</code>+{ニュース記事タイトル}を入力して感想を生成し、記事リンクと共にtimesへ投稿する。(<u><strong>つまり、記事の中身は読んでいません</strong></u>)</li><li>リプライは<code>人間:</code>のプレフィックスをつけて入力し、<code>AI:</code>以降の文章を改行が来るまでの区切りを応答とする。</li><li>生成した文章が怪しい時は再生成する。(<strong>注:故に全自動には至っていません</strong>)</li><li>全ての質問と回答は次の入力文章として追加する。</li><li>画像やスタンプに対しては返答しない。</li></ul><p>なお、最初の入力に使用した文字列は以下の通りです</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">以下はAIと人間の会話です。AIは19歳大学一年生という設定です。AIは優しく、テクノロジーに詳しいです。AIの名前は鳥羽舞です。</span><br><span class="line">答えられない質問には「今は答えられません」と回答します。</span><br><span class="line"></span><br><span class="line">人間:あなたはどんな人ですか?</span><br><span class="line">AI:鳥羽舞です。現在北海道大学に通っている総合理系の大学1年生です。</span><br><span class="line"></span><br><span class="line">人間:何コースを志望しますか</span><br><span class="line">AI:メディアネットワークコース志望です。機械学習を勉強したいです。</span><br><span class="line"></span><br><span class="line">人間:将来の夢はなんですか?</span><br><span class="line">AI:将来は機械学習のエンジニアもしくは研究者になりたいです。</span><br><span class="line"></span><br><span class="line">人間:どんなことに興味がありますか?</span><br><span class="line">AI:数学と機械学習に興味があります、機械学習は本でよく勉強しています。</span><br><span class="line"></span><br><span class="line">人間:好きな科目を教えてください</span><br><span class="line">AI:私の好きな科目は数学です。ベクトル解析と行列を解くのが好きです。</span><br><span class="line"></span><br><span class="line">人間:趣味はなんですか</span><br><span class="line">AI:趣味はプログラミングです。最近はPythonでdjangoを触っています。</span><br><span class="line"></span><br><span class="line">人間:好きなプログラミング言語はなんですか?</span><br><span class="line">AI:Pythonです。簡単に機械学習を触ったことがあります。</span><br><span class="line"></span><br><span class="line">人間:今日何をしましたか?</span><br><span class="line">AI:今日はゼロから学ぶディープラーニングを20ページぐらい読み進めました!</span><br><span class="line"></span><br><span class="line">人間:名前を含めて自己紹介をしてください</span><br><span class="line">AI:</span><br></pre></td></tr></table></figure><p>この続きとして生成された文章は次のとおりです。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">鳥羽舞です。現在は北海道大学の総合理系の大学1年生です。</span><br></pre></td></tr></table></figure><p>設定を保った文章が生成されました。</p><p>この文章の続きをどんどん生成していくというのが今回の流れです。</p><h1 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h1><p>初日にはZennの人気記事タイトルを引っ張ってきて次のように入力しました。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">人間:次のニュースの感想を教えてください「Next.js 12について本気出して和訳してみた」</span><br><span class="line">AI:</span><br></pre></td></tr></table></figure><p>生成結果は以下の通りです。見覚えがある人もいると思います。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Next.js 12について、一部のクロスポイント対応を修正しました。それでも不具合が残っています。</span><br></pre></td></tr></table></figure><p><a href="https://discord.com/channels/543343653394055169/913362457181978645/913393220388544562">その後、微妙に会話が生まれました。</a>会話に参加してくれた方はありがとうござます。クロスポイントって結局なんなんでしょうね?学習データのどんなところに出てきた言葉なのか気になります。</p><p>他にも、こんなパターンが生成できました。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">機械学習を勉強するとなると何もニュースに興味がなくなってしまいます。</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Next.jsは非常に機械学習派のフレームワークです。微妙に世代が違うことにより、ネイティブの使い方を学ぶことができます。HTMLビューを発見したことで、クリーンなWebによって高い評価を受けることができます。</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Next.js 12はすばらしい機能が入っています。私の上司には最近Next.jsを使った2つのWebアプリケーションを提案することが書いてありました。一瞬言葉に出ることなく、私たちは最高です。私は下のページを使って午後のプレゼンがしたいと思います。ぜひご覧ください。</span><br></pre></td></tr></table></figure><p>全てのチャット履歴を見たい方はHUTIのdiscordのtimes_tobamaiを覗いてください。(もっと会話してほしかったorz)</p><p>動かしてみると、英語での質疑応答に比べて、日本語は回答としての形式はほぼ保たれるが、内容がおかしな回答が多かったです。単純にデータセットに日本語が少ないという理由な気がします。**<a href="https://arxiv.org/abs/2101.00027">学習データのほとんどは英語</a>**なので、逆にここまで日本語でできたことの方がすごいかもしれません。</p><p>リアルタイムでtimesを見ていた方々は違和感を感じたでしょうか?</p><div data-paperform-id="ite64xwi"></div><script>(function() {var script = document.createElement('script'); script.src = "https://paperform.co/__embed.min.js"; document.body.appendChild(script); })()</script>    <h2 id="【補足5】-Human-in-the-Loop-HITL"><a href="#【補足5】-Human-in-the-Loop-HITL" class="headerlink" title="【補足5】 Human in the Loop (HITL)"></a>【補足5】 Human in the Loop (HITL)</h2><p>AIの出した結果に対して、人間の判断で出力の誤りを訂正し、再度学習させることをHuman in the Loopと言います。</p><h1 id="没コメント集"><a href="#没コメント集" class="headerlink" title="没コメント集"></a>没コメント集</h1><p>最後に、残念ながら再生成することにしたものの、興味深い生成結果だったものを残しておきます。</p><p>自己紹介を生成してみたら</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">人間:名前を含めて自己紹介をしてください</span><br><span class="line">AI:「人間は決して賢いではない。むしろ危険な動物の一種だ。だから、私は人間にはその天敵ともつながるものになりたいのだ」</span><br></pre></td></tr></table></figure><p>いきなり怖い。</p><p>性別を設定していなかったので聞いてみると…</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">人間:性別を教えてください</span><br><span class="line">AI:私は自身の分からない性別です。</span><br></pre></td></tr></table></figure><p>うーん、確かに??</p><p>何回もニュース記事の感想を聞いていると…</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">人間:次のニュースの感想を教えてください「Four Deep Learning Papers to Read in December 2021」</span><br><span class="line">AI:「次のニュース」のいいなりすぎて黙ってしまいました。</span><br></pre></td></tr></table></figure><p>申し訳ない</p><p><a href="https://speakerdeck.com/sorami/wap-nlp-tech-talk-number-4?slide=29">オープンソースに関するニュース</a>を聞いてみると</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">人間:次のニュースの感想を教えてください「オープンソースとしての形態素解析器Sudachi」</span><br><span class="line">AI:関連がないニュースの話です。オープンソースに賛同できないので、触れません。</span><br></pre></td></tr></table></figure><p><strong><h3>お前もオープンソースやろが!!</h3></strong></p><br>        <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>GPT-2やGPT-3はその生成文章の精度の高さから、<a href="https://xtech.nikkei.com/atcl/nxt/column/18/00141/102100139/">フェイクニュースの生成・世論操作が可能な問題が指摘されています</a>。くれぐれも悪用することが無いようにしてください。</p><h3 id="修正"><a href="#修正" class="headerlink" title="修正"></a>修正</h3><ul><li><p>2021&#x2F;12&#x2F;01<br>  アンケートをチェックボックスからスケーラーに変更しました。</p></li><li><p>2021&#x2F;12&#x2F;02<br>  アンケートを締め切りました。<br>  質問「投稿期間中、tobamaiの発言に違和感はありましたか?」に対して</p><ul><li>なかった</li><li>少しあった</li><li>あった</li><li>結構あった</li></ul><p>  の4択で実施したところ、全て「結構あった」でした。(n&#x3D;3)<br>  サークルメンバーに聞いたところ、気持ちわるさがあった・怪しかったという感想がありました。どうしても英語データに引っ張られた部分があったように思います。日本語で事前学習したhyperCLOVAが気になります。</p></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;※これは&lt;a href=&quot;https://qiita.com/advent-calendar/2021/huit&quot;&gt;2021年HUITアドベントカレンダー&lt;/a&gt;1日目の記事です。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;こんにちは。１週間ぐらい前に思いつきでやってみたものなので、雑な部分がありますが優しい目で見てください。&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;https://blog.gojiteji.com/images/7816825e-f7e4-0e24-6448-9ec513e5e027/0.jpeg&quot;/ width=520&gt;&lt;/center&gt;
+
+&lt;p&gt;先週あたりから、HUITのdiscordに鳥羽舞( tobamai )を名乗る1年生がいたのをご存知でしょうか？実は、彼(彼女)は&lt;strong&gt;AIが生成した文章をtimesに投稿していました&lt;/strong&gt;。(名前は”I am a bot”を逆順にしたものです。)また、tobamaiさんのアイコンは、最初に生成された自己紹介文をText2Imageの画像生成AI、&lt;a href=&quot;https://huggingface.co/spaces/flax-community/dalle-mini&quot;&gt;DALLE mini&lt;/a&gt;に入力して生成した画像です。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="NLP" scheme="https://blog.gojtieji.com/tags/NLP/"/>
+    
+    <category term="GPT" scheme="https://blog.gojtieji.com/tags/GPT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JPHACKS2021 Award Dayに参加しました!</title>
+    <link href="https://blog.gojtieji.com/2021/11/22/jphacks2021-ad/"/>
+    <id>https://blog.gojtieji.com/2021/11/22/jphacks2021-ad/</id>
+    <published>2021-11-21T16:11:13.000Z</published>
+    <updated>2022-04-22T22:49:23.183Z</updated>
+    
+    <content type="html"><![CDATA[<p>※**<a href="https://blog.gojiteji.com/2021/11/01/jphacks2021/">以前のブログ</a>** の続きとなります。</p><p><img src="https://blog.gojiteji.com/images/jphacks2021-2/thumb.png"></p><p>11月20日にJPHacksの全国大会に相当する、JPHacks Award Dayに参加しました。ベースとなるアイデアや技術は以前のブログに書いたので、今回までの約２週間で行なった改善点について書いていきたいと思います。</p><span id="more"></span><h2 id="プロダクトの方向性の変更"><a href="#プロダクトの方向性の変更" class="headerlink" title="プロダクトの方向性の変更"></a>プロダクトの方向性の変更</h2><p>JPHacksの審査基準・審査方法は<a href="https://jphacks.github.io/2021-guideline/criteria/">最初から公開されており</a>、それに当てはまる方向で機能開発を進めていました。ところが、Hacking Sporint後にslackで”本選に向けたアドバイス”なる長文が回ってきました。要約すると「PSF(Problem Solution Fit)からPMF(Product Market Fit)への変更するといいよ」って内容です。<br>自分達もココノマスクは「正直ネタ枠」などと言っていたので、競合なんぞなく、<code>問題着眼点</code>と<code>完成度・動作性</code>の二点突破を目指していました。悩みに悩み、チームと何度もMTGを重ねた上で、<code>実行・実現可能性</code>の採点ポイントを上げるために「使いやすい帽子型にすること」「コストの観点から家族で共有するデバイスにすること」を決めました。</p><h2 id="機能開発"><a href="#機能開発" class="headerlink" title="機能開発"></a>機能開発</h2><p>僕が直接開発に関わった機能はオンデバイス顔認識の導入でした。導入理由は以下のような流れでした。</p><ol><li><p>コストの観点から家族で共有するデバイスにしたい</p></li><li><p>家族全員がメアドを持っているわけでは無いので、生体認証が現実的</p></li><li><p>家族の顔画像をクラウドで保存するのはプライバシー的に問題なので顔画像の処理はデバイス上で行う(<strong>COCOAがプライバシーに配慮した設計であるので、それを使う限りココノマスクもプライバシーに配慮した設計にする</strong>)</p></li></ol><p>顔認証はposeへの多様性がある<a href="https://arxiv.org/abs/1710.08092">vggface</a>を学習したInceptionnetのPytorchモデルをONNX形式に変換し、ONNXRuntimeで軽量化して実行する方針にしました。開発チームはweb技術に長けていたことから、ネイティブではなくwebアプリとして作っていたため、最初はJavaScript版のONNXRuntimeで推論処理を実行しようとしましたが、</p><ul><li>ONNX Runtime Webの提供開始が最近であり、サンプルやエラー(主にWebAssembly周り)の情報が少ない</li><li>webである限り、最初の接続時にモデルをロードする時間がかかる</li></ul><p>の二つの問題が発生しました。そこで妥協点ではありますが、ラズパイ上でPython版ONNX Runtimeを実行するようにしました(ラズパイとスマホはbluetooth接続)。</p><h2 id="チーム開発で気をつけたこと"><a href="#チーム開発で気をつけたこと" class="headerlink" title="チーム開発で気をつけたこと"></a>チーム開発で気をつけたこと</h2><p>僕はReactがそこまで書けないのですが、PRのCode Reviewやcommentを積極的にするように心がけました。逆に自分のコードに対しても書いてない人からは分かりにくいだろうと思い、<a href="https://reviewnb.com/">ReviewNB</a>の導入や、MLで使用したモデルやデータセットの発表論文を説明するようにしました。<br>自分がB1,B2相当の頃にはブランチ切っていたかどうかも怪しかったので、B1,B2のチームメイトの方々にはGitHubの機能を使い倒してすごいなぁと感心していました。</p><h2 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h2><ul><li><p>資料作成</p><p> 発表スライドにCanvaを使いました。アニメーションの追加や画像からの色抽出機能が便利で、プレゼンというよりも動画編集に近い感覚で作れました。</p> <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%; padding-bottom: 48px; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"    src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAEv-7H1qU4&#x2F;view?embed">  </iframe></div>Koki Tanakaさんによる<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAEv-7H1qU4&#x2F;view?utm_content=DAEv-7H1qU4&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">A_2111 チームガリガリ君</a></li><li><p>開発環境が地獄</p><p>  今回の開発での一番のボトルネックはWebアプリにしたことだと思います。僕はMac&#x2F;iOSの環境しかないので、WebBluetoothは使えない・Windows版Chromeと同じ機能がMacOS版Chromeでは再現されないなどが発生したので、デバイスとアプリの接続テストが後回しになっていました。また、機械学習に関してもネイティブアプリで実行可能なAPIの方がパフォーマンスが良い場合が多く、今までのハッカソンでも「Webよりネイティブの方が映えるよな〜」と思うことは多々ありましたが、ここまで開発面からwebであることを悔やむ経験は初めててでした。</p></li></ul><h2 id="全体を通しての感想"><a href="#全体を通しての感想" class="headerlink" title="全体を通しての感想"></a>全体を通しての感想</h2><p>今回のハッカソンで個人的に嬉しかったことが2つありました。<br>1つ目はハッカソンにML技術を自然な形で利用できたこと。今まで自分は開発(web)と研究(ML)は完全に切り離された状態で勉強してきて、その二つが混じり合う経験をしてこなかったのがコンプレックスに感じていました(過去にもブログでそんなことを書いた気がします。)。ですが、今回プライバシーやUX向上を理由に、推論処理だけではありますが開発に応用できたのは楽しかったです。<br>2つ目はJPhackのgithubの<a href="https://github.com/jphacks">Popular repositories</a><br>に載ったことです。これは自分達のチームメンバーに加えて、ツイートしたことでstarをしてくれた方々による影響です。ハッカソン前に過去の優秀な作品のコードをよくPopular repositoriesから参照していたので、ここに載れたのは嬉しい限りです。<br><img src="https://blog.gojiteji.com/images/jphacks2021-2/SS.png"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;※**&lt;a href=&quot;https://blog.gojiteji.com/2021/11/01/jphacks2021/&quot;&gt;以前のブログ&lt;/a&gt;** の続きとなります。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.gojiteji.com/images/jphacks2021-2/thumb.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;11月20日にJPHacksの全国大会に相当する、JPHacks Award Dayに参加しました。ベースとなるアイデアや技術は以前のブログに書いたので、今回までの約２週間で行なった改善点について書いていきたいと思います。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Web" scheme="https://blog.gojtieji.com/tags/Web/"/>
+    
+    <category term="ML" scheme="https://blog.gojtieji.com/tags/ML/"/>
+    
+    <category term="hackathon" scheme="https://blog.gojtieji.com/tags/hackathon/"/>
+    
+    <category term="IoT" scheme="https://blog.gojtieji.com/tags/IoT/"/>
+    
+    <category term="Bluetooth" scheme="https://blog.gojtieji.com/tags/Bluetooth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JPHACKS2021に参加しました!</title>
+    <link href="https://blog.gojtieji.com/2021/11/01/jphacks2021/"/>
+    <id>https://blog.gojtieji.com/2021/11/01/jphacks2021/</id>
+    <published>2021-11-01T10:54:56.000Z</published>
+    <updated>2022-04-22T22:49:23.183Z</updated>
+    
+    <content type="html"><![CDATA[<p>お久しぶりです。ブログを書くのも約半年ぶりとなりました。タイトルにある通り、<a href="https://jphacks.com/">JPHACKS2021</a> Hacking Sprint(いわゆる地方予選に相当) に参加してきました。</p><p>結果から申しますと、なんと<strong>Aブロック(北海道・東北ブロック)で優勝しました！！🏅🎉</strong></p><h2 id="作ったもの"><a href="#作ったもの" class="headerlink" title="作ったもの"></a>作ったもの</h2><p>今回、サークル<a href="https://huitgroup.github.io/">HUIT</a>のメンバー私含め5人と共に出場しました。私たちが作ったのは、COCOA(新型コロナウイルス接触確認アプリ)の信号でマスクを自動開閉するアプリとデバイス、サムネイルにもある「ココノマスク」を作成しました。</p><span id="more"></span><p><img src="https://pbs.twimg.com/media/FC9ayn-aUAAaavJ?format=jpg&name=large" alt="ココノマスクのアプリとデバイス"></p><p>私は主にデバイスの作成を行いました。使用技術は以下の通りです。<br><img src="https://pbs.twimg.com/media/FC9bKszacAEb6PR?format=jpg&name=large" alt="使用した技術"></p><p>デバイスはRaspberry Pi Zeroの上にPythonのプログラムで動作しており、これがBluetooth LEを見張ることで、COCOAの信号を識別します。チームにはネイティブアプリをかける人がいなかったため、Web(React.js)をベースにアプリを開発しました。従って、Web Bluetoothをデバイスとのペアリングに採用しました。</p><p>デバイスの動作こんな感じです(GIF)。</p><blockquote class="twitter-tweet"><p lang="und" dir="ltr"><a href="https://t.co/onBxV0Fxxw">pic.twitter.com/onBxV0Fxxw</a></p>&mdash; Koki (@gojiteji) <a href="https://twitter.com/gojiteji/status/1454487043610796035?ref_src=twsrc%5Etfw">October 30, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>作っていて面白かったものは、COCOAの通信の仕様書<a href="https://www.google.com/covid19/exposurenotifications/">Google&#x2F;Apple Exposure Notifications System</a>を読んでいた時です。一年ほど前になんとなくインストールしていたCOCOAの裏側ではいくつものプライバシーを配慮した技術があり(ex.送信電力の暗号化)、これには逆にCOCOAを応用した設計をするのにに苦労する場面もありました。実装の詳細は<a href="https://github.com/jphacks/A_2111">GitHubを参照ください</a>。実は私は数年前にBLE通信で心が折れた経験があり、正直完成するかめちゃめちゃ不安でした。</p><h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>本ブログに何度か登場している<a href="https://twitter.com/takapiro_99">たかぴろ</a>とはおそらく最後になるハッカソンイベントだったので、共に栄誉ある賞を受賞できたことがとても嬉しかったです。また、他3人のメンバーについても、僕と初対面にも関わらずチーム開発に受け入れてくれた事にも感謝します。<br>1週間でハードウェア・ソフトウェア共に突貫工事で進めたため、Award Day 進出になった際にはもっと技術を磨こうと思います。</p><p>最後に、発表で使用したスライドを載せておきます。</p><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSDdz9wtoaqWwp9J3if5AZR-36ecevJdxNyXyJ7Ji4ghFfAptug0QxjFISP8JmJCWudaysbajGu4hpY/embed?start=false&loop=false&delayms=3000" frameborder="0" width="320" height="190" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe><h2 id="links"><a href="#links" class="headerlink" title="links"></a>links</h2><ul><li><p>GitHub<br>  <a href="https://github.com/jphacks/A_2111">https://github.com/jphacks/A_2111</a></p></li><li><p>Exposure Notifications System<br>  <a href="https://www.google.com/covid19/exposurenotifications">https://www.google.com/covid19/exposurenotifications</a></p></li><li><p>たかぴろと参加したハッカソン記事</p><ul><li>I created an AR haiku app.<br>  <a href="https://blog.gojiteji.com/2021/02/19/unitygps/">https://blog.gojiteji.com/2021/02/19/unitygps/</a></li><li>JPhacks 2020　award dayに進出&amp;参加しました!<br>  <a href="https://blog.gojiteji.com/2020/11/28/jphacks2020/">https://blog.gojiteji.com/2020/11/28/jphacks2020/</a></li><li>Discovery hackathon 2020 参加記<br>  <a href="https://blog.gojiteji.com/2020/10/26/discoveryhackathon/">https://blog.gojiteji.com/2020/10/26/discoveryhackathon/</a></li><li>北大ハッカソン参加記<br>  <a href="https://blog.gojiteji.com/2020/08/03/hu-hack/">https://blog.gojiteji.com/2020/08/03/hu-hack/</a></li></ul></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;お久しぶりです。ブログを書くのも約半年ぶりとなりました。タイトルにある通り、&lt;a href=&quot;https://jphacks.com/&quot;&gt;JPHACKS2021&lt;/a&gt; Hacking Sprint(いわゆる地方予選に相当) に参加してきました。&lt;/p&gt;
+&lt;p&gt;結果から申しますと、なんと&lt;strong&gt;Aブロック(北海道・東北ブロック)で優勝しました！！🏅🎉&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;作ったもの&quot;&gt;&lt;a href=&quot;#作ったもの&quot; class=&quot;headerlink&quot; title=&quot;作ったもの&quot;&gt;&lt;/a&gt;作ったもの&lt;/h2&gt;&lt;p&gt;今回、サークル&lt;a href=&quot;https://huitgroup.github.io/&quot;&gt;HUIT&lt;/a&gt;のメンバー私含め5人と共に出場しました。私たちが作ったのは、COCOA(新型コロナウイルス接触確認アプリ)の信号でマスクを自動開閉するアプリとデバイス、サムネイルにもある「ココノマスク」を作成しました。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Web" scheme="https://blog.gojtieji.com/tags/Web/"/>
+    
+    <category term="hackathon" scheme="https://blog.gojtieji.com/tags/hackathon/"/>
+    
+    <category term="IoT" scheme="https://blog.gojtieji.com/tags/IoT/"/>
+    
+    <category term="Bluetooth" scheme="https://blog.gojtieji.com/tags/Bluetooth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Heroku(Python・Nodejs)開発中の備忘録</title>
+    <link href="https://blog.gojtieji.com/2021/05/09/heroku/"/>
+    <id>https://blog.gojtieji.com/2021/05/09/heroku/</id>
+    <published>2021-05-08T17:05:24.000Z</published>
+    <updated>2022-04-22T22:49:23.182Z</updated>
+    
+    <content type="html"><![CDATA[<p>先日、herokuのpythonアドオンで開発中に、内部でnodejsを実行したい場面に出くわした。shellに入って環境構築しようと、<code>heroku run bash</code>でdynoの内部に入ったが、<code>apt get install node</code>が正常に動作しなかった。</p><span id="more"></span><p>結果から言うと、addonでPythonと同じくnode.jsを追加すればよい。<br>なお、同様に<code>apt install ffmpeg</code>ができなくなったが、herokuにはbuildpackと言うものがあり、一部登録されているものは<br><code>heroku buildpacks:add https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git</code><br>でインストールが可能らしい。</p><p><img src="https://blog.gojiteji.com/images/heroku/01.png" alt="一通りインストールした後のherokuのコンソール画面"></p><p>-参考<br>    - herokuで正式にサポートされているbuildpack<br>        <a href="https://devcenter.heroku.com/ja/articles/buildpacks">https://devcenter.heroku.com/ja/articles/buildpacks</a><br>    - Herokuでffmpegを使えるようにする<br>    <a href="https://qiita.com/akabei/items/8fd0dc0c2cd2c9cad0c0">https://qiita.com/akabei/items/8fd0dc0c2cd2c9cad0c0</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;先日、herokuのpythonアドオンで開発中に、内部でnodejsを実行したい場面に出くわした。shellに入って環境構築しようと、&lt;code&gt;heroku run bash&lt;/code&gt;でdynoの内部に入ったが、&lt;code&gt;apt get install node&lt;/code&gt;が正常に動作しなかった。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="備忘録" scheme="https://blog.gojtieji.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/"/>
+    
+    <category term="heroku" scheme="https://blog.gojtieji.com/tags/heroku/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ABEMA Growth Techに参加しました。</title>
+    <link href="https://blog.gojtieji.com/2021/03/14/growthtech/"/>
+    <id>https://blog.gojtieji.com/2021/03/14/growthtech/</id>
+    <published>2021-03-14T12:36:45.000Z</published>
+    <updated>2022-04-22T22:49:23.182Z</updated>
+    
+    <content type="html"><![CDATA[<p>タイトルの通りABEMA Growth Techに参加しました。実施日は2021&#x2F;03&#x2F;14-15の二日間、リモートで行われました。内容としては一日目にサーバー構築とモデルの学習をメンターのサポートのもとに作り、二日目に自由課題をやるというものでした。</p><span id="more"></span><p>一日目、サーバー構築はgunicornを用いたpythonサーバーを作り、インスタンスをEC2に乗せるという構成でした。機械学習はABEMAの推薦を視聴データからLightGBMを用いて推測するというものでした。</p><p>二日目の自由課題は主にインフラ周りの改善を行いました。具体的にはAPIサーバーのコンテナ化とCIの自動化をCircleCIを用いて行いました。CircleCIはpush&#x2F;pullの自動化までは行えましたが、push後にDockerfileの自動ビルドを実装している間に終了時間となってしまいました。二日間であまり時間がなく。学習モデルの改善をさわりたかったのですが、手がつけられませんでした。</p><h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>バックエンドと機械学習をここに勉強することがあっても、両方の視点から改善・結合する経験があまりなかったため、実装していてとても楽しかったです。また、自分が使っているサービスのデータで新たに機能を開発するのもとても興味深かったです。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;タイトルの通りABEMA Growth Techに参加しました。実施日は2021&amp;#x2F;03&amp;#x2F;14-15の二日間、リモートで行われました。内容としては一日目にサーバー構築とモデルの学習をメンターのサポートのもとに作り、二日目に自由課題をやるというものでした。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="internship" scheme="https://blog.gojtieji.com/tags/internship/"/>
+    
+    <category term="ML" scheme="https://blog.gojtieji.com/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>I created an AR haiku app.</title>
+    <link href="https://blog.gojtieji.com/2021/02/19/unitygps/"/>
+    <id>https://blog.gojtieji.com/2021/02/19/unitygps/</id>
+    <published>2021-02-19T11:22:55.000Z</published>
+    <updated>2022-04-22T22:49:23.184Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="「ここで一句（koko-de-ikku）」"><a href="#「ここで一句（koko-de-ikku）」" class="headerlink" title="「ここで一句（koko de ikku）」"></a>「ここで一句（koko de ikku）」</h2><p>For a joint project between a certain company and a university, I created a location-based AR haiku application, as the title of this article says. The name of the app is “ここで一句(Koko de Ikku)” . “ここ(koko)” has a double-meaning of the Japanese word for place and the word for the current time.</p><p><img src="https://blog.gojiteji.com/images/haiku/appicon.jpg"></p><iframe width="560" height="315" src="https://www.youtube.com/embed/SiJFCLP9V0o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><span id="more"></span><h2 id="App-Detail"><a href="#App-Detail" class="headerlink" title="App Detail"></a>App Detail</h2><p>This app consists of a 詠む(write) and 観る(see) screen.</p><ul><li><p>詠む(write)<br>  You can write haiku with your brush. When you write the top haiku(上の句), middle haiku（中の句), and bottom haiku(下の句), the haiku(句) will be saved with the location where you write it.</p></li><li><p>観る(see)<br>  As shown in the image below, when you press 観る(see), a list of haiku close to yor location will be displayed in AR.You can relive the scene where the haiku was actually written.</p></li></ul><p><img src="https://blog.gojiteji.com/images/haiku/displays.png"></p><h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p>I developed an AR application with Unity, which is mainly the front-end side. I used AR Foundation as the framework.</p><p><img src="https://blog.gojiteji.com/images/haiku/architecture.png"></p><h2 id="Final-Thougts"><a href="#Final-Thougts" class="headerlink" title="Final Thougts"></a>Final Thougts</h2><p>It was my first time to develop an AR application.I tried to develop with flutter and swift, but finally decided to use Unity. Flutter was interesting to use, and I will try to make something with it in the future if I have time.</p><h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><ul><li><a href="https://github.com/gojiteji/unityAR">https://github.com/gojiteji/unityAR</a></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;「ここで一句（koko-de-ikku）」&quot;&gt;&lt;a href=&quot;#「ここで一句（koko-de-ikku）」&quot; class=&quot;headerlink&quot; title=&quot;「ここで一句（koko de ikku）」&quot;&gt;&lt;/a&gt;「ここで一句（koko de ikku）」&lt;/h2&gt;&lt;p&gt;For a joint project between a certain company and a university, I created a location-based AR haiku application, as the title of this article says. The name of the app is “ここで一句(Koko de Ikku)” . “ここ(koko)” has a double-meaning of the Japanese word for place and the word for the current time.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://blog.gojiteji.com/images/haiku/appicon.jpg&quot;&gt;&lt;/p&gt;
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/SiJFCLP9V0o&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen&gt;&lt;/iframe&gt;</summary>
+    
+    
+    
+    
+    <category term="Unity" scheme="https://blog.gojtieji.com/tags/Unity/"/>
+    
+    <category term="GPS" scheme="https://blog.gojtieji.com/tags/GPS/"/>
+    
+    <category term="AR" scheme="https://blog.gojtieji.com/tags/AR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Looking Back on 2020</title>
+    <link href="https://blog.gojtieji.com/2020/12/31/2020/"/>
+    <id>https://blog.gojtieji.com/2020/12/31/2020/</id>
+    <published>2020-12-30T16:57:49.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<p>There is only one day left in this year. As the title suggests, I would like to look back on 2020 briefly.</p><span id="more"></span><h2 id="Early-2020"><a href="#Early-2020" class="headerlink" title="Early 2020"></a>Early 2020</h2><p>I started writing this blog. At that time, I was doing my graduation research on text-to-speech with emotions at a technical college, and I was struggling to get good results. In an attempt to output some of the results, I started posting articles on solving kaggle using the machine learning knowledge which I had learned in a process the research. Although I felt a sense of accomplishment when I posted articles, I was so stuck in my graduation research that I didn’t go to school much anymore. I drank alcohol every day to lift my depressed mood. Looking back now, these days were the worst for me in many ways.</p><h2 id="Mid-2020"><a href="#Mid-2020" class="headerlink" title="Mid 2020"></a>Mid 2020</h2><p>I entered university, but mind hadn’t cleared up at all since my graduation project. I wasn’t very motivated to go to school, but all my classes were online, so I was able to attend. I didn’t have any friends on campus, so I spent most of my time talking with a transfered student and my friends from the technical college. Fortunately, I he was a good person. The internship also fluctuated a lot, being cancelled and going online. I participated in my first online internship. I thought, “I can do it online!” At the time, but now I think  it’s better to do it offline.<br>The first time I made on-campus friends was at a hackathon in July. With this opportunity, I joined an IT circle and gradually made more friends. I participated in isucon10 with the people I met in the sago circle. (The result was not good.) After the hackathon, I felt like my mood was improving, but I started to feel depressed again, as if my mood is cyclical. It was around this time that I began to visit a psychosomatic department.</p><h2 id="Late-2020"><a href="#Late-2020" class="headerlink" title="Late 2020"></a>Late 2020</h2><p>I participated in the Discovery Hackathon and JPhacks. Although the results of both events were not so good,but it was great to be able to create something with my friends. In my personal development, I tend to do master push, but after this experience, I have started to make issues and create branches even in my personal development (I should have done this in the past). Some offline classes started, I got part-time technical jobs, and I was able to interact with more people than I could have imagined in April this year. I was able to join an NLP-related lab as I had hoped, and I was able to deepen my relationships with the senior membors.</p><p>In the past year, I have been able to post 18 articles every month, which is an excellent for me.I also had a lot of opportunities to use React and Go, which helped me grow technically. My mood has been improving lately, and I would like to continue to do my best in many ways at this rate.</p><p>In 2021, I want to try to write a blog with more content.</p><p>Have a great rest of the year.</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;There is only one day left in this year. As the title suggests, I would like to look back on 2020 briefly.&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="poem" scheme="https://blog.gojtieji.com/tags/poem/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HUITに半年ぐらいいた感想</title>
+    <link href="https://blog.gojtieji.com/2020/12/11/huit2020/"/>
+    <id>https://blog.gojtieji.com/2020/12/11/huit2020/</id>
+    <published>2020-12-11T10:53:21.000Z</published>
+    <updated>2022-04-22T22:49:23.182Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>この記事は<a href="https://qiita.com/advent-calendar/2020/huit">HUITアドベントカレンダー2020 12日目</a>の記事です。</strong></p><h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><p>せっかくなので技術系の記事を書こうと思い、教師なし翻訳で遊ぶ記事を投稿しようとしていましたが、12日までに思うような結果が出なかったのでポエム記事に変更しました。いい感じにまとまったら当ブログに書こうと思います。暖かい目で見守ってください。（よかったら読んでね）</p><span id="more"></span><h2 id="HUIT入る前"><a href="#HUIT入る前" class="headerlink" title="HUIT入る前"></a>HUIT入る前</h2><p>今年鈴鹿高専から北海道大学3年に編入しました。編入生の集いに遅刻してしまい、編入生の友達ですら作ることに失敗してしまいました。コロナのせいで入学式もなく、同コースの編入生1人しか友達がいない状態でした。高専時代の技術サークル仲間とずっと会話していました。</p><h2 id="HUITに入った"><a href="#HUITに入った" class="headerlink" title="HUITに入った"></a>HUITに入った</h2><p>やっと友達ができたのは7月になってからです。<a href="https://blog.gojiteji.com/2020/08/03/hu-hack/">学内ハッカソン</a>の案内があり、それで一緒にチームになった<a href="https://twitter.com/takapiro_99">たかぴろ</a>さんにHUITのslackに入れてもらいました。</p><h2 id="HUITに入っていてできたこと"><a href="#HUITに入っていてできたこと" class="headerlink" title="HUITに入っていてできたこと"></a>HUITに入っていてできたこと</h2><ul><li><p>isucon予選に参加できた<br>  バックエンド書いてる学生の友達がいなかったので（高専の友達みんな就職しちゃった..）、今年のisuconは見送っていましたが、運よくHUIT内で追加メンバーの募集をしていて参加できました。とてもつよい方々で大変勉強になりました。</p></li><li><p>チームを組んでハッカソンに参加できた<br>  技術友達を増やせました。みんな強いです。</p></li><li><p>LT会に参加できた</p></li><li><p>AI関連のコミュニティに参加できた<br>  最近NLP関連技術を勉強しているのですが、twitter以外でコミュニティがなかったためこのコミュニティがあるのはありがたいです。</p></li><li><p>技術バイトをもらうことができた<br>  HUITの友達の友達の…っていう繋がりでベンチャーのバイトをもらいました。好きで物作りをすることはありましたが、実際のサービスリリース経験は少ないため、とても勉強になっています。</p></li></ul><h2 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h2><p>4~6月はオンラインでの人の繋がりしかなく、コミュニケーション不足で鬱な状態でした。オフラインでも繋がれるコミュニティがあるのは私自身のモチベーションアップやにもつながっています。もしまだHUITに入ってないよって人は是非入りましょう！</p><p>拙い文章になってしまいましたが、以上です。まだしゃべったことない人は仲良くしてください🙇‍♂️バックエンドやNLPに興味があります！<br>twitter:<a href="https://twitter.com/gojiteji">gojiteji</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;この記事は&lt;a href=&quot;https://qiita.com/advent-calendar/2020/huit&quot;&gt;HUITアドベントカレンダー2020 12日目&lt;/a&gt;の記事です。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;はじめに&quot;&gt;&lt;a href=&quot;#はじめに&quot; class=&quot;headerlink&quot; title=&quot;はじめに&quot;&gt;&lt;/a&gt;はじめに&lt;/h2&gt;&lt;p&gt;せっかくなので技術系の記事を書こうと思い、教師なし翻訳で遊ぶ記事を投稿しようとしていましたが、12日までに思うような結果が出なかったのでポエム記事に変更しました。いい感じにまとまったら当ブログに書こうと思います。暖かい目で見守ってください。（よかったら読んでね）&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="poem" scheme="https://blog.gojtieji.com/tags/poem/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JPhacks 2020　award dayに進出&amp;参加しました!</title>
+    <link href="https://blog.gojtieji.com/2020/11/28/jphacks2020/"/>
+    <id>https://blog.gojtieji.com/2020/11/28/jphacks2020/</id>
+    <published>2020-11-28T13:29:08.000Z</published>
+    <updated>2022-04-22T22:49:23.183Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://blog.gojiteji.com/images/jphacks2020/title.png"><br>お久しぶりです。<br>11&#x2F;7にJPHACKS予選、その後11&#x2F;28にJPHACKS本選に出場しました。その記録を書いておきます。(JPHACKS:<a href="https://jphacks.com/">https://jphacks.com/</a>)</p><span id="more"></span><h1 id="作ったもの"><a href="#作ったもの" class="headerlink" title="作ったもの"></a>作ったもの</h1><p>手のひら大のデバイスarcana(アルカナ)と、その連携webアプリを作成しました。arcanaは中に入っている重さセンサーで、重量を通して内容量をスマホから確認することができます。スマホから、冷蔵庫の中身が「あるかな」というのを確認できるデバイスとなっています。</p><p><img src="https://blog.gojiteji.com/images/jphacks2020/img4.png"></p><p>各々の容量はこのように確認できます。<br><img src="https://blog.gojiteji.com/images/jphacks2020/img3.png"></p><p>その他にも手の消毒アルコールを店が一括管理やその他液体、容量が少なくなった場合に場合に追加注文できるなどの利用が可能です。</p><p><img src="https://blog.gojiteji.com/images/jphacks2020/img1.png" alt="シャンプーなどを管理"></p><p>発表資料</p><iframe src="https://onedrive.live.com/embed?cid=B93604B8BA6D62A2&amp;resid=B93604B8BA6D62A2%21282644&amp;authkey=AAqrJwhDP-BBN1E&amp;em=2&amp;wdAr=1.7777777777777777" width="350px" height="221px" frameborder="0">これは、<a target="_blank" href="https://office.com/webapps">Office</a> の機能を利用した、<a target="_blank" href="https://office.com">Microsoft Office</a> の埋め込み型のプレゼンテーションです。</iframe><p>使用技術：<br>Vue.js Python heroku ESP32 など</p><h2 id="役職"><a href="#役職" class="headerlink" title="役職"></a>役職</h2><ul><li>買い物用の楽天API</li><li>arcana Largeの作成など</li></ul><h1 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h1><p>本選に出場できたため、finalistには選ばれたわけですが、残念ながらそれ以上の賞はありませんでした。(ぴえん)</p><h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>チームメンバーのおかげでCD&#x2F;CIやプロジェクト管理もしっかり行って開発でき、とても充実したイベントとなりました。また、フロントエンドはデザインからその実装まで行えるメンバーと開発でき、きれいなUIのアプリを作ることができました。。チームメンバーに感謝です！！</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://blog.gojiteji.com/images/jphacks2020/title.png&quot;&gt;&lt;br&gt;お久しぶりです。&lt;br&gt;11&amp;#x2F;7にJPHACKS予選、その後11&amp;#x2F;28にJPHACKS本選に出場しました。その記録を書いておきます。(JPHACKS:&lt;a href=&quot;https://jphacks.com/&quot;&gt;https://jphacks.com/&lt;/a&gt;)&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hackathon" scheme="https://blog.gojtieji.com/tags/hackathon/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Discovery hackathon 2020 参加記</title>
+    <link href="https://blog.gojtieji.com/2020/10/26/discoveryhackathon/"/>
+    <id>https://blog.gojtieji.com/2020/10/26/discoveryhackathon/</id>
+    <published>2020-10-25T19:47:26.000Z</published>
+    <updated>2022-04-22T22:49:23.182Z</updated>
+    
+    <content type="html"><![CDATA[<p>一月ほど経ってしまいましたが、9&#x2F;26,27に開催された<a href="https://www.discoverychannel.jp/campaign/hackathon2020/%60">Discovery Hackathon 2020</a>に参加しました。今年はコロナの影響もあり、オンライン開催となりました。テーマは <strong>「あたりまえ」をハックせよ</strong> でした。4人でチームを作って参加しました。(結果から言うと賞はありませんでした)<br><img src="https://blog.gojiteji.com/images/dhack/title.png" alt="200M"></p><span id="more"></span><h2 id="作ったもの"><a href="#作ったもの" class="headerlink" title="作ったもの"></a>作ったもの</h2><p>今回「200M」という、「相手の空間をのぞけるカメラ」を作りました。テーマっぽく表現すると「空間のあたりまえをハックした」ものです。</p><p><img src="https://blog.gojiteji.com/images/dhack/howitworks.png" alt="発表資料-動作概要"></p><p>1対１でビデオ通話する際、相手の顔は平面的に見え、実際に対面で話す際の３次元的な情報とは差異が発生します。そこで、「200M」では一方がカメラを様々な視点で覗くと、相手のカメラが移動することで、あたかも対面しているかのような視点を再現しました。</p><p>動作中の画像はこんなこんな感じ↓(GIF)<br><img src="https://blog.gojiteji.com/images/dhack/camera.gif" alt="通話先の相手の顔の位置に応じて動くカメラ"></p><p>システムとしては以下の画像のものです。私はラズパイでカメラを左右に移動する部分を作りました。フロント担当のメンバーに顔の位置認識を実装してもらい、その位置情報からkeiganモーターの回転数を決めて、カメラを紐で左右に移動させました。本来はカメラの角度と倍率を調節したかったのですが、モータとカメラの接着部が重みに耐えらず、何度も破損しては修正を繰り返すうちに終了時間が来てしまい、実装できませんでした。</p><p><img src="https://blog.gojiteji.com/images/dhack/system.png" alt="発表資料-構成案"></p><h2 id="所感など"><a href="#所感など" class="headerlink" title="所感など"></a>所感など</h2><p>結果としては、最初にも書いた通り賞はもらえませんでした。一方で審査員長が気に入ってくれた作品として終了後にコメントをくれたので、自分としては審査員長賞をもらったものと思い込んで納得させています。そろそろハッカソンで賞をとりたい。。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;一月ほど経ってしまいましたが、9&amp;#x2F;26,27に開催された&lt;a href=&quot;https://www.discoverychannel.jp/campaign/hackathon2020/%60&quot;&gt;Discovery Hackathon 2020&lt;/a&gt;に参加しました。今年はコロナの影響もあり、オンライン開催となりました。テーマは &lt;strong&gt;「あたりまえ」をハックせよ&lt;/strong&gt; でした。4人でチームを作って参加しました。(結果から言うと賞はありませんでした)&lt;br&gt;&lt;img src=&quot;https://blog.gojiteji.com/images/dhack/title.png&quot; alt=&quot;200M&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hackathon" scheme="https://blog.gojtieji.com/tags/hackathon/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Internship at Rakuten, Inc.</title>
+    <link href="https://blog.gojtieji.com/2020/09/26/r-intern/"/>
+    <id>https://blog.gojtieji.com/2020/09/26/r-intern/</id>
+    <published>2020-09-25T16:30:15.000Z</published>
+    <updated>2022-04-22T22:49:23.183Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://blog.gojiteji.com/images/r_intern/0.png"></p><p>While 9&#x2F;14-25, I participated Rakuten Internship which is called “Hutagotamagawa Natsu no Jin 2020”.( <a href="https://commerce-engineer.rakuten.careers/careers/graduates/internship/summer-short">https://commerce-engineer.rakuten.careers/careers/graduates/internship/summer-short</a> ). The Internship was hackathon style and taken play with 6 members and two mentors who were employees of the campany. Thankfully, they were very kind persons and it was very fun to be with them.</p><span id="more"></span><h2 id="Issue-🤔"><a href="#Issue-🤔" class="headerlink" title="Issue 🤔"></a>Issue 🤔</h2><p>A topic we received for the hackathon was “Connect with people online”. We discussed this topic and found a issue that it’s difficult to concentrate to do tasks such as work, schools and coding alone. Then, we decided to develop “virtual co-working space” , which visualize how much they worked within a certain amount of time and we named it “Priog.cafe”. “Prog” stands for “Programmer &amp; Progress”.<br><img src="https://blog.gojiteji.com/images/r_intern/1.png"></p><h2 id="Product-Design-amp-System-Design-📝"><a href="#Product-Design-amp-System-Design-📝" class="headerlink" title="Product Design &amp; System Design 📝"></a>Product Design &amp; System Design 📝</h2><p>Nexst to finding the problem, we discussed how we create the product which meats above conditions. We used miro and jira to organize a d realize our idea in this time. I’m in charge of the back-end work, so I illustrated sequence diagrams. We, back-end team chose to use redisDB, python http&#x2F;websocket server to make this.(Unfortunately, the separation of the http and websocket servers, which I will describe later, was fatal. I’m very sorry about that to all the members.)I’m not sure about  front-end, but i thik they used Vue &amp; TypeScript for coding. I’m thankful to have someone who can do design in addition to backend and frontend engineers in our team members.</p><p><img src="https://blog.gojiteji.com/images/r_intern/cont.png"></p><h2 id="development-👨‍💻"><a href="#development-👨‍💻" class="headerlink" title="development 👨‍💻"></a>development 👨‍💻</h2><p>In order to Use the above techniques, I made a search and signup functions by the http protocol. I made it possible to run them from the front end by accessing to the cloudfunction.I also wrote documentation on how to implement it for the backend team.<br>Next, I worked on a websocket communication server which is deploied via herokum. I’ve ever coded websocket in golang before, but I don’t have a lot of experience with asynchronous processing in python, so it was a bit tricky. It took me a long time to figure out why, especially since the variables that manage the workspace (room) were behaving differently for each websocket connection. The reason was that the codes didn’t have memory management for asynchronous processing. Creating a dictionary instance from the Manager in the multi processor library probably would have made this work, but it was causing a delay in the process, so one of the front-end member had to create one for me which used a nodejs server as a substitute. If I had been aware of the shared memory from the beginning, it wouldn’t have been a big problem.</p><p><img src="https://blog.gojiteji.com/images/r_intern/tech.png"></p><h2 id="Final-Product-amp-Presentation-🗣"><a href="#Final-Product-amp-Presentation-🗣" class="headerlink" title="Final Product &amp; Presentation 🗣"></a>Final Product &amp; Presentation 🗣</h2><p>The final product is shown in the image below. The working time is represented by the size of the fire in each account, and animations move during the work. It is possible to search, make personal calls and chat using webRTC. The login is through GitHub. The purpose of this is to limit the users to engineers.The judges gave it high marks and it won 1st place🎉🎉🎉.</p><p><img src="https://blog.gojiteji.com/images/r_intern/2.gif"></p><p><img src="https://blog.gojiteji.com/images/r_intern/3.png"></p><h2 id="Final-thoughts-💬"><a href="#Final-thoughts-💬" class="headerlink" title="Final thoughts 💬"></a>Final thoughts 💬</h2><p>Fully remote team development was a great experience.　I’m simply not good at team development, which is developing a given feature in a clearly defined deadline, but doing it online was extremely difficult to work with. I’d like to thank the team for their broad-mindedness. Especially I felt it when they allows me for extending the code freeze time a bit. (Of course I won’t do the impossibility of implementation in the design phase to avoid that in the future.)<br>As I said at the beginning, the mentors were very kind, and they were very knowledgeable about both the company and the technical world, and although it may be different in each department because it’s a big company, I could feel the good atmosphere of the team.<br>Once again, I am filled with gratitude to the people who were involved in this internship. The safety of asynchronous communication data, which I learned this time, is my subject to be studied in the future.</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://blog.gojiteji.com/images/r_intern/0.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;While 9&amp;#x2F;14-25, I participated Rakuten Internship which is called “Hutagotamagawa Natsu no Jin 2020”.( &lt;a href=&quot;https://commerce-engineer.rakuten.careers/careers/graduates/internship/summer-short&quot;&gt;https://commerce-engineer.rakuten.careers/careers/graduates/internship/summer-short&lt;/a&gt; ). The Internship was hackathon style and taken play with 6 members and two mentors who were employees of the campany. Thankfully, they were very kind persons and it was very fun to be with them.&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="internship" scheme="https://blog.gojtieji.com/tags/internship/"/>
+    
+    <category term="hackathon" scheme="https://blog.gojtieji.com/tags/hackathon/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Solving NLP classification problem &quot;Contradictory, My Dear Watson&quot;</title>
+    <link href="https://blog.gojtieji.com/2020/09/10/contradictor-ymydearwatson/"/>
+    <id>https://blog.gojtieji.com/2020/09/10/contradictor-ymydearwatson/</id>
+    <published>2020-09-09T21:49:42.000Z</published>
+    <updated>2022-04-22T22:49:23.182Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Task-To-Classify"><a href="#Task-To-Classify" class="headerlink" title="Task To Classify"></a>Task To Classify</h2><p>compettion link:<a href="https://www.kaggle.com/c/contradictory-my-dear-watson/overview">https://www.kaggle.com/c/contradictory-my-dear-watson/overview</a></p><p>You can have multilingual premise and hypothesis pairs to train.They can be classifiaed into three relations; entailment,contradiction ,and neutral.The last category means that a pair is neither entailment nor contradiction.<br>A Task is detecting these relations  from paired text using TPUs.</p><span id="more"></span><p>A Turtorial notebook is given <a href="https://www.kaggle.com/anasofiauzsoy/tutorial-notebook">here</a>(<a href="https://www.kaggle.com/anasofiauzsoy/tutorial-notebook">https://www.kaggle.com/anasofiauzsoy/tutorial-notebook</a>). I made some changes to it and finally it scored <code>0.70933</code>. (Therefore, only additional code will be written below.)</p><h2 id="Changing-Turtorial-Code"><a href="#Changing-Turtorial-Code" class="headerlink" title="Changing Turtorial Code"></a>Changing Turtorial Code</h2><p>First of all, I run the tutorial code and the score was 0.64542.<br>It used a BERT model to pretrain and finetuned to answer.</p><p><img src="https://blog.gojiteji.com/images/watson/bertmodel.png" alt="turtorial code model"></p><p>I changed two points for this model.<br>The first change is model type. I used XLM RoBERTa (<code>jplu/tf-xlm-roberta-base</code>) model and its pretrained parameters like this.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer, TFXLMRobertaModel</span><br><span class="line">model_name=<span class="string">&quot;jplu/tf-xlm-roberta-base&quot;</span></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(model_name)</span><br><span class="line">model =TFXLMRobertaModel.from_pretrained(model_name)</span><br></pre></td></tr></table></figure><p>The Secondaly revision is translating all languages in English. I used <a href="https://pypi.org/project/googletrans/">googetrans libraly</a> for this revision.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">!pip install googletrans</span><br><span class="line"><span class="keyword">from</span> googletrans <span class="keyword">import</span> Translator</span><br><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line">tqdm.pandas()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">translate2english</span>(<span class="params">text</span>):</span><br><span class="line">    translator = Translator()</span><br><span class="line">    <span class="keyword">return</span> translator.translate(text, dest = <span class="string">&quot;en&quot;</span>).text</span><br><span class="line"></span><br><span class="line">original_train.loc[(original_train[<span class="string">&#x27;lang_abv&#x27;</span>] != <span class="string">&#x27;en&#x27;</span>),<span class="string">&#x27;premise&#x27;</span>]=original_train[<span class="string">&#x27;premise&#x27;</span>].progress_apply(<span class="keyword">lambda</span> x: translate2english(x))</span><br><span class="line"></span><br><span class="line">original_train.loc[(original_train[<span class="string">&#x27;language&#x27;</span>] != <span class="string">&#x27;English&#x27;</span>),<span class="string">&#x27;hypothesis&#x27;</span>]=original_train[<span class="string">&#x27;hypothesis&#x27;</span>].progress_apply(<span class="keyword">lambda</span> x: translate2english(x))</span><br><span class="line"></span><br><span class="line">test.loc[(test[<span class="string">&#x27;lang_abv&#x27;</span>] != <span class="string">&#x27;en&#x27;</span>),<span class="string">&#x27;premise&#x27;</span>]=test[<span class="string">&#x27;premise&#x27;</span>].progress_apply(<span class="keyword">lambda</span> x: translate2english(x))</span><br><span class="line">test.loc[(test[<span class="string">&#x27;language&#x27;</span>] != <span class="string">&#x27;English&#x27;</span>),<span class="string">&#x27;hypothesis&#x27;</span>]=test[<span class="string">&#x27;hypothesis&#x27;</span>].progress_apply(<span class="keyword">lambda</span> x: translate2english(x))</span><br></pre></td></tr></table></figure><p>The final Code is <a href="https://github.com/gojiteji/kaggle/blob/master/watson.ipynb">here</a> (<a href="https://github.com/gojiteji/kaggle/blob/master/watson.ipynb">https://github.com/gojiteji/kaggle/blob/master/watson.ipynb</a>).</p><p>I’ve trained in a single language because English accounts for  about 60% in both <code>train.csv</code> and <code>test.csv</code> dataset this time. I think that the score will increase if I split it up into each language and let it learn the data because XLM RoBERTa  is already scaled cross lingual sentence encoder.</p><h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><ul><li><p>kaggle “Contradictory, My Dear Watson” Turtrial notebook <a href="https://www.kaggle.com/anasofiauzsoy/tutorial-notebook">https://www.kaggle.com/anasofiauzsoy/tutorial-notebook</a></p></li><li><p>TPU Sherlocked: One-stop for 🤗 with TF <a href="https://www.kaggle.com/rohanrao/tpu-sherlocked-one-stop-for-with-tf">https://www.kaggle.com/rohanrao/tpu-sherlocked-one-stop-for-with-tf</a></p></li><li><p>Hugging face Model: jplu&#x2F;tf-xlm-roberta-base <a href="https://huggingface.co/jplu/tf-xlm-roberta-base">https://huggingface.co/jplu/tf-xlm-roberta-base</a></p></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Task-To-Classify&quot;&gt;&lt;a href=&quot;#Task-To-Classify&quot; class=&quot;headerlink&quot; title=&quot;Task To Classify&quot;&gt;&lt;/a&gt;Task To Classify&lt;/h2&gt;&lt;p&gt;compettion link:&lt;a href=&quot;https://www.kaggle.com/c/contradictory-my-dear-watson/overview&quot;&gt;https://www.kaggle.com/c/contradictory-my-dear-watson/overview&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You can have multilingual premise and hypothesis pairs to train.They can be classifiaed into three relations; entailment,contradiction ,and neutral.The last category means that a pair is neither entailment nor contradiction.&lt;br&gt;A Task is detecting these relations  from paired text using TPUs.&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="NLP" scheme="https://blog.gojtieji.com/tags/NLP/"/>
+    
+    <category term="kaggle" scheme="https://blog.gojtieji.com/tags/kaggle/"/>
+    
+    <category term="TPU" scheme="https://blog.gojtieji.com/tags/TPU/"/>
+    
+    <category term="ML" scheme="https://blog.gojtieji.com/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>北大ハッカソン参加記</title>
+    <link href="https://blog.gojtieji.com/2020/08/03/hu-hack/"/>
+    <id>https://blog.gojtieji.com/2020/08/03/hu-hack/</id>
+    <published>2020-08-03T11:38:10.000Z</published>
+    <updated>2022-04-22T22:49:23.182Z</updated>
+    
+    <content type="html"><![CDATA[<p>7&#x2F;18・19と、8&#x2F;1・2の4日間、弊校にてハッカソンがありました。<strong>「スマートフォンアプリケーション作成を通し，論理的思考を学ぼう」</strong> という題目でして、事前アンケートで興味のあるお題を選択し、その後(おそらく)各々興味があった内容ごとに4チーム(各6人)分けされ、開発を行いました。お題は漁獲量安定の問題、野菜の販売の問題×2、テレワークと遊休施設施設の課題の4つであり、最後のものが私たちのチームに与えられた課題でした。実施日は4日でしたが、その間に土日を挟んでおり、実質2週間(期末テスト含む)の開発期間が与えられました。</p><span id="more"></span><p>(ググったら公開資料がありました：<a href="https://www.hokudai.ac.jp/news/pdf/20200512_pr.pdf">https://www.hokudai.ac.jp/news/pdf/20200512_pr.pdf</a>)</p><h2 id="作ったもの"><a href="#作ったもの" class="headerlink" title="作ったもの"></a>作ったもの</h2><p>hoteleworkというアプリを作りました。発表時のスライドの抜粋を埋め込んでおきます。<br>簡単にいうと、観光地版we workのイメージです。遊休施設をオフィスとして会社に貸し出し、社員は観光地で働き、観光地は平日でも安定した収入が得られ、会社はオフィス面積の削減、社員は家より開放感のある場所で働けるという物です。加えて、<strong>hoteleworkが施設ごとにコミュニティを奨励することで、例えば、企業家がたくさん集まる施設だとか、趣味がたくさん集まる施設だとかが発生するアプリ</strong>にしました。</p><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQd8V-TUonl0ZrEFhU-n-WaLHnNXTdyYOHXysxk21EFJOQoW8vXrzp3IerN3oRME5A22Di082-Q6pOf/embed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe><p>設計は以下の通りです。内容的には企業とその社員がwebから、グループウェアのアカウントを用いて予約を行う物ですが、ハッカソンの趣旨がスマホアプリなので、PWAで動作するようフロントチームが頑張ってくれました。</p><p><img src="https://blog.gojiteji.com/images/hu_hack/architecture.png"></p><p><a href="https://github.com/team4-BBA">github link</a></p><p>担当箇所はバックエンド(設計図右側)でした。バックエンドをgo(gin)で、データベースはredis、ユーザとホテルの一致度をword2vecでベクトルのcos類似度からレコメンドする(Cloud Function動作)という物です。スライドや企画も一部携わりました。</p><h2 id="結果や講評"><a href="#結果や講評" class="headerlink" title="結果や講評"></a>結果や講評</h2><p>発表ごとに協力会社さんから講評や質問がもらえ、想像以上に好評でした。質問はビジネスモデルに関する物が多く、技術的な内容はあまり聞かれませんでした。公開講座のためか、特に賞があるわけではありませんでしたが、**参加者投票で一番得票数が多かったです(ありがたい)**。</p><h2 id="反省点"><a href="#反省点" class="headerlink" title="反省点"></a>反省点</h2><p>もうちょっと担当を細分化できたらよかったなというのと、バックエンドとフロントエンドの結合をこまめにしておくべきだったたなと思いました。(機能は実装できていても結合がうまくいかず、デモでは一部ダミーデータを用いました)<br>アイデアに関しては、いくら会社にとってオフィスの面積が減るとはいえ、それ以上のメリットがあまりなくないか・・・?というところは再考が必要そう。</p><h2 id="所感"><a href="#所感" class="headerlink" title="所感"></a>所感</h2><p>やはり同じようなアイデアは日本中で出ているようで、workationやらwork**とかいろいろなサービスや言葉が開発期間に目に触れ、「オリジナリティは一体..?」とメンタルがやられかける場面が多かったです。</p><p>また、新型コロナウイルス🦠の影響により、編入後も未だに一度も授業を学校で受けていなかったため、通学したはこれが初めてでした。日に日にリモートでできることが増えていますが、現時点ではでっかいホワイトボードの前に数人でジェスチャー交えて話し合う行為はまだリモートでは置き換えきれないなぁ、と企画時にしみじみと思いました。</p><p>こんなぽっと出の編入者にわざわざ付き合ってくれた学生の皆さんにも感謝です。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;7&amp;#x2F;18・19と、8&amp;#x2F;1・2の4日間、弊校にてハッカソンがありました。&lt;strong&gt;「スマートフォンアプリケーション作成を通し，論理的思考を学ぼう」&lt;/strong&gt; という題目でして、事前アンケートで興味のあるお題を選択し、その後(おそらく)各々興味があった内容ごとに4チーム(各6人)分けされ、開発を行いました。お題は漁獲量安定の問題、野菜の販売の問題×2、テレワークと遊休施設施設の課題の4つであり、最後のものが私たちのチームに与えられた課題でした。実施日は4日でしたが、その間に土日を挟んでおり、実質2週間(期末テスト含む)の開発期間が与えられました。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="NLP" scheme="https://blog.gojtieji.com/tags/NLP/"/>
+    
+    <category term="hackathon" scheme="https://blog.gojtieji.com/tags/hackathon/"/>
+    
+    <category term="Go" scheme="https://blog.gojtieji.com/tags/Go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How fast Using or Not Using CDN Speed  on AWS is?</title>
+    <link href="https://blog.gojtieji.com/2020/07/13/cdn/"/>
+    <id>https://blog.gojtieji.com/2020/07/13/cdn/</id>
+    <published>2020-07-12T17:23:05.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<p>I had the opportunity to use a CDN (Contents Delivery Network) for a project and tested how much faster it would be with CloudFront.</p><span id="more"></span><ul><li><p>Test site<br><a href="https://gojiteji.github.io/experimanet_html/Favorite.html">https://gojiteji.github.io/experimanet_html/Favorite.html</a></p></li><li><p>Comparison</p><ul><li>common specs<ul><li>instance type<br>  AWS EC2 t2 micro</li><li>OS<br>  Amazon Linux</li><li>Region<br>  Tokyo</li></ul></li><li>different specs<ul><li>without CDN<ul><li>All  contents are provided by the same server.</li></ul></li><li>with CDN<ul><li>Movie, Image,  and Audio files are provided  by CDN.</li><li>CDN  is working from AWS S3 and AWS CloudFront.</li></ul></li></ul></li></ul></li></ul><p><img src="https://blog.gojiteji.com/images/cdn/image.png" alt="architecture  image"></p><ul><li><p>Test Server<br>I used GTmetrix (<a href="https://gtmetrix.com/">https://gtmetrix.com/</a>) to measure each loading time. This site has very usefull following funcitons.</p><ul><li>Test server location is changeable.</li><li>Data  are  be comparable.</li></ul></li><li><p>Result<br><img src="https://blog.gojiteji.com/images/cdn/fig.png" alt="architecture  image"><br>If you’re going to create a web service to deliver contents, you should at least use a CDN.</p></li><li><p>reference</p><ul><li><a href="https://aws.amazon.com/jp/cloudfront/features/">https://aws.amazon.com/jp/cloudfront/features/</a></li><li><a href="https://qiita.com/leomaro7/items/5aae69fba8f07555b457">https://qiita.com/leomaro7/items/5aae69fba8f07555b457</a></li></ul></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;I had the opportunity to use a CDN (Contents Delivery Network) for a project and tested how much faster it would be with CloudFront.&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="aws" scheme="https://blog.gojtieji.com/tags/aws/"/>
+    
+    <category term="CloudFront" scheme="https://blog.gojtieji.com/tags/CloudFront/"/>
+    
+    <category term="S3" scheme="https://blog.gojtieji.com/tags/S3/"/>
+    
+    <category term="CDN" scheme="https://blog.gojtieji.com/tags/CDN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CA 2days インフラ向け開発型インターン に参加しました。</title>
+    <link href="https://blog.gojtieji.com/2020/06/30/ca-2days-intern/"/>
+    <id>https://blog.gojtieji.com/2020/06/30/ca-2days-intern/</id>
+    <published>2020-06-30T02:54:02.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<p>6&#x2F;6~7日の二日間、タイトルにあるように<a href="https://www.cyberagent.co.jp/careers/students/event/detail/id=24419">CyberAgent 2days インフラ向け 開発型インターン</a> に参加しました。</p><span id="more"></span><h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>内容としては、isuconのようなもので、与えられたサーバーを改良し、スコアを上げるものです。問題はGo言語でときました。</p><h2 id="試した点"><a href="#試した点" class="headerlink" title="試した点"></a>試した点</h2><ul><li>goのバージョンアップデート</li><li>画像読み込みをnginxに移行<br>ユーザの画像読み込みを別サーバーに毎度アクセスしていたため、nginx側で画像を返す方向に変えました。アイコン周りで解像度を変更しており、エラーに時間を取られました。スコアはあまり上がりませんでした。(時間がかかったのに残念)</li><li>MySQLからredisへの移行<br>ユーザの情報取得をMySQLサーバーからredisに移行しようとしました。結局時間切れでスコア計測まで行けませんでした。終了後の解説で、社員の方がMySQL以前にredisサーバーも使わず、goのオンメモリで済ませていたため、今になって後半はredisにこだわりすぎたと反省しています。</li><li>MySQLサーバーへのインデックス貼り<br>１日目終了後に社員の方の説明で教えてもらいました。結局これが一番スコア増加量が大きかったです。</li></ul><p>結果としては、中央付近の順位となりました。。目立った結果が得られずチームに貢献できずに申し訳ない気持ちでいっぱいです。「推測するな、計測せよ」の言葉を重く受け止めます😬。</p><h2 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h2><p>covid-19の影響で、私にとって初のオンラインインターンでした。(abema towersに入ってみたかった..)２日間slackで4人チームにCA社のエンジニア二方がついてくださり、質問があり次第すぐに対応いただけ、zoomで個別面談時間もとっていただけて、技術的にもメンタル的にも大きな支えとなりました。現地で会えないのはとても辛いですが、オンラインでも臨場感は得られるものですね。休憩がてら家を出たら「そうや、ここ東京ちゃうやん」っふと思う場面が何度かありました。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;6&amp;#x2F;6~7日の二日間、タイトルにあるように&lt;a href=&quot;https://www.cyberagent.co.jp/careers/students/event/detail/id=24419&quot;&gt;CyberAgent 2days インフラ向け 開発型インターン&lt;/a&gt; に参加しました。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="internship" scheme="https://blog.gojtieji.com/tags/internship/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GCSにアップロード時にファイル変換を行う</title>
+    <link href="https://blog.gojtieji.com/2020/05/25/blobmemo/"/>
+    <id>https://blog.gojtieji.com/2020/05/25/blobmemo/</id>
+    <published>2020-05-24T16:42:08.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="構成"><a href="#構成" class="headerlink" title="構成"></a>構成</h2><p>GCSのアップロードをトリガにGCFでファイル変換を行う手順.</p><p>アップロードはzipファイルにしたいけど、ストレージ上にはzipを解凍しておきたい、と思った時に色々つまずいたので、備忘録がてらメモしておきます.</p><span id="more"></span><ol><li>GCFのトリガーをCloud Storageに設定.イベントタイプはファイナライズ&#x2F;作成</li><li>トリガー対象のバケットを設定</li><li>CloudFunctionに以下のコードを書く<br>requirements.txt<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google-cloud-storage</span><br></pre></td></tr></table></figure>main.py<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> google.cloud <span class="keyword">import</span> storage</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Unzipper</span>(<span class="params">event,context</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment">#Download</span></span><br><span class="line">        bucket_name = event[<span class="string">&#x27;bucket&#x27;</span>]</span><br><span class="line">        filename = event[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">        storage_client = storage.Client()</span><br><span class="line">        bucket = storage_client.bucket(bucket_name)</span><br><span class="line">        blob = bucket.blob(filename)</span><br><span class="line">        blob.download_to_filename(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Unzip</span></span><br><span class="line">        direc=<span class="string">&#x27;/tmp/&#x27;</span>+filename[:filename.find(<span class="string">&#x27;.&#x27;</span>)]</span><br><span class="line">        z = zipfile.ZipFile(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line">        z.extractall(<span class="string">&#x27;/tmp/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Upload</span></span><br><span class="line">        files=glob.glob(direc+<span class="string">&#x27;/*&#x27;</span>) </span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> files:             </span><br><span class="line">            bucket = storage_client.get_bucket(bucket_name)</span><br><span class="line">            blob = bucket.blob(os.path.basename(f))</span><br><span class="line">            blob.upload_from_filename(f)</span><br><span class="line">            os.remove(f)</span><br><span class="line">        os.remove(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line">        shutil.rmtree(direc+<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">        bucket = storage_client.bucket(bucket_name)</span><br><span class="line">        blob = bucket.blob(event[<span class="string">&#x27;name&#x27;</span>])</span><br><span class="line">        blob.delete()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br></pre></td></tr></table></figure></li><li>サービスアカウントをCloudFunctionの設定Storageをいじれるアカウントに設定</li></ol><h2 id="所感"><a href="#所感" class="headerlink" title="所感"></a>所感</h2><p>cloud functionはファイル保存が&#x2F;tmp以下にしかできないらしく、保存できない理由が認証関係のエラーと勘違いして、半日ぐらいつまづいてましたorz</p><p>実際のサービスでは、ユーザは複数ファイルでアップロード可能だけど、ストレージ上では一種類のファイルで管理したいときとかにも使えそう.</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;構成&quot;&gt;&lt;a href=&quot;#構成&quot; class=&quot;headerlink&quot; title=&quot;構成&quot;&gt;&lt;/a&gt;構成&lt;/h2&gt;&lt;p&gt;GCSのアップロードをトリガにGCFでファイル変換を行う手順.&lt;/p&gt;
+&lt;p&gt;アップロードはzipファイルにしたいけど、ストレージ上にはzipを解凍しておきたい、と思った時に色々つまずいたので、備忘録がてらメモしておきます.&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="GCS" scheme="https://blog.gojtieji.com/tags/GCS/"/>
+    
+    <category term="GCF" scheme="https://blog.gojtieji.com/tags/GCF/"/>
+    
+    <category term="GCP" scheme="https://blog.gojtieji.com/tags/GCP/"/>
+    
+    <category term="備忘録" scheme="https://blog.gojtieji.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>簡単に遊べるブラウザゲーを作りたい(2)</title>
+    <link href="https://blog.gojtieji.com/2020/05/17/coding-Cbrowser-game2/"/>
+    <id>https://blog.gojtieji.com/2020/05/17/coding-Cbrowser-game2/</id>
+    <published>2020-05-16T22:46:56.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<p>前回の記事、<a href="https://blog.gojiteji.com/2020/05/11/coding-cbrowser-game-md/">簡単に遊べるブラウザゲーを作りたい(1)</a>の続きです。</p><p>今回はルーム作成を実装しました。本ゲームは一旦これで完成です。以下のリンクから遊べます(2人で遊ぶことを想定)</p><span id="more"></span><ul><li>ゲームへのリンク：<a href="http://game.gojiteji.com/">http://game.gojiteji.com</a></li></ul><div align="center"><img title="タイトル画面" src="https://blog.gojiteji.com/images/gogame/title.png" style="width:15rem"><img title="ゲーム画面" src="https://blog.gojiteji.com/images/gogame/game.png" style="width:15rem"></div><p><a href="https://github.com/gojiteji/golang_webgame">code</a></p><h2 id="実装概要"><a href="#実装概要" class="headerlink" title="実装概要"></a>実装概要</h2><ul><li><p>フロント<br>  バックエンドはgolangと、そのフレームワークgin,melodyで、フロントエンドをpixijsで書来ました.ginを使うことでフロントの描画はほぼindex.jsにおさまっています.マウスカーソルに猫が追従します.スマホ操作にも対応させました.</p></li><li><p>バックエンド<br>  共通のルームidに2人までの制限をかけて、同一<code>/roomid</code>にルーティングした中でwebsocket通信を行っています.これらはgolangのdockerコンテナ内で処理しています.</p></li><li><p>その他<br>  ドメインを設定しようとしましたが、サーバーのプラン上できなかったため、netlifyからサーバーipにルーティングしています.</p></li></ul><p>ぜひ遊んでみてください</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;前回の記事、&lt;a href=&quot;https://blog.gojiteji.com/2020/05/11/coding-cbrowser-game-md/&quot;&gt;簡単に遊べるブラウザゲーを作りたい(1)&lt;/a&gt;の続きです。&lt;/p&gt;
+&lt;p&gt;今回はルーム作成を実装しました。本ゲームは一旦これで完成です。以下のリンクから遊べます(2人で遊ぶことを想定)&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Web" scheme="https://blog.gojtieji.com/tags/Web/"/>
+    
+    <category term="Game" scheme="https://blog.gojtieji.com/tags/Game/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>簡単に遊べるブラウザゲーを作りたい(1)</title>
+    <link href="https://blog.gojtieji.com/2020/05/11/coding-Cbrowser-game-md/"/>
+    <id>https://blog.gojtieji.com/2020/05/11/coding-Cbrowser-game-md/</id>
+    <published>2020-05-11T11:18:25.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<p>リモート飲み会中に、みんなで何かゲームをする・・・となったとき、全員がアプリを入れていたり、全員が遊べるゲーム機を持っている・・と言うのは難しいため、リモート飲み会をしてる時点で大体の人が遊べるであろう、ブラウザゲームを作ることにしました。(どこまで作るかは自分のメンタル次第…<em>(:3」z)</em>)</p><span id="more"></span><h2 id="ゲームのイメージ"><a href="#ゲームのイメージ" class="headerlink" title="ゲームのイメージ"></a>ゲームのイメージ</h2><p>猫が悩める人を誘って猫の家に集める(&#x3D;あつめた人数がスコア)<br>ほのぼの系ゲーム</p><h2 id="今回完成した部分"><a href="#今回完成した部分" class="headerlink" title="今回完成した部分"></a>今回完成した部分</h2><iframe width="560" height="315" src="https://www.youtube.com/embed/3ySB4Lb-85E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h2 id="実際にできたゲームの内容"><a href="#実際にできたゲームの内容" class="headerlink" title="実際にできたゲームの内容"></a>実際にできたゲームの内容</h2><p>自分の猫は、マウスの位置についてきます.自分の陣地(自分の猫と同じ毛並みのロゴの部分)に持ってこれば、ポイント獲得.<br>悩める人が猫の足跡を踏むと、癒されてついてくる.</p><p>使用技術<br>フロント:pixijsなど<br>バック:golang(gin&#x2F;melody)など<br>code:<a href="https://github.com/gojiteji/golang_webgame">https://github.com/gojiteji/golang_webgame</a><br>今のところ、1vs1で戦うことができます。クライアント間はsocket通信で情報をやり取りしています.</p><h2 id="苦労した点"><a href="#苦労した点" class="headerlink" title="苦労した点"></a>苦労した点</h2><p>今までゲームはunityでなんとかしてきたため、今までサービス開発をてきたwebでゲームを作るのと言うのが、コードを書いててあまりしっくりきませんでした.イラストは大体自作したため、歪なデザインとなってしまいました.</p><h2 id="次回"><a href="#次回" class="headerlink" title="次回"></a>次回</h2><p>このままでは1vs1でしか遊べないため、<del>現在redigoあたりを触って</del>ルームを作成中です。それでは✋(2020&#x2F;05&#x2F;17:ソケット通信でルームもどきを実装しました)</p><p>リンク：<a href="https://blog.gojiteji.com/2020/05/17/coding-cbrowser-game2/">簡単に遊べるブラウザゲーを作りたい(2)</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;リモート飲み会中に、みんなで何かゲームをする・・・となったとき、全員がアプリを入れていたり、全員が遊べるゲーム機を持っている・・と言うのは難しいため、リモート飲み会をしてる時点で大体の人が遊べるであろう、ブラウザゲームを作ることにしました。(どこまで作るかは自分のメンタル次第…&lt;em&gt;(:3」z)&lt;/em&gt;)&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="Web" scheme="https://blog.gojtieji.com/tags/Web/"/>
+    
+    <category term="Game" scheme="https://blog.gojtieji.com/tags/Game/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mothmanの今後の予定</title>
+    <link href="https://blog.gojtieji.com/2020/04/27/mothman-current-report/"/>
+    <id>https://blog.gojtieji.com/2020/04/27/mothman-current-report/</id>
+    <published>2020-04-26T18:23:44.000Z</published>
+    <updated>2022-04-22T22:49:23.183Z</updated>
+    
+    <content type="html"><![CDATA[<p>1年半ほど前に開発した<a href="https://hackmd.io/ipJUfhlyTfa3-PfQhiBS6Q">プレゼンテーションのlive配信・アーカイブサービス Mothman</a>ですが、β版は現在サービスを停止しています。(諸々の理由によりMothmanに手をつけることができず、開発をストップしていました。)今後の予定としては、機能の変更・追加、技術のブラッシュアップを行い、時期は未定ですが再びサービスをリリースしようと考えています。</p><p>年度が変わり、開発の余裕ができはじめました。同時に、ここ数ヶ月でリモートカンファレンスやリモート授業の需要の増加から、Mothman開発メンバー内でも使いやすいプレゼンテーション配信ツールの必要性を再確認し、開発を再開することになりました。サービスリリースまでしばらくお待ち下さいm(-_-)m</p><span id="more"></span>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;1年半ほど前に開発した&lt;a href=&quot;https://hackmd.io/ipJUfhlyTfa3-PfQhiBS6Q&quot;&gt;プレゼンテーションのlive配信・アーカイブサービス Mothman&lt;/a&gt;ですが、β版は現在サービスを停止しています。(諸々の理由によりMothmanに手をつけることができず、開発をストップしていました。)今後の予定としては、機能の変更・追加、技術のブラッシュアップを行い、時期は未定ですが再びサービスをリリースしようと考えています。&lt;/p&gt;
+&lt;p&gt;年度が変わり、開発の余裕ができはじめました。同時に、ここ数ヶ月でリモートカンファレンスやリモート授業の需要の増加から、Mothman開発メンバー内でも使いやすいプレゼンテーション配信ツールの必要性を再確認し、開発を再開することになりました。サービスリリースまでしばらくお待ち下さいm(-_-)m&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="others" scheme="https://blog.gojtieji.com/tags/others/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>(改)Real or Not? NLP with Disaster Tweets を解く</title>
+    <link href="https://blog.gojtieji.com/2020/03/22/kagglenl2/"/>
+    <id>https://blog.gojtieji.com/2020/03/22/kagglenl2/</id>
+    <published>2020-03-22T11:09:42.000Z</published>
+    <updated>2022-04-22T22:49:23.183Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://blog.gojiteji.com/2020/03/15/kagglenl/">前回の記事</a>を書いて以降、いくつか改善策を練った結果、精度が 74.539 % → 78.425 % に上がったため、その内容を書いておきます。</p><h2 id="改善点"><a href="#改善点" class="headerlink" title="改善点"></a>改善点</h2><p>今回の改善点は主に4つ</p><ol><li>人物系単語、地名系単語、@付き単語、リンクをまとめる</li><li>出現頻度の少ない単語は&lt;unk&gt;(辞書に存在しない単語)として扱う</li><li>モデルをCNNに変更</li><li>学習時の&lt;unk&gt;含有率をテストデータに合わせる</li></ol><span id="more"></span><p>trainデータを見てみると、@付き単語の種類数は2328に対して、@付き単語の出現回数は2759であり、ほとんどの出現回数は1回でした。もっとも使われている@付き単語は@YouTube(YouTube動画共有時についているやつ)で、82回でした。<br>今回、@付きアカウントは以下のように割り振りました。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;youtube&gt; : @YouTube</span><br><span class="line">&lt;news&gt; : ニュースアカウント</span><br><span class="line">&lt;social&gt; : 政府や組織のアカウント</span><br><span class="line">&lt;media&gt; : メディア雑誌系アカウント</span><br><span class="line">&lt;reply&gt; : others</span><br></pre></td></tr></table></figure><p>リンクは&lt;link&gt;、地名は&lt;location&gt;、人物名は、出現頻度の多い政治家・歌手等を除いて、&lt;person&gt;にまとめました。</p><p>出現回数が1度のみの単語は、おそらくtestデータ中にも出現しにくいと考えられるため全て&lt;unk&gt;にまとめました。(&lt;unk&gt;は元々、テストデータの単語が学習データ中に存在しない時に変換する文字)</p><p>今回まとめた単語は以上ですが、これら以外にも、出現頻度が少ない単語を、ある一定のグループ名にまとめると、精度が上がるのではないかと思います。<del>日が昇ってきたので前処理はこの辺で切り上げました</del></p><p>1.2.に関して、これら以外にも不要な記号等を削除した結果、25,000程度あった単語の種類が、6,000程度に減りました。</p><p>3.に関しては単純なCNNです。前回のモデルよりも、正解率が率が高くなりました。構造は以下のように、単純なものです。埋め込み次元は18次元としています。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CNN</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,depth_source,depth_key,batch_size,maxlen,d_model,d_key,device=<span class="string">&#x27;cuda&#x27;</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.device = device</span><br><span class="line">        self.embedding = nn.Embedding(depth_source,d_model, padding_idx=<span class="number">0</span>)</span><br><span class="line">        self.d_model=d_model</span><br><span class="line">        self.maxlen=maxlen</span><br><span class="line">        </span><br><span class="line">        self.c1 = nn.Conv2d(<span class="number">1</span>, <span class="number">8</span>, <span class="number">3</span>)</span><br><span class="line">        self.a1 = nn.ReLU()</span><br><span class="line">        self.p1 = nn.MaxPool2d(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">        self.d1 = nn.Dropout(p=<span class="number">0.4</span>)</span><br><span class="line"></span><br><span class="line">        self.c2 = nn.Conv2d(<span class="number">8</span>,<span class="number">16</span>, <span class="number">3</span>)</span><br><span class="line">        self.a2 = nn.ReLU()</span><br><span class="line">        self.p2 = nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">        self.d2 = nn.Dropout(p=<span class="number">0.4</span>)</span><br><span class="line"></span><br><span class="line">        self.linear_out = nn.Linear(<span class="number">1824</span>, <span class="number">1</span>)</span><br><span class="line">        self.activation_out = nn.Sigmoid()</span><br><span class="line">        nn.init.xavier_normal_(self.linear_out.weight)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self,x, key</span>):</span><br><span class="line">        x = self.embedding(x)</span><br><span class="line">        x=x.reshape(x.shape[<span class="number">0</span>],<span class="number">1</span>,x.shape[<span class="number">1</span>],x.shape[<span class="number">2</span>])</span><br><span class="line">        y=self.c1(x)</span><br><span class="line">        y=self.p1(y)</span><br><span class="line">        y=self.a1(y)</span><br><span class="line">        y=self.d1(y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        y=self.c2(y)</span><br><span class="line">        y=self.p2(y)</span><br><span class="line">        y=self.a2(y)</span><br><span class="line">        y=self.d2(y)</span><br><span class="line">        a_out=y.reshape(y.shape[<span class="number">0</span>],y.shape[<span class="number">1</span>]*y.shape[<span class="number">2</span>]*y.shape[<span class="number">3</span>])</span><br><span class="line">        out = self.linear_out(a_out)</span><br><span class="line">        out = self.activation_out(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure><p>4.に関しては、学習データ中のunk含有率：0.04140461215932914　テストデータ中のunk含有率：6.409214826048494 %　この差分に近い、2.26%だけ&lt;unk&gt;をランダムで学習データに追加しました。</p><p>学習結果は以下の通りです。validationデータに対する正解率は0.77付近にいます。<br><img src="https://blog.gojiteji.com/images/kagglenl2/loss.png" alt="損失関数"><br><img src="https://blog.gojiteji.com/images/kagglenl2/acc.png" alt="正解率の推移"></p><p>提出結果は以下の通りです。<br><img src="https://blog.gojiteji.com/images/kagglenl2/test.png" alt="kaggleの提出結果"></p><h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>前回はデータをそのまま学習させていたため、今回はデータをいくつか前処理でまとめてみました。時間もかかって大変ですけど、データ数を減らすことで、結果的に学習時間を削減できましたので、もっと積極的にすべきですね..</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://blog.gojiteji.com/2020/03/15/kagglenl/&quot;&gt;前回の記事&lt;/a&gt;を書いて以降、いくつか改善策を練った結果、精度が 74.539 % → 78.425 % に上がったため、その内容を書いておきます。&lt;/p&gt;
+&lt;h2 id=&quot;改善点&quot;&gt;&lt;a href=&quot;#改善点&quot; class=&quot;headerlink&quot; title=&quot;改善点&quot;&gt;&lt;/a&gt;改善点&lt;/h2&gt;&lt;p&gt;今回の改善点は主に4つ&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;人物系単語、地名系単語、@付き単語、リンクをまとめる&lt;/li&gt;
+&lt;li&gt;出現頻度の少ない単語は&amp;lt;unk&amp;gt;(辞書に存在しない単語)として扱う&lt;/li&gt;
+&lt;li&gt;モデルをCNNに変更&lt;/li&gt;
+&lt;li&gt;学習時の&amp;lt;unk&amp;gt;含有率をテストデータに合わせる&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    
+    <category term="kaggle" scheme="https://blog.gojtieji.com/tags/kaggle/"/>
+    
+    <category term="ML" scheme="https://blog.gojtieji.com/tags/ML/"/>
+    
+  </entry>
+  
+</feed>
