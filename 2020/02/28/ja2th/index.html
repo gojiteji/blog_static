@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>タイに来たので、タイ語翻訳アプリを作った | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="はじめに昨年辺りから、流行りに乗って(?)機械学習を勉強していたのですが、「機械学習と実装がいイマイチ自分の中でつながらないなぁ」とずっと思っていました。そんな中、訳あってタイに行く予定ができました。せっかくなので、現地で使う翻訳機を機械学習で自分で作って、「機械学習を機能として実装する」ことを経験してみたいと思い、今回挑戦してみました。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="タイに来たので、タイ語翻訳アプリを作った">
+<meta property="og:url" content="http://gojtieji.com/2020/02/28/ja2th/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="はじめに昨年辺りから、流行りに乗って(?)機械学習を勉強していたのですが、「機械学習と実装がいイマイチ自分の中でつながらないなぁ」とずっと思っていました。そんな中、訳あってタイに行く予定ができました。せっかくなので、現地で使う翻訳機を機械学習で自分で作って、「機械学習を機能として実装する」ことを経験してみたいと思い、今回挑戦してみました。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.gojiteji.com/images/ja2th/title.png">
+<meta property="og:image" content="https://blog.gojiteji.com/images/ja2th/sample.gif">
+<meta property="og:image" content="https://blog.gojiteji.com/images/ja2th/result0.png">
+<meta property="og:image" content="https://blog.gojiteji.com/images/ja2th/result1.png">
+<meta property="og:image" content="https://blog.gojiteji.com/images/ja2th/plan.png">
+<meta property="og:image" content="https://blog.gojiteji.com/images/ja2th/app.png">
+<meta property="article:published_time" content="2020-02-28T07:29:34.000Z">
+<meta property="article:modified_time" content="2022-04-22T22:49:23.182Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="ML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.gojiteji.com/images/ja2th/title.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://gojtieji.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ja2th" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/02/28/ja2th/" class="article-date">
+  <time class="dt-published" datetime="2020-02-28T07:29:34.000Z" itemprop="datePublished">2020-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      タイに来たので、タイ語翻訳アプリを作った
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="https://blog.gojiteji.com/images/ja2th/title.png" alt="猫。タイで撮影。"></p>
+<h2 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h2><p>昨年辺りから、流行りに乗って(?)機械学習を勉強していたのですが、「機械学習と実装がいイマイチ自分の中でつながらないなぁ」とずっと思っていました。<br>そんな中、訳あってタイに行く予定ができました。せっかくなので、現地で使う翻訳機を機械学習で自分で作って、「機械学習を機能として実装する」ことを経験してみたいと思い、今回挑戦してみました。</p>
+<span id="more"></span>
+<h2 id="目標"><a href="#目標" class="headerlink" title="目標"></a>目標</h2><p>日本語→タイ語の変換を、翻訳コーパスから機械学習により実装し、iOSアプリで実際に使える形にする。<strong>完成させる</strong>。</p>
+<p>ちなみに、私のタイ語に関する事前知識は「文字を見たらタイ文字か否か判別できるけど、それ以上は全く読めない」程度です。</p>
+<h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><p>iOSアプリを起点とした、翻訳は作成できました。<br><img src="https://blog.gojiteji.com/images/ja2th/sample.gif" ></img><br>学習文章を一部変えたものは、うまく翻訳できています。従って、使用コーパス(実装で説明)内の単純な文法は学習できていたようです。一方、長文になったり、複雑な文法になると実用するには厳しい出来具合となりました。<br>(以下の画像はGoolge翻訳で翻訳結果を確認しているため、文法などが正しいか、そもそもGoogle翻訳の結果が正しいかなどは不明です。)<br><img src="https://blog.gojiteji.com/images/ja2th/result0.png"><br><img src="https://blog.gojiteji.com/images/ja2th/result1.png"></p>
+<p>間違った例は右から、「秋の季節ははっきりしています。」「冬はとても新しいです。」「軽いバス停まで歩いてください。」と翻訳された。</p>
+<h2 id="実装概要"><a href="#実装概要" class="headerlink" title="実装概要"></a>実装概要</h2><p>実装は以下の通りです。実装にかかった期間は2.5~3.5日程度です。</p>
+<ol>
+<li>Google Colaboratory上でモデルを設計</li>
+<li>GCPにモデルを移行し、APIサーバを構築</li>
+<li>iOSアプリでをサーバと連携</li>
+</ol>
+<p>アーキテクチャ図は以下の通り。<br><img src="https://blog.gojiteji.com/images/ja2th/plan.png"><br>実際の運用は2と3のみ使用します。<br>ソースコードは<a target="_blank" rel="noopener" href="https://github.com/gojiteji/ja2th">githubに公開</a>しています。</p>
+<h3 id="1-Google-Colaboratory上でモデルを設計"><a href="#1-Google-Colaboratory上でモデルを設計" class="headerlink" title="1.Google Colaboratory上でモデルを設計"></a>1.Google Colaboratory上でモデルを設計</h3><h4 id="コーパスを探す"><a href="#コーパスを探す" class="headerlink" title="コーパスを探す"></a>コーパスを探す</h4><p>まず、これがなければ実装の元も子もありません。今回用いたのは、TUFS Asian Language Parallel Corpus(<a target="_blank" rel="noopener" href="https://github.com/matbahasa/TALPCo">https://github.com/matbahasa/TALPCo</a> ) です。タイ語意外にも、複数のアジア圏の対訳コーパスが用意されています。さらにありがたいことに、Token化済みのデータも用意されています。</p>
+<h4 id="Transformerによる翻訳"><a href="#Transformerによる翻訳" class="headerlink" title="Transformerによる翻訳"></a>Transformerによる翻訳</h4><p>翻訳はTransformerというモデルをベースに行いました。<br>自分の理解で簡単に説明すると、従来の翻訳で用いられていたRNNなどの再帰計算層がなく、代わりにAttention(入力に対して注目部分を特徴づける)や、Positional Embedding(データの位置関係埋め込み)で、翻訳を実現しているものです。間違っていたらすいません。</p>
+<p>Transformerの論文の理解は、Ryobotさんの<a target="_blank" rel="noopener" href="http://deeplearning.hatenablog.com/entry/transformer">論文解説 Attention Is All You Need (Transformer)</a> を読むと、とてもわかりやすいです。</p>
+<p>Transformerの実装に関しては、<a target="_blank" rel="noopener" href="https://www.amazon.co.jp/%E8%A9%B3%E8%A7%A3%E3%83%87%E3%82%A3%E3%83%BC%E3%83%97%E3%83%A9%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0-TensorFlow-Keras-PyTorch%E3%81%AB%E3%82%88%E3%82%8B%E6%99%82%E7%B3%BB%E5%88%97%E3%83%87%E3%83%BC%E3%82%BF%E5%87%A6%E7%90%86-Compass-Books%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA/dp/4839969515/ref=dp_ob_title_bk">詳解ディープラーニング 第2版 ~TensorFlow&#x2F;Keras・PyTorchによる時系列データ処理~</a>を参考にしました。</p>
+<p>自分含め、「そもそもAttention？なんじゃそれ?」って思った人は、ソニー株式会社小林さんの説明する動画がアニメーション付きで理解しやすいです。</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/g5DSLeJozdw?start=606" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<h4 id="Transformerの実装"><a href="#Transformerの実装" class="headerlink" title="Transformerの実装"></a>Transformerの実装</h4><p>Pytorchで実装しました(<a target="_blank" rel="noopener" href="https://github.com/gojiteji/ja2th/blob/master/modeldesigning/ja2.ipynb">ソースコード</a>)。(先ほどの本を参考にした部分が多いです)<br>コードが長いので、流れを簡単に内容を書くと、</p>
+<ul>
+<li>学習時<ol>
+<li>入力データ埋め込み→Positional Embedding→エンコーダ層(Self-Attention→Feed Forward)</li>
+<li>教師データ埋め込み→Positional Embedding→デコーダ層(Self-Attention→Feed Forward→Source-Target-Attantion(ここでエンコーダの出力を入力)→Feed Forward)</li>
+</ol>
+</li>
+<li>検証時<br>入力データ埋め込み→エンコーダ層→デコーダ層→出力をさらにデコーダ層→…として行き、順々にワードを生成</li>
+</ul>
+<p>と言う過程を経るものです。<br>この流れは、<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762">Attention is all you need論文にある図1</a>そのものです。</p>
+<p>パラメータはいくつか試した上で、</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">エンコーダ,デコーダの層数:7</span><br><span class="line">Multi headattentionでの接続数:4</span><br><span class="line">中間層の次元:20</span><br><span class="line">フィードフォワード層の次元:16</span><br></pre></td></tr></table></figure>
+<p>と設定しています。</p>
+<p>エポック数は200程度回しました。Colabの関係上、90分ごとにランタイムが切れるため、その度にモデルを保存して学習しています。コード上のepcoh数が少ないのはそのためです。</p>
+<h3 id="2-GCPにモデルを移行し、APIサーバを構築"><a href="#2-GCPにモデルを移行し、APIサーバを構築" class="headerlink" title="2. GCPにモデルを移行し、APIサーバを構築"></a>2. GCPにモデルを移行し、APIサーバを構築</h3><h4 id="翻訳をGCP上のサーバーに移す"><a href="#翻訳をGCP上のサーバーに移す" class="headerlink" title="翻訳をGCP上のサーバーに移す"></a>翻訳をGCP上のサーバーに移す</h4><p>Google Colaboratory上で学習したモデルのパラメータを保存し、</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">model = Transformer(...).to(device)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">学習</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">torch.save(model.state_dict(), <span class="string">&#x27;保存ファイル名&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>その後、サーバー上に同様のモデルのインスタンスを作成し、読み込むだけ。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model = Transformer(...).to(device)<span class="comment">#インスタンス作成</span></span><br><span class="line">device = torch.device(<span class="string">&#x27;cuda&#x27;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&#x27;cpu&#x27;</span>)</span><br><span class="line">model.load_state_dict(torch.load(<span class="string">&#x27;保存ファイル名&#x27;</span>,map_location=device))</span><br></pre></td></tr></table></figure>
+
+<p>上記プログラム中の<code>map_location=device</code>で、cpu&#x2F;gpuの切り替えも行ってくれるようです。このへん詰まるかと思っていましたが、すんなりcpu上で動いたので驚きました。</p>
+<h4 id="辞書を引き継ぐ"><a href="#辞書を引き継ぐ" class="headerlink" title="辞書を引き継ぐ"></a>辞書を引き継ぐ</h4><p>入力されたTokengは、全てVocabularyインスタンスにより保存していますが、生成ごとに内部の辞書の順番が変わるため、Google Colaboratoryで学習に使用した辞書をそのままGCP上のサーバーに引き継ぐ必要があります。<br>これに関してはVocabularyインスタンスをごっそりpandasでpickleファイルとして保存し、サーバー側で読み込んで使用しています。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ja_vocabulary=pd.read_pickle(<span class="string">&quot;ja.pkl&quot;</span>) </span><br><span class="line">th_vocabulary=pd.read_pickle(<span class="string">&quot;th.pkl&quot;</span>) </span><br></pre></td></tr></table></figure>
+
+<h4 id="リクエストに対して翻訳結果を返答する"><a href="#リクエストに対して翻訳結果を返答する" class="headerlink" title="リクエストに対して翻訳結果を返答する"></a>リクエストに対して翻訳結果を返答する</h4><p>FlaskでPOSTが来たときに翻訳を実行するようにしました。<code>translate_from_japanese()</code>は入力のToken化、出力をBOS~EOS間で区切るための関数です。学習データの文章は既ににToken化されていましたが、生成時の入力文章はToken化されていないため、変換する必要があります。Token化には<a target="_blank" rel="noopener" href="https://github.com/taishi-i/nagisa">nagisa</a>を使用しました。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">translate_from_japanese</span>(<span class="params">text</span>):</span><br><span class="line">    <span class="keyword">if</span>(text <span class="keyword">is</span> <span class="literal">None</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;入力されていません&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        preds = model(torch.LongTensor([ja_vocabulary.encode(nagisa.tagging(text).words)]))</span><br><span class="line">        _out = preds.view(-<span class="number">1</span>).tolist()</span><br><span class="line">        out = <span class="string">&#x27; &#x27;</span>.join(th_vocabulary.decode(_out))</span><br><span class="line">        begin = out.find(<span class="string">&#x27;&lt;s&gt;&#x27;</span>)</span><br><span class="line">        end= out.find(<span class="string">&#x27;&lt;/s&gt;&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> out[begin+<span class="number">3</span>:end]</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/ja2th&#x27;</span>,methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ja2th</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        text = request.get_data()</span><br><span class="line">    text=translate_from_japanese(text)</span><br><span class="line">    <span class="keyword">return</span> text</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-iOSアプリでをサーバと連携"><a href="#3-iOSアプリでをサーバと連携" class="headerlink" title="3. iOSアプリでをサーバと連携"></a>3. iOSアプリでをサーバと連携</h3><p>iOSアプリは<a target="_blank" rel="noopener" href="https://github.com/gojiteji/ja2th/blob/master/iOS%20app/Translate/%E4%BF%BA%E4%BF%BATranslate/ViewController.swift">コードを見てわかるように</a>、特に小難しいことはしておしません。POSTの送信とその返答結果の表示を、ボタンを押すことで実行。また、それっぽいアイコンを設定しているだけです。Xcodeで実装しています。<br><img src="https://blog.gojiteji.com/images/ja2th/app.png"><br>リクエスト時のサーバー出力</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;&lt;unk&gt;&#x27;</span>, <span class="string">&#x27;&lt;unk&gt;&#x27;</span>, <span class="string">&#x27;&lt;unk&gt;&#x27;</span>, <span class="string">&#x27;&lt;unk&gt;&#x27;</span>, <span class="string">&#x27;&lt;unk&gt;&#x27;</span>, <span class="string">&#x27;&lt;unk&gt;&#x27;</span>, <span class="string">&#x27;山田&#x27;</span>, <span class="string">&#x27;さん&#x27;</span>, <span class="string">&#x27;は&#x27;</span>, <span class="string">&#x27;どこ&#x27;</span>, <span class="string">&#x27;に&#x27;</span>, <span class="string">&#x27;い&#x27;</span>, <span class="string">&#x27;ます&#x27;</span>, <span class="string">&#x27;か&#x27;</span>, <span class="string">&#x27;&lt;unk&gt;&#x27;</span>, <span class="string">&#x27;&lt;unk&gt;&#x27;</span>]</span><br><span class="line">[<span class="string">&#x27;山田&#x27;</span>, <span class="string">&#x27;さん&#x27;</span>, <span class="string">&#x27;は&#x27;</span>, <span class="string">&#x27;どこ&#x27;</span>, <span class="string">&#x27;に&#x27;</span>, <span class="string">&#x27;い&#x27;</span>, <span class="string">&#x27;ます&#x27;</span>, <span class="string">&#x27;か&#x27;</span>]</span><br><span class="line">&lt;s&gt; คุณ ยามาดะ อยู่ ที่ ไหน ครับ &lt;/s&gt; ครับ &lt;/s&gt; ค่ะ &lt;/s&gt; อัน ไหน ครับ &lt;/s&gt; เป็น อยู่ ห้อง ไหน ครับ</span><br></pre></td></tr></table></figure>
+<h2 id="終わりに"><a href="#終わりに" class="headerlink" title="終わりに"></a>終わりに</h2><p>今回はとりあえず完成させることをにしていたため、いくつかステップを飛ばしている部分があります。本システムはコーパスさえあれば他の言語にも転用可能なシステムのため、また、国外にいく機会があれば検証などをしっかり行いながら改良していきたいと思います。</p>
+<p>個人的な感想として、Transformerの概要を読んだだけではよくわからなかった、実際に学習させるとどのような特徴を捉えるのかなどを見れたことがよかったです。<br>(時間的制約の上に、タイ語が全然読めないため、出力の正しさの判断がぱっと見じゃ全然わからなかったことがとても大変でした..)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://gojtieji.com/2020/02/28/ja2th/" data-id="cl2b44baf000nu5p82o7i9cpf" data-title="タイに来たので、タイ語翻訳アプリを作った" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/" rel="tag">ML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/15/kagglenl/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Real or Not? NLP with Disaster Tweets を解く
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/21/donotcallmeturkycnn/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Don&#39;t call me turkryをcnnでとく</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AR/" rel="tag">AR</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bluetooth/" rel="tag">Bluetooth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CDN/" rel="tag">CDN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CloudFront/" rel="tag">CloudFront</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCF/" rel="tag">GCF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCP/" rel="tag">GCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCS/" rel="tag">GCS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPS/" rel="tag">GPS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT/" rel="tag">GPT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game/" rel="tag">Game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IoT/" rel="tag">IoT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/" rel="tag">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/S3/" rel="tag">S3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TPU/" rel="tag">TPU</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity/" rel="tag">Unity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/" rel="tag">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackathon/" rel="tag">hackathon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/" rel="tag">heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/internship/" rel="tag">internship</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kaggle/" rel="tag">kaggle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/" rel="tag">others</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poem/" rel="tag">poem</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" rel="tag">備忘録</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/Bluetooth/" style="font-size: 12px;">Bluetooth</a> <a href="/tags/CDN/" style="font-size: 10px;">CDN</a> <a href="/tags/CloudFront/" style="font-size: 10px;">CloudFront</a> <a href="/tags/GCF/" style="font-size: 10px;">GCF</a> <a href="/tags/GCP/" style="font-size: 10px;">GCP</a> <a href="/tags/GCS/" style="font-size: 10px;">GCS</a> <a href="/tags/GPS/" style="font-size: 10px;">GPS</a> <a href="/tags/GPT/" style="font-size: 10px;">GPT</a> <a href="/tags/Game/" style="font-size: 12px;">Game</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/IoT/" style="font-size: 12px;">IoT</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/NLP/" style="font-size: 16px;">NLP</a> <a href="/tags/S3/" style="font-size: 10px;">S3</a> <a href="/tags/TPU/" style="font-size: 10px;">TPU</a> <a href="/tags/Unity/" style="font-size: 10px;">Unity</a> <a href="/tags/Web/" style="font-size: 16px;">Web</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/hackathon/" style="font-size: 18px;">hackathon</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/internship/" style="font-size: 14px;">internship</a> <a href="/tags/kaggle/" style="font-size: 16px;">kaggle</a> <a href="/tags/others/" style="font-size: 12px;">others</a> <a href="/tags/poem/" style="font-size: 12px;">poem</a> <a href="/tags/%E5%82%99%E5%BF%98%E9%8C%B2/" style="font-size: 12px;">備忘録</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/12/01/7816825e-f7e4-0e24-6448-9ec513e5e027/">AIは新入生になりきれるか?</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/22/jphacks2021-ad/">JPHACKS2021 Award Dayに参加しました!</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/01/jphacks2021/">JPHACKS2021に参加しました!</a>
+          </li>
+        
+          <li>
+            <a href="/2021/05/09/heroku/">Heroku(Python・Nodejs)開発中の備忘録</a>
+          </li>
+        
+          <li>
+            <a href="/2021/03/14/growthtech/">ABEMA Growth Techに参加しました。</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
