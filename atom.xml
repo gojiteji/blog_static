@@ -6,7 +6,7 @@
   <link href="https://blog.gojtieji.com/atom.xml" rel="self"/>
   
   <link href="https://blog.gojtieji.com/"/>
-  <updated>2022-07-24T09:51:11.721Z</updated>
+  <updated>2022-08-11T15:57:19.319Z</updated>
   <id>https://blog.gojtieji.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HuggingFaceのdatasetsにPRを出したところ他の部分にもcommitできた話</title>
+    <link href="https://blog.gojtieji.com/2022/08/12/OSScommit/"/>
+    <id>https://blog.gojtieji.com/2022/08/12/OSScommit/</id>
+    <published>2022-08-11T15:31:41.000Z</published>
+    <updated>2022-08-11T15:57:19.319Z</updated>
+    
+    <content type="html"><![CDATA[<p>HuggingFaceの<a href="https://github.com/huggingface/datasets">datasetsレポジトリ</a>に小さなPRを出したところ、色々と話が進み、最初のPR部分以外にもcommitできたので、その話を書きます。</p><h2 id="最初のPR"><a href="#最初のPR" class="headerlink" title="最初のPR"></a>最初のPR</h2><p>大学院の研究で<code>opus_gnome</code>という対訳コーパスでダウンロードしようとしたところ、ドキュメントのサンプルにミスを見つけたため、<a href="https://github.com/huggingface/datasets/issues/4805">ISSUEを立ち上げました</a>。</p><p>簡単そうな内容だったため、<a href="https://github.com/huggingface/datasets/pull/4806">forkしてPRを出しました</a>。</p><p>しばらくすると、huggingfaceのMLエンジニアの方から<a href="https://github.com/huggingface/datasets/pull/4806#issuecomment-1209016702">コメントが来ました</a>。</p><blockquote><p>Anyway, @gojiteji thanks for your contribution and this fix.</p></blockquote><blockquote><p>Once you have modified the opus_gnome dataset card, our Continuous Integration test suite performs some tests on it that make some additional requirements: the errors that appear have nothing to do with your contribution, but with these additional quality requirements.</p></blockquote><p>どうやら僕の変更と関係がないところで、コードの品質を満たしていないところがあるようです。</p><h2 id="CIテスト"><a href="#CIテスト" class="headerlink" title="CIテスト"></a>CIテスト</h2><p>自分には何がダメなのかよくわからなかったので、聞いてみると、マージする前の<a href="https://github.com/huggingface/datasets/runs/7741104780?check_suite_focus=true">CIテストで失敗しており</a>、</p><blockquote><p>No first-level heading starting with <code>Dataset Card for</code> found in README. Skipping further validation for this README.</p></blockquote><p>READMEが<a href="https://github.com/huggingface/datasets/blob/main/templates/README.md">テンプレート</a>に沿っていないとのこと。</p><blockquote><pre><code>[&#39;ara&#39;, &#39;cat&#39;, &#39;foo&#39;, &#39;gr&#39;, &#39;nqo&#39;, &#39;tmp&#39;] are not registered tags for &#39;language&#39;, reference at https://github.com/huggingface/datasets/tree/main/src/datasets/utils/resources/languages.json</code></pre></blockquote><p>また、既存の<a href="https://github.com/huggingface/datasets/tree/main/src/datasets/utils/resources/languages.json">languages.json</a>というファイルを元に、利用可能な言語を指定していますが、それが元のファイルにはないものが含まれているらしい。</p><p><a href="https://github.com/huggingface/datasets/pull/4806#issuecomment-1209035359">諸々の会話とAlbertさんの多大なるサポート</a>を経てそれらを修正したところ、mainブランチに無事マージできました。</p><p><code>opus_gnome</code>のデータセットのリンクにアクセスすると、僕の書いた部分が見れます。<br><a href="https://huggingface.co/datasets/opus_gnome">https://huggingface.co/datasets/opus_gnome</a></p><p>自分がよく使っているOSSに貢献できたのはとても嬉しい限りです。</p><p>とても好意的に受け入れてくださっため、自信もつきました。今後も積極的にOSSにPRを出していこうと思います。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;HuggingFaceの&lt;a href=&quot;https://github.com/huggingface/datasets&quot;&gt;datasetsレポジトリ&lt;/a&gt;に小さなPRを出したところ、色々と話が進み、最初のPR部分以外にもcommitできたので、その話を書きます。&lt;/p&gt;</summary>
+      
+    
+    
+    
+    
+    <category term="OSS" scheme="https://blog.gojtieji.com/tags/OSS/"/>
+    
+  </entry>
   
   <entry>
     <title>ISUCON12予選に参加しました</title>
@@ -441,26 +463,6 @@
     <category term="Web" scheme="https://blog.gojtieji.com/tags/Web/"/>
     
     <category term="Game" scheme="https://blog.gojtieji.com/tags/Game/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mothmanの今後の予定</title>
-    <link href="https://blog.gojtieji.com/2020/04/27/mothman-current-report/"/>
-    <id>https://blog.gojtieji.com/2020/04/27/mothman-current-report/</id>
-    <published>2020-04-26T18:23:44.000Z</published>
-    <updated>2022-04-22T22:49:23.183Z</updated>
-    
-    <content type="html"><![CDATA[<p>1年半ほど前に開発した<a href="https://hackmd.io/ipJUfhlyTfa3-PfQhiBS6Q">プレゼンテーションのlive配信・アーカイブサービス Mothman</a>ですが、β版は現在サービスを停止しています。(諸々の理由によりMothmanに手をつけることができず、開発をストップしていました。)今後の予定としては、機能の変更・追加、技術のブラッシュアップを行い、時期は未定ですが再びサービスをリリースしようと考えています。</p><p>年度が変わり、開発の余裕ができはじめました。同時に、ここ数ヶ月でリモートカンファレンスやリモート授業の需要の増加から、Mothman開発メンバー内でも使いやすいプレゼンテーション配信ツールの必要性を再確認し、開発を再開することになりました。サービスリリースまでしばらくお待ち下さいm(-_-)m</p><span id="more"></span>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;1年半ほど前に開発した&lt;a href=&quot;https://hackmd.io/ipJUfhlyTfa3-PfQhiBS6Q&quot;&gt;プレゼンテーションのlive配信・アーカイブサービス Mothman&lt;/a&gt;ですが、β版は現在サービスを停止しています。(諸々の理由によりMothmanに手をつけることができず、開発をストップしていました。)今後の予定としては、機能の変更・追加、技術のブラッシュアップを行い、時期は未定ですが再びサービスをリリースしようと考えています。&lt;/p&gt;
-&lt;p&gt;年度が変わり、開発の余裕ができはじめました。同時に、ここ数ヶ月でリモートカンファレンスやリモート授業の需要の増加から、Mothman開発メンバー内でも使いやすいプレゼンテーション配信ツールの必要性を再確認し、開発を再開することになりました。サービスリリースまでしばらくお待ち下さいm(-_-)m&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="others" scheme="https://blog.gojtieji.com/tags/others/"/>
     
   </entry>
   
