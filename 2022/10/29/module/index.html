@@ -35,8 +35,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">super</span>().__setattr__(<span class="string">&#x27;_parameters&#x27;</span>, OrderedDict())</span><br></pre></td></tr></table></figure>
 <p>→<code>_parameters</code>に代入された時、辞書順にソートする。</p>
 <h4 id="Callable"><a href="#Callable" class="headerlink" title="Callable"></a><code>Callable</code></h4><ul>
-<li><p><code>Callable</code> 関数の型のようなもの。実装を後にして存在だけ宣言。C言語で言う<strong>プロトタイプ宣言</strong>。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">adder</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">    .</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">adder</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="type">int</span> sum</span><br><span class="line">    sum=a+b</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p><code>Callable</code> 関数の型のようなもの。</p>
 </li>
 <li><p><code>関数名 Callable([引数型], 返り値型)</code><br> <code>...</code>→Ellipsisという、Noneだけど、bool(…)でTrueを返すオブジェクト。今は無いけど、そのうちあることを示唆するような感じ。<br>つまり、<code>forward: Callable[..., Any]</code>→…はforwardの引数の型、Anyがforwardの出力の型</p>
 </li>
@@ -45,7 +44,7 @@
 </ul>
 <p>つまりこのセクションで言いたいのは・・・<br><strong>Moduleクラスの継承はインスタンス作成時にforwardを絶対に実装する必要がある！</strong></p>
 <h2 id="インスタンス呼び出し時に実行されるもの"><a href="#インスタンス呼び出し時に実行されるもの" class="headerlink" title="インスタンス呼び出し時に実行されるもの"></a>インスタンス呼び出し時に実行されるもの</h2><p><code>def __call__</code>はどこに？</p>
-<p>これも同様に、Callableで宣言はしている<br><code> __call__ : Callable[..., Any] = _call_impl</code></p>
+<p>これも同様に、Callableで宣言はして、<code>_call_impl</code>で置き換えている。<br><code> __call__ : Callable[..., Any] = _call_impl</code></p>
 <p><code>_call_impl</code>は何をしている？</p>
 <p><code>*hook</code>系のものは、そのhookがTrueの時実行するもの。(ex.forward pass, backward passで__call__の処理を変える。)<br>→一旦<code>self.forward</code>が実行されていると考えていい。<br>nn.Module継承先から呼び出す場合、継承先の<code>self.forward</code>が実行される。</p>
 <p>つまりこのセクションで言いたいのは・・・<br><strong>クラスや型の機能を使ってfoward&#x2F;backwardで処理を変更可能なモデル実行の雛形を作っている。</strong></p>
