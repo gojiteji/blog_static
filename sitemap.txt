@@ -1,3 +1,7 @@
+https://blog.gojtieji.com/2022/11/03/memol/
+https://blog.gojtieji.com/2022/11/03/kaimin/
+https://blog.gojtieji.com/2019/12/31/notelook/
+https://blog.gojtieji.com/2019/12/31/old-pages/
 https://blog.gojtieji.com/2022/10/29/module/
 https://blog.gojtieji.com/2022/08/12/OSScommit/
 https://blog.gojtieji.com/2022/07/24/isucon-q-12/
@@ -53,3 +57,5 @@ https://blog.gojtieji.com/tags/Unity/
 https://blog.gojtieji.com/tags/GPS/
 https://blog.gojtieji.com/tags/AR/
 https://blog.gojtieji.com/tags/OSS/
+https://blog.gojtieji.com/tags/portfolio/
+https://blog.gojtieji.com/tags/hakathon/
