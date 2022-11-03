@@ -2,16 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.gojtieji.com/2022/11/03/memol/</loc>
-    
-    <lastmod>2022-11-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/2022/11/03/kaimin/</loc>
+    <loc>https://blog.gojtieji.com/2022/03/31/ja-ai-trans/</loc>
     
     <lastmod>2022-11-03</lastmod>
     
@@ -21,6 +12,24 @@
   
   <url>
     <loc>https://blog.gojtieji.com/2019/12/31/notelook/</loc>
+    
+    <lastmod>2022-11-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/2019/12/31/kaimin/</loc>
+    
+    <lastmod>2022-11-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/2019/12/31/memol/</loc>
     
     <lastmod>2022-11-03</lastmod>
     
@@ -487,6 +496,27 @@
   
   <url>
     <loc>https://blog.gojtieji.com/tags/hakathon/</loc>
+    <lastmod>2022-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/Resarch/</loc>
+    <lastmod>2022-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/AI/</loc>
+    <lastmod>2022-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/Machine-Translation/</loc>
     <lastmod>2022-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title></title>
+  <title>gojiteji&#39;s Blog</title>
   
   
   <link href="https://blog.gojtieji.com/atom.xml" rel="self"/>
   
   <link href="https://blog.gojtieji.com/"/>
-  <updated>2022-11-03T08:53:21.535Z</updated>
+  <updated>2022-10-30T08:44:35.911Z</updated>
   <id>https://blog.gojtieji.com/</id>
   
   <author>
@@ -15,53 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>memol</title>
-    <link href="https://blog.gojtieji.com/2022/11/03/memol/"/>
-    <id>https://blog.gojtieji.com/2022/11/03/memol/</id>
-    <published>2022-11-03T08:52:59.000Z</published>
-    <updated>2022-11-03T08:53:21.535Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="製作動機"><a href="#製作動機" class="headerlink" title="製作動機"></a>製作動機</h2><p>私は紙で行うことをiPadで完全に代替したいと考えています。<br>現在、様々な多機能メモアプリがある一方、<strong>チラシの裏を使う感覚</strong>でiPad使う方法はありません。<br><strong>チラシの裏を使う感覚</strong>というのは、残すほどでもないが一時的に必要な筆記のことです。<br>既存のアプリを上記の目的に使うと、一時的なメモなのに、本体に溜まったり、ゴミ箱に溜まってしまい、後処理が面倒です。<br>memolでは、iPadで一時的なメモを簡単にとり、消すことができます。</p><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><!---memolはpwa対応webアプリです。インストールするの必要がなく、**すぐに**使えます。---><p>memolはアクセスすると、すぐに書き込める状態にあります。</p><ul><li>利用想定環境： iPad + Apple Pencil<br>ApplePencilで記入すると、自由に書き込めます。<br>指で右にスワイプすると記入内容が消えます。</li></ul><p>code &amp; introduction：<a href="https://github.com/gojiteji/paper">https://github.com/gojiteji/paper</a><br>link：<a href="https://memol.gojiteji.com/">https://memol.gojiteji.com</a><br>※開いても真っ白なのは、すでに書き込める状態にあるからです。PCでも一応動作します。</p><h2 id="追記"><a href="#追記" class="headerlink" title="追記"></a>追記</h2><p><a href="https://developer.apple.com/documentation/pencilkit">pencil kit</a>にあるように、実は<strong>たった３行のコード</strong>でapple pencilを使ったアプリを作れるらしく、webに類似の動作をするアプリを(大したことは書いてないですが)、Swiftで書いてみました。ただ、こんな単純なアプリがapp storeに出そうにも審査通る気がしないので、やはりwebアプリで作っていく方がよさそう</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;製作動機&quot;&gt;&lt;a href=&quot;#製作動機&quot; class=&quot;headerlink&quot; title=&quot;製作動機&quot;&gt;&lt;/a&gt;製作動機&lt;/h2&gt;&lt;p&gt;私は紙で行うことをiPadで完全に代替したいと考えています。&lt;br&gt;現在、様々な多機能メモアプリがある一方、&lt;strong&gt;</summary>
-      
-    
-    
-    
-    
-    <category term="portfolio" scheme="https://blog.gojtieji.com/tags/portfolio/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>kaimin</title>
-    <link href="https://blog.gojtieji.com/2022/11/03/kaimin/"/>
-    <id>https://blog.gojtieji.com/2022/11/03/kaimin/</id>
-    <published>2022-11-03T08:50:40.000Z</published>
-    <updated>2022-11-03T08:50:59.076Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>ディスカバリーハッカソン2019にて6人チームで開発しました。<br>以下は発表資料を一部改変したものです。<br>要約すると、</p><pre><code>1. ユーザ登録時に得られる睡眠時間をもとに、近い生活習慣の5人とマッチング2. 計6人で共同のマンションに住む。(窓をタップするとユーザ名が見れます。)3. 各個人が就寝すると睡眠ログインボーナスなど、様々なリワードが得られる。各々の就寝具合はCG上のライトにより確認できる。4. 共同者が、理想的な睡眠時間に近ければ、マンションが高級になったりする。</code></pre><p>といったアプリです。</p><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS4HiOG38eygdSiUKFEsdWfJAyNMoxXUwwC6myql_92ueP0cH1olEyA8fNYt_s1V1hDl-QB182XU1UR/embed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe><p><strong>共同マンションに住む人が睡眠してく様子(gif)</strong></p><center><img src="https://i.imgur.com/XmMhCaw.gif" width="200px"></img></center><h2 id="担当"><a href="#担当" class="headerlink" title="担当"></a>担当</h2><p>私は企画&#x2F;資料作成&#x2F;Unity&#x2F;ubuntuサーバ開発を担当しました。<br>実装の関係上、<a href="https://unityroom.com/games/tapiocaland">unityroomに公開</a>しています。APIを叩けば窓がon&#x2F;offするようになっています。</p><p>Unity単体でゲームを作ることはありましたが、Firebaseや外部APIとの連携を行ったことがなかったため、つまづきました。<br>また、「寝なくちゃ！」感のあるデザインを作ることも心がけました。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;概要&quot;&gt;&lt;a href=&quot;#概要&quot; class=&quot;headerlink&quot; title=&quot;概要&quot;&gt;&lt;/a&gt;概要&lt;/h2&gt;&lt;p&gt;ディスカバリーハッカソン2019にて6人チームで開発しました。&lt;br&gt;以下は発表資料を一部改変したものです。&lt;br&gt;要約すると、&lt;/p&gt;
-&lt;</summary>
-      
-    
-    
-    
-    
-    <category term="portfolio" scheme="https://blog.gojtieji.com/tags/portfolio/"/>
-    
-    <category term="hakathon" scheme="https://blog.gojtieji.com/tags/hakathon/"/>
-    
-  </entry>
   
   <entry>
     <title>nn.Module を読んでみた</title>
@@ -123,6 +76,35 @@
     
     
     
+    
+  </entry>
+  
+  <entry>
+    <title>Translation between Ainu Language(ain) and Japanese(jpn)</title>
+    <link href="https://blog.gojtieji.com/2022/03/31/ja-ai-trans/"/>
+    <id>https://blog.gojtieji.com/2022/03/31/ja-ai-trans/</id>
+    <published>2022-03-30T15:00:00.000Z</published>
+    <updated>2022-11-03T09:05:27.169Z</updated>
+    
+    <content type="html"><![CDATA[<p>I’ve researched about machine translation between Ainu Language and Japanese.</p><p>Four of them (mT5 and ByT5 with both  directions) are available at <a href="https://huggingface.co/Language-Media-Lab">https://huggingface.co/Language-Media-Lab</a> .</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;I’ve researched about machine translation between Ainu Language and Japanese.&lt;/p&gt;
+&lt;p&gt;Four of them (mT5 and ByT5 with both  directions) ar</summary>
+      
+    
+    
+    
+    
+    <category term="ML" scheme="https://blog.gojtieji.com/tags/ML/"/>
+    
+    <category term="Resarch" scheme="https://blog.gojtieji.com/tags/Resarch/"/>
+    
+    <category term="AI" scheme="https://blog.gojtieji.com/tags/AI/"/>
+    
+    <category term="Machine Translation" scheme="https://blog.gojtieji.com/tags/Machine-Translation/"/>
     
   </entry>
   
@@ -463,6 +445,32 @@
     
     
     <category term="internship" scheme="https://blog.gojtieji.com/tags/internship/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GCSにアップロード時にファイル変換を行う</title>
+    <link href="https://blog.gojtieji.com/2020/05/25/blobmemo/"/>
+    <id>https://blog.gojtieji.com/2020/05/25/blobmemo/</id>
+    <published>2020-05-24T16:42:08.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="構成"><a href="#構成" class="headerlink" title="構成"></a>構成</h2><p>GCSのアップロードをトリガにGCFでファイル変換を行う手順.</p><p>アップロードはzipファイルにしたいけど、ストレージ上にはzipを解凍しておきたい、と思った時に色々つまずいたので、備忘録がてらメモしておきます.</p><span id="more"></span><ol><li>GCFのトリガーをCloud Storageに設定.イベントタイプはファイナライズ&#x2F;作成</li><li>トリガー対象のバケットを設定</li><li>CloudFunctionに以下のコードを書く<br>requirements.txt<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google-cloud-storage</span><br></pre></td></tr></table></figure>main.py<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> google.cloud <span class="keyword">import</span> storage</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Unzipper</span>(<span class="params">event,context</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment">#Download</span></span><br><span class="line">        bucket_name = event[<span class="string">&#x27;bucket&#x27;</span>]</span><br><span class="line">        filename = event[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">        storage_client = storage.Client()</span><br><span class="line">        bucket = storage_client.bucket(bucket_name)</span><br><span class="line">        blob = bucket.blob(filename)</span><br><span class="line">        blob.download_to_filename(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Unzip</span></span><br><span class="line">        direc=<span class="string">&#x27;/tmp/&#x27;</span>+filename[:filename.find(<span class="string">&#x27;.&#x27;</span>)]</span><br><span class="line">        z = zipfile.ZipFile(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line">        z.extractall(<span class="string">&#x27;/tmp/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Upload</span></span><br><span class="line">        files=glob.glob(direc+<span class="string">&#x27;/*&#x27;</span>) </span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> files:             </span><br><span class="line">            bucket = storage_client.get_bucket(bucket_name)</span><br><span class="line">            blob = bucket.blob(os.path.basename(f))</span><br><span class="line">            blob.upload_from_filename(f)</span><br><span class="line">            os.remove(f)</span><br><span class="line">        os.remove(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line">        shutil.rmtree(direc+<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">        bucket = storage_client.bucket(bucket_name)</span><br><span class="line">        blob = bucket.blob(event[<span class="string">&#x27;name&#x27;</span>])</span><br><span class="line">        blob.delete()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br></pre></td></tr></table></figure></li><li>サービスアカウントをCloudFunctionの設定Storageをいじれるアカウントに設定</li></ol><h2 id="所感"><a href="#所感" class="headerlink" title="所感"></a>所感</h2><p>cloud functionはファイル保存が&#x2F;tmp以下にしかできないらしく、保存できない理由が認証関係のエラーと勘違いして、半日ぐらいつまづいてましたorz</p><p>実際のサービスでは、ユーザは複数ファイルでアップロード可能だけど、ストレージ上では一種類のファイルで管理したいときとかにも使えそう.</p>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;構成&quot;&gt;&lt;a href=&quot;#構成&quot; class=&quot;headerlink&quot; title=&quot;構成&quot;&gt;&lt;/a&gt;構成&lt;/h2&gt;&lt;p&gt;GCSのアップロードをトリガにGCFでファイル変換を行う手順.&lt;/p&gt;
+&lt;p&gt;アップロードはzipファイルにしたいけど、ストレージ上にはzipを解凍しておきたい、と思った時に色々つまずいたので、備忘録がてらメモしておきます.&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="GCS" scheme="https://blog.gojtieji.com/tags/GCS/"/>
+    
+    <category term="GCF" scheme="https://blog.gojtieji.com/tags/GCF/"/>
+    
+    <category term="GCP" scheme="https://blog.gojtieji.com/tags/GCP/"/>
+    
+    <category term="備忘録" scheme="https://blog.gojtieji.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/"/>
     
   </entry>
   

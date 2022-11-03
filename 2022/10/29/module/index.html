@@ -1,5 +1,107 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> nn.Module を読んでみた · null</title><meta name="description" content="nn.Module を読んでみた - gojiteji"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://blog.gojtieji.com/atom.xml"><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
-</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">nn.Module を読んでみた</h1><div class="post-info">Oct 29, 2022</div><div class="post-content"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">この資料はラボ内自主勉強会に向けて書いたものです。間違い等ありましたら教えてください。</span><br></pre></td></tr></table></figure>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    
+
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+
+<meta charset="utf-8" >
+
+<title>nn.Module を読んでみた</title>
+<meta name="keywords" content="nn.Module を読んでみた, gojiteji&#39;s Blog">
+<meta name="description" content="1この資料はラボ内自主勉強会に向けて書いたものです。間違い等ありましたら教えてください。
+
+nn.Moduleとは？PyTorchでカスタムモデルを作成する際にクラスで継承するやつ
+123456789101112class SimpleMo">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="gojiteji's Blog" type="application/atom+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://blog.gojtieji.com">
+        <img class="avatar" src="/images/avatar.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://blog.gojtieji.com">
+        <h1 class="site-title">gojiteji&#39;s Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">nn.Module を読んでみた</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-10-29</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/ML/">
+              ML
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">この資料はラボ内自主勉強会に向けて書いたものです。間違い等ありましたら教えてください。</span><br></pre></td></tr></table></figure>
 
 <h3 id="nn-Moduleとは？"><a href="#nn-Moduleとは？" class="headerlink" title="nn.Moduleとは？"></a>nn.Moduleとは？</h3><p>PyTorchでカスタムモデルを作成する際にクラスで継承するやつ</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SimpleModel</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">10</span>, <span class="number">100</span>)</span><br><span class="line">        self.act = nn.sigmoid()</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        y = self.fc1(x)</span><br><span class="line">        y = self.act(y)</span><br><span class="line">        y = self.fc2(y)</span><br><span class="line">        <span class="keyword">return</span> y</span><br></pre></td></tr></table></figure>
@@ -48,4 +150,76 @@
 <p><code>_call_impl</code>は何をしている？</p>
 <p><code>*hook</code>系のものは、そのhookがTrueの時実行するもの。(ex.forward pass, backward passで__call__の処理を変える。)<br>→一旦<code>self.forward</code>が実行されていると考えていい。<br>nn.Module継承先から呼び出す場合、継承先の<code>self.forward</code>が実行される。</p>
 <p>つまりこのセクションで言いたいのは・・・<br><strong>クラスや型の機能を使ってfoward&#x2F;backwardで処理を変更可能なモデル実行の雛形を作っている。</strong></p>
-</div></article></div></main><footer><div class="paginator"><a href="/2022/11/03/kaimin/" class="prev">PREV</a><a href="/2022/08/12/OSScommit/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2022 <a href="https://blog.gojtieji.com">gojiteji</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#nn-Module%E3%81%A8%E3%81%AF%EF%BC%9F"><span class="top-box-text">nn.Moduleとは？</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E3%80%90%E4%BA%8B%E5%89%8D%E7%9F%A5%E8%AD%98%E3%80%91python%E3%81%AE%E5%A4%96%E9%83%A8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E3%82%AF%E3%83%A9%E3%82%B9%E3%82%92%E5%AE%9F%E8%A1%8C%E5%8F%AF%E8%83%BD%E3%81%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95"><span class="top-box-text">【事前知識】pythonの外部ファイルのクラスを実行可能にする方法</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E3%81%A9%E3%81%93%E3%81%AB%E7%B6%99%E6%89%BF%E5%85%83%E3%81%AEModule%E3%82%AF%E3%83%A9%E3%82%B9%E3%81%8C%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%82%E3%82%8B%EF%BC%9F"><span class="top-box-text">どこに継承元のModuleクラスが書いてある？</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E7%94%9F%E6%88%90%E6%99%82%E3%81%AB%E5%AE%9F%E8%A1%8C%E3%81%95%E3%82%8C%E3%82%8B%E3%82%82%E3%81%AE"><span class="top-box-text">インスタンス生成時に実行されるもの</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E6%99%82%E3%81%AB%E5%AE%9F%E8%A1%8C%E3%81%95%E3%82%8C%E3%82%8B%E3%82%82%E3%81%AE"><span class="top-box-text">インスタンス呼び出し時に実行されるもの</span></a>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2022/08/12/OSScommit/">
+          <h3 class="post-title">
+            下一篇：HuggingFaceのdatasetsにPRを出したところ他の部分にもcommitできた話
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/f-dong" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

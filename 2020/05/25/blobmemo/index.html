@@ -1,5 +1,129 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> GCSにアップロード時にファイル変換を行う · null</title><meta name="description" content="GCSにアップロード時にファイル変換を行う - gojiteji"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://blog.gojtieji.com/atom.xml"><meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="null" type="application/atom+xml">
-</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="http://weibo.com/sunchongsheng" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/pinggod" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">GCSにアップロード時にファイル変換を行う</h1><div class="post-info">May 25, 2020</div><div class="post-content"><h2 id="構成"><a href="#構成" class="headerlink" title="構成"></a>構成</h2><p>GCSのアップロードをトリガにGCFでファイル変換を行う手順.</p>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    
+
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+
+<meta charset="utf-8" >
+
+<title>GCSにアップロード時にファイル変換を行う</title>
+<meta name="keywords" content="GCSにアップロード時にファイル変換を行う, gojiteji&#39;s Blog">
+<meta name="description" content="構成GCSのアップロードをトリガにGCFでファイル変換を行う手順.
+アップロードはzipファイルにしたいけど、ストレージ上にはzipを解凍しておきたい、と思った時に色々つまずいたので、備忘録がてらメモしておきます.
+
+
+GCFのトリガーをC">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+
+
+
+  <meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="gojiteji's Blog" type="application/atom+xml">
+</head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://blog.gojtieji.com">
+        <img class="avatar" src="/images/avatar.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://blog.gojtieji.com">
+        <h1 class="site-title">gojiteji&#39;s Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">GCSにアップロード時にファイル変換を行う</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2020-05-25</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/GCS/">
+              GCS
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/GCF/">
+              GCF
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/GCP/">
+              GCP
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/%E5%82%99%E5%BF%98%E9%8C%B2/">
+              備忘録
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="構成"><a href="#構成" class="headerlink" title="構成"></a>構成</h2><p>GCSのアップロードをトリガにGCFでファイル変換を行う手順.</p>
 <p>アップロードはzipファイルにしたいけど、ストレージ上にはzipを解凍しておきたい、と思った時に色々つまずいたので、備忘録がてらメモしておきます.</p>
 <span id="more"></span>
 <ol>
@@ -11,4 +135,76 @@ main.py<figure class="highlight python"><table><tr><td class="gutter"><pre><span
 </ol>
 <h2 id="所感"><a href="#所感" class="headerlink" title="所感"></a>所感</h2><p>cloud functionはファイル保存が&#x2F;tmp以下にしかできないらしく、保存できない理由が認証関係のエラーと勘違いして、半日ぐらいつまづいてましたorz</p>
 <p>実際のサービスでは、ユーザは複数ファイルでアップロード可能だけど、ストレージ上では一種類のファイルで管理したいときとかにも使えそう.</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/06/30/ca-2days-intern/" class="prev">PREV</a><a href="/2020/05/17/coding-Cbrowser-game2/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2022 <a href="https://blog.gojtieji.com">gojiteji</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%A7%8B%E6%88%90"><span class="top-box-text">構成</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%89%80%E6%84%9F"><span class="top-box-text">所感</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2020/05/17/coding-Cbrowser-game2/">
+          <h3 class="post-title">
+            下一篇：簡単に遊べるブラウザゲーを作りたい(2)
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/f-dong" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+
