@@ -6,7 +6,7 @@
   <link href="https://blog.gojtieji.com/atom.xml" rel="self"/>
   
   <link href="https://blog.gojtieji.com/"/>
-  <updated>2022-10-30T08:44:35.911Z</updated>
+  <updated>2022-11-18T07:44:13.814Z</updated>
   <id>https://blog.gojtieji.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Padding process in HuggingFace</title>
+    <link href="https://blog.gojtieji.com/2022/11/18/huggingface-how-padding-works/"/>
+    <id>https://blog.gojtieji.com/2022/11/18/huggingface-how-padding-works/</id>
+    <published>2022-11-18T07:42:35.000Z</published>
+    <updated>2022-11-18T07:44:13.814Z</updated>
+    
+    <content type="html"><![CDATA[<p>$$\mathrm{softmax(-\infty)}$$</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;$$\mathrm{softmax(-\infty)}$$&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="ML" scheme="https://blog.gojtieji.com/tags/ML/"/>
+    
+    <category term="HuggingFace" scheme="https://blog.gojtieji.com/tags/HuggingFace/"/>
+    
+  </entry>
   
   <entry>
     <title>nn.Module を読んでみた</title>
@@ -445,32 +470,6 @@
     
     
     <category term="internship" scheme="https://blog.gojtieji.com/tags/internship/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GCSにアップロード時にファイル変換を行う</title>
-    <link href="https://blog.gojtieji.com/2020/05/25/blobmemo/"/>
-    <id>https://blog.gojtieji.com/2020/05/25/blobmemo/</id>
-    <published>2020-05-24T16:42:08.000Z</published>
-    <updated>2022-04-22T22:49:23.181Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="構成"><a href="#構成" class="headerlink" title="構成"></a>構成</h2><p>GCSのアップロードをトリガにGCFでファイル変換を行う手順.</p><p>アップロードはzipファイルにしたいけど、ストレージ上にはzipを解凍しておきたい、と思った時に色々つまずいたので、備忘録がてらメモしておきます.</p><span id="more"></span><ol><li>GCFのトリガーをCloud Storageに設定.イベントタイプはファイナライズ&#x2F;作成</li><li>トリガー対象のバケットを設定</li><li>CloudFunctionに以下のコードを書く<br>requirements.txt<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google-cloud-storage</span><br></pre></td></tr></table></figure>main.py<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> google.cloud <span class="keyword">import</span> storage</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Unzipper</span>(<span class="params">event,context</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment">#Download</span></span><br><span class="line">        bucket_name = event[<span class="string">&#x27;bucket&#x27;</span>]</span><br><span class="line">        filename = event[<span class="string">&#x27;name&#x27;</span>]</span><br><span class="line">        storage_client = storage.Client()</span><br><span class="line">        bucket = storage_client.bucket(bucket_name)</span><br><span class="line">        blob = bucket.blob(filename)</span><br><span class="line">        blob.download_to_filename(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Unzip</span></span><br><span class="line">        direc=<span class="string">&#x27;/tmp/&#x27;</span>+filename[:filename.find(<span class="string">&#x27;.&#x27;</span>)]</span><br><span class="line">        z = zipfile.ZipFile(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line">        z.extractall(<span class="string">&#x27;/tmp/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Upload</span></span><br><span class="line">        files=glob.glob(direc+<span class="string">&#x27;/*&#x27;</span>) </span><br><span class="line">        <span class="keyword">for</span> f <span class="keyword">in</span> files:             </span><br><span class="line">            bucket = storage_client.get_bucket(bucket_name)</span><br><span class="line">            blob = bucket.blob(os.path.basename(f))</span><br><span class="line">            blob.upload_from_filename(f)</span><br><span class="line">            os.remove(f)</span><br><span class="line">        os.remove(<span class="string">&#x27;/tmp/&#x27;</span>+filename)</span><br><span class="line">        shutil.rmtree(direc+<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">        bucket = storage_client.bucket(bucket_name)</span><br><span class="line">        blob = bucket.blob(event[<span class="string">&#x27;name&#x27;</span>])</span><br><span class="line">        blob.delete()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br></pre></td></tr></table></figure></li><li>サービスアカウントをCloudFunctionの設定Storageをいじれるアカウントに設定</li></ol><h2 id="所感"><a href="#所感" class="headerlink" title="所感"></a>所感</h2><p>cloud functionはファイル保存が&#x2F;tmp以下にしかできないらしく、保存できない理由が認証関係のエラーと勘違いして、半日ぐらいつまづいてましたorz</p><p>実際のサービスでは、ユーザは複数ファイルでアップロード可能だけど、ストレージ上では一種類のファイルで管理したいときとかにも使えそう.</p>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;構成&quot;&gt;&lt;a href=&quot;#構成&quot; class=&quot;headerlink&quot; title=&quot;構成&quot;&gt;&lt;/a&gt;構成&lt;/h2&gt;&lt;p&gt;GCSのアップロードをトリガにGCFでファイル変換を行う手順.&lt;/p&gt;
-&lt;p&gt;アップロードはzipファイルにしたいけど、ストレージ上にはzipを解凍しておきたい、と思った時に色々つまずいたので、備忘録がてらメモしておきます.&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="GCS" scheme="https://blog.gojtieji.com/tags/GCS/"/>
-    
-    <category term="GCF" scheme="https://blog.gojtieji.com/tags/GCF/"/>
-    
-    <category term="GCP" scheme="https://blog.gojtieji.com/tags/GCP/"/>
-    
-    <category term="備忘録" scheme="https://blog.gojtieji.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/"/>
     
   </entry>
   
