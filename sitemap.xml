@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.gojtieji.com/2022/11/24/adventcalendar2022/</loc>
+    
+    <lastmod>2022-11-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.gojtieji.com/2022/11/18/huggingface-how-padding-works/</loc>
     
     <lastmod>2022-11-18</lastmod>
@@ -301,7 +310,7 @@
 
   <url>
     <loc>https://blog.gojtieji.com/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -309,231 +318,238 @@
   
   <url>
     <loc>https://blog.gojtieji.com/tags/NLP/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/GPT/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/poem/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/GCS/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/GCF/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/GCP/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/%E5%82%99%E5%BF%98%E9%8C%B2/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/internship/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/aws/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/CloudFront/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/S3/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/CDN/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/Web/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/Game/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/kaggle/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/TPU/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/ML/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/hackathon/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/Go/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/heroku/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/IoT/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/Bluetooth/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/others/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/Unity/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/GPS/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/AR/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/OSS/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/portfolio/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/hakathon/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/Resarch/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/AI/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/Machine-Translation/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://blog.gojtieji.com/tags/HuggingFace/</loc>
-    <lastmod>2022-11-18</lastmod>
+    <lastmod>2022-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/Text2Image/</loc>
+    <lastmod>2022-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
