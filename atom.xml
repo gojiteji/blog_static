@@ -6,7 +6,7 @@
   <link href="https://blog.gojtieji.com/atom.xml" rel="self"/>
   
   <link href="https://blog.gojtieji.com/"/>
-  <updated>2022-11-23T22:37:08.094Z</updated>
+  <updated>2022-11-18T09:11:00.201Z</updated>
   <id>https://blog.gojtieji.com/</id>
   
   <author>
@@ -15,23 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>adventcalendar2022</title>
-    <link href="https://blog.gojtieji.com/2022/11/24/adventcalendar2022/"/>
-    <id>https://blog.gojtieji.com/2022/11/24/adventcalendar2022/</id>
-    <published>2022-11-23T22:36:36.000Z</published>
-    <updated>2022-11-23T22:37:08.094Z</updated>
-    
-    
-    
-    
-    
-    <category term="AI" scheme="https://blog.gojtieji.com/tags/AI/"/>
-    
-    <category term="Text2Image" scheme="https://blog.gojtieji.com/tags/Text2Image/"/>
-    
-  </entry>
   
   <entry>
     <title>Padding process in HuggingFace transformer models</title>
@@ -464,6 +447,25 @@
     <category term="S3" scheme="https://blog.gojtieji.com/tags/S3/"/>
     
     <category term="CDN" scheme="https://blog.gojtieji.com/tags/CDN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CA 2days インフラ向け開発型インターン に参加しました。</title>
+    <link href="https://blog.gojtieji.com/2020/06/30/ca-2days-intern/"/>
+    <id>https://blog.gojtieji.com/2020/06/30/ca-2days-intern/</id>
+    <published>2020-06-30T02:54:02.000Z</published>
+    <updated>2022-04-22T22:49:23.181Z</updated>
+    
+    <content type="html"><![CDATA[<p>6&#x2F;6~7日の二日間、タイトルにあるように<a href="https://www.cyberagent.co.jp/careers/students/event/detail/id=24419">CyberAgent 2days インフラ向け 開発型インターン</a> に参加しました。</p><span id="more"></span><h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>内容としては、isuconのようなもので、与えられたサーバーを改良し、スコアを上げるものです。問題はGo言語でときました。</p><h2 id="試した点"><a href="#試した点" class="headerlink" title="試した点"></a>試した点</h2><ul><li>goのバージョンアップデート</li><li>画像読み込みをnginxに移行<br>ユーザの画像読み込みを別サーバーに毎度アクセスしていたため、nginx側で画像を返す方向に変えました。アイコン周りで解像度を変更しており、エラーに時間を取られました。スコアはあまり上がりませんでした。(時間がかかったのに残念)</li><li>MySQLからredisへの移行<br>ユーザの情報取得をMySQLサーバーからredisに移行しようとしました。結局時間切れでスコア計測まで行けませんでした。終了後の解説で、社員の方がMySQL以前にredisサーバーも使わず、goのオンメモリで済ませていたため、今になって後半はredisにこだわりすぎたと反省しています。</li><li>MySQLサーバーへのインデックス貼り<br>１日目終了後に社員の方の説明で教えてもらいました。結局これが一番スコア増加量が大きかったです。</li></ul><p>結果としては、中央付近の順位となりました。。目立った結果が得られずチームに貢献できずに申し訳ない気持ちでいっぱいです。「推測するな、計測せよ」の言葉を重く受け止めます😬。</p><h2 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h2><p>covid-19の影響で、私にとって初のオンラインインターンでした。(abema towersに入ってみたかった..)２日間slackで4人チームにCA社のエンジニア二方がついてくださり、質問があり次第すぐに対応いただけ、zoomで個別面談時間もとっていただけて、技術的にもメンタル的にも大きな支えとなりました。現地で会えないのはとても辛いですが、オンラインでも臨場感は得られるものですね。休憩がてら家を出たら「そうや、ここ東京ちゃうやん」っふと思う場面が何度かありました。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;6&amp;#x2F;6~7日の二日間、タイトルにあるように&lt;a href=&quot;https://www.cyberagent.co.jp/careers/students/event/detail/id=24419&quot;&gt;CyberAgent 2days インフラ向け 開発型インターン&lt;/a&gt; に参加しました。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="internship" scheme="https://blog.gojtieji.com/tags/internship/"/>
     
   </entry>
   

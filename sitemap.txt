@@ -1,4 +1,3 @@
-https://blog.gojtieji.com/2022/11/24/adventcalendar2022/
 https://blog.gojtieji.com/2022/11/18/huggingface-how-padding-works/
 https://blog.gojtieji.com/2022/03/31/ja-ai-trans/
 https://blog.gojtieji.com/2019/12/31/notelook/
@@ -66,4 +65,3 @@ https://blog.gojtieji.com/tags/Resarch/
 https://blog.gojtieji.com/tags/AI/
 https://blog.gojtieji.com/tags/Machine-Translation/
 https://blog.gojtieji.com/tags/HuggingFace/
-https://blog.gojtieji.com/tags/Text2Image/
