@@ -1,3 +1,4 @@
+https://blog.gojtieji.com/2022/12/21/languagemodels/
 https://blog.gojtieji.com/2022/12/02/adventcalendar2022/
 https://blog.gojtieji.com/2022/11/18/huggingface-how-padding-works/
 https://blog.gojtieji.com/2022/03/31/ja-ai-trans/

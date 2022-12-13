@@ -6,7 +6,7 @@
   <link href="https://blog.gojtieji.com/atom.xml" rel="self"/>
   
   <link href="https://blog.gojtieji.com/"/>
-  <updated>2022-12-01T22:13:27.718Z</updated>
+  <updated>2022-12-13T13:38:53.600Z</updated>
   <id>https://blog.gojtieji.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>言語モデルの語彙の違いを色々見てみる</title>
+    <link href="https://blog.gojtieji.com/2022/12/21/languagemodels/"/>
+    <id>https://blog.gojtieji.com/2022/12/21/languagemodels/</id>
+    <published>2022-12-20T15:00:00.000Z</published>
+    <updated>2022-12-13T13:38:53.600Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p><strong>これは<a href="https://qiita.com/advent-calendar/2022/naist">NAISTアドベントカレンダー2022</a>21日目の投稿です。</strong></p></blockquote><p>「語彙力がない」「ボキャ貧」なんて言葉を人間は使いますが，AIにもそういった特徴はあるのでしょうか？少し気になったので検証してみました．やり方は簡単で，言語モデルごとのトークナイザの集合を用いてベン図を描きました．</p><p>ソースコード：<a href="https://github.com/gojiteji/AI_vocab_comparison/blob/main/Vocab_comparison.ipynb">https://github.com/gojiteji/AI_vocab_comparison/blob/main/Vocab_comparison.ipynb</a></p><h2 id="T5-vs-mT5"><a href="#T5-vs-mT5" class="headerlink" title="T5 vs mT5"></a>T5 vs mT5</h2><p><img src="https://blog.gojiteji.com/images/vocab/T5vsmT5.png" width="50%"></img></p><h2 id="mBART25-vs-mBART50-vs-mT5"><a href="#mBART25-vs-mBART50-vs-mT5" class="headerlink" title="mBART25 vs mBART50 vs mT5"></a>mBART25 vs mBART50 vs mT5</h2><p><img src="https://blog.gojiteji.com/images/vocab/mBART25vsmBART50vsmT5.png" width="50%"></img></p><h2 id="GPT-J-vs-GPT-2"><a href="#GPT-J-vs-GPT-2" class="headerlink" title="GPT-J vs GPT-2"></a>GPT-J vs GPT-2</h2><p><img src="https://blog.gojiteji.com/images/vocab/GPTJvsGPT2.png" width="50%"></img></p><h2 id="BERT-vs-RoBERTa"><a href="#BERT-vs-RoBERTa" class="headerlink" title="BERT vs RoBERTa"></a>BERT vs RoBERTa</h2><p><img src="https://blog.gojiteji.com/images/vocab/BERTvsRoBERTa.png" width="50%"></img></p><h2 id="GPT-japanese-vs-BERTjapanese-vs-T5japanese"><a href="#GPT-japanese-vs-BERTjapanese-vs-T5japanese" class="headerlink" title="GPT-japanese vs BERTjapanese vs T5japanese"></a>GPT-japanese vs BERTjapanese vs T5japanese</h2><p><img src="https://blog.gojiteji.com/images/vocab/GPTjavsBERTjavsT5ja.png" width="50%"></img></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;これは&lt;a href=&quot;https://qiita.com/advent-calendar/2022/naist&quot;&gt;NAISTアドベントカレンダー2022&lt;/a&gt;21日目の投稿です。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquot</summary>
+      
+    
+    
+    
+    
+    <category term="NLP" scheme="https://blog.gojtieji.com/tags/NLP/"/>
+    
+    <category term="AI" scheme="https://blog.gojtieji.com/tags/AI/"/>
+    
+  </entry>
   
   <entry>
     <title>Diffusion モデルはQRコードの符号化アルゴリズムを模倣できるか？</title>
@@ -451,31 +477,6 @@
     <category term="hackathon" scheme="https://blog.gojtieji.com/tags/hackathon/"/>
     
     <category term="Go" scheme="https://blog.gojtieji.com/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>How fast Using or Not Using CDN Speed  on AWS is?</title>
-    <link href="https://blog.gojtieji.com/2020/07/13/cdn/"/>
-    <id>https://blog.gojtieji.com/2020/07/13/cdn/</id>
-    <published>2020-07-12T17:23:05.000Z</published>
-    <updated>2022-04-22T22:49:23.181Z</updated>
-    
-    <content type="html"><![CDATA[<p>I had the opportunity to use a CDN (Contents Delivery Network) for a project and tested how much faster it would be with CloudFront.</p><span id="more"></span><ul><li><p>Test site<br><a href="https://gojiteji.github.io/experimanet_html/Favorite.html">https://gojiteji.github.io/experimanet_html/Favorite.html</a></p></li><li><p>Comparison</p><ul><li>common specs<ul><li>instance type<br>  AWS EC2 t2 micro</li><li>OS<br>  Amazon Linux</li><li>Region<br>  Tokyo</li></ul></li><li>different specs<ul><li>without CDN<ul><li>All  contents are provided by the same server.</li></ul></li><li>with CDN<ul><li>Movie, Image,  and Audio files are provided  by CDN.</li><li>CDN  is working from AWS S3 and AWS CloudFront.</li></ul></li></ul></li></ul></li></ul><p><img src="https://blog.gojiteji.com/images/cdn/image.png" alt="architecture  image"></p><ul><li><p>Test Server<br>I used GTmetrix (<a href="https://gtmetrix.com/">https://gtmetrix.com/</a>) to measure each loading time. This site has very usefull following funcitons.</p><ul><li>Test server location is changeable.</li><li>Data  are  be comparable.</li></ul></li><li><p>Result<br><img src="https://blog.gojiteji.com/images/cdn/fig.png" alt="architecture  image"><br>If you’re going to create a web service to deliver contents, you should at least use a CDN.</p></li><li><p>reference</p><ul><li><a href="https://aws.amazon.com/jp/cloudfront/features/">https://aws.amazon.com/jp/cloudfront/features/</a></li><li><a href="https://qiita.com/leomaro7/items/5aae69fba8f07555b457">https://qiita.com/leomaro7/items/5aae69fba8f07555b457</a></li></ul></li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;I had the opportunity to use a CDN (Contents Delivery Network) for a project and tested how much faster it would be with CloudFront.&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="aws" scheme="https://blog.gojtieji.com/tags/aws/"/>
-    
-    <category term="CloudFront" scheme="https://blog.gojtieji.com/tags/CloudFront/"/>
-    
-    <category term="S3" scheme="https://blog.gojtieji.com/tags/S3/"/>
-    
-    <category term="CDN" scheme="https://blog.gojtieji.com/tags/CDN/"/>
     
   </entry>
   
