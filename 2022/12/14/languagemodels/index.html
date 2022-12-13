@@ -68,7 +68,7 @@
 <p>‘af_ZA’,’az_AZ’,’bn_IN’,’fa_IR’,’gl_ES’,’he_IL’,’hr_HR’,’id_ID’,’ka_GE’,’km_KH’,’mk_MK’,’ml_IN’,’mn_MN’,’mr_IN’,’pl_PL’,’ps_AF’,’pt_XX’,’sl_SI’,’sv_SE’,’sw_KE’,’ta_IN’,’te_IN’,’th_TH’,’tl_XX’,’uk_UA’,’ur_PK’,’xh_ZA’</p>
 </blockquote>
 <h2 id="GPT-J-vs-GPT-2-x2F-3"><a href="#GPT-J-vs-GPT-2-x2F-3" class="headerlink" title="GPT-J vs GPT-2&#x2F;3"></a>GPT-J vs GPT-2&#x2F;3</h2><p>これは<a target="_blank" rel="noopener" href="https://github.com/kingoflolz/mesh-transformer-jax/">GPT-JのGitHubに書いてありますが</a>，GPT-2&#x2F;3と同じtokenizer(Byte Pair Encoding)を使っているそうです．(以下略)</p>
-<h2 id="GPT-japanese-vs-BERT-japanese-vs-T5-japanese"><a href="#GPT-japanese-vs-BERT-japanese-vs-T5-japanese" class="headerlink" title="GPT-japanese vs BERT-japanese vs T5-japanese"></a>GPT-japanese vs BERT-japanese vs T5-japanese</h2><table>
+<h2 id="GPT2-japanese-vs-BERT-japanese-vs-T5-japanese"><a href="#GPT2-japanese-vs-BERT-japanese-vs-T5-japanese" class="headerlink" title="GPT2-japanese vs BERT-japanese vs T5-japanese"></a>GPT2-japanese vs BERT-japanese vs T5-japanese</h2><table>
 <thead>
 <tr>
 <th>モデル名</th>
@@ -78,7 +78,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>GPT-japanese</td>
+<td>GPT2-japanese</td>
 <td>SentencePiece</td>
 <td>Wikipedia(ja)</td>
 <td><a target="_blank" rel="noopener" href="https://huggingface.co/rinna/japanese-gpt2-medium">https://huggingface.co/rinna/japanese-gpt2-medium</a></td>
@@ -97,6 +97,6 @@
 </tr>
 </tbody></table>
 <p><img src="https://blog.gojiteji.com/images/vocab/GPTjavsBERTjavsT5ja.png" width="50%"></img></p>
-<p>同じ日本語wikipediaをトークナイザの学習に使っているため，GPT-japaneseとT5-japaneseの共通部分が大きいですね．微妙に異なる部分がるのは，special tokensやdumpの時期の違いによるものでしょうか．（何かご存知の方いらっしゃったらご教授ください）</p>
+<p>同じ日本語wikipediaをトークナイザの学習に使っているため，GPT2-japaneseとT5-japaneseの共通部分が大きいですね．微妙に異なる部分がるのは，special tokensやdumpの時期の違いによるものでしょうか．（何かご存知の方いらっしゃったらご教授ください）</p>
 <h2 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h2><p>モデルとトークナイザは学習が独立していることが多いため，トークナイザが単体でどのような挙動をしているかを知っておくことも重要なのだと思いました．この辺もちゃんと理解して「ニューラルネットの気持ち」になりたいですね．</p>
 </div></article></div></main><footer><div class="paginator"><a href="/2022/12/02/adventcalendar2022/" class="next">NEXT</a></div><div class="copyright"><p>© 2020 - 2022 <a href="https://blog.gojtieji.com">gojiteji</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
