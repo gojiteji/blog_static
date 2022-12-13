@@ -8,7 +8,7 @@
 </blockquote>
 <p>「語彙力がない」「ボキャ貧」なんて言葉を人間は使いますが，AIにもそういった特徴はあるのでしょうか？少し気になったので検証してみました．やり方は簡単で，言語モデルごとのトークナイザの集合を用いてベン図を描きました．</p>
 <p>ソースコード：<a target="_blank" rel="noopener" href="https://github.com/gojiteji/AI_vocab_comparison/blob/main/Vocab_comparison.ipynb">https://github.com/gojiteji/AI_vocab_comparison/blob/main/Vocab_comparison.ipynb</a></p>
-<p>トークンか手法ごとにprefixが違う場合あります．全てprefixはSentencePieceのルールに統一しました．また，extra idや言語コードは削除しておりません．</p>
+<p>注意：<br>トークン化手法ごとにprefixが違う場合あります．異なるトークン化手法を用いているものは，prefixは全て削除しました．従って，後続トークンとしてのback(ex. feedback)と，先頭トークンとbackが同一トークンとして扱われます．また，extra idや言語コード，special tokenは削除しておりません．</p>
 <span id="more"></span>
 <h2 id="T5-vs-mT5"><a href="#T5-vs-mT5" class="headerlink" title="T5 vs mT5"></a>T5 vs mT5</h2><table>
 <thead>
@@ -16,32 +16,50 @@
 <th>モデル名</th>
 <th>トークン化手法</th>
 <th>データセット</th>
+<th>リンク</th>
 </tr>
 </thead>
 <tbody><tr>
-<td></td>
-<td></td>
-<td></td>
+<td>T5</td>
+<td>SentencePiece</td>
+<td>C4</td>
+<td><a target="_blank" rel="noopener" href="https://huggingface.co/t5-small">https://huggingface.co/t5-small</a></td>
+</tr>
+<tr>
+<td>mT5</td>
+<td>SentencePiece</td>
+<td>mC4</td>
+<td><a target="_blank" rel="noopener" href="https://huggingface.co/google/mt5-small">https://huggingface.co/google/mt5-small</a></td>
 </tr>
 </tbody></table>
-<p>T5:<a target="_blank" rel="noopener" href="https://huggingface.co/t5-small">https://huggingface.co/t5-small</a></p>
-<p>mT5:<a target="_blank" rel="noopener" href="https://huggingface.co/google/mt5-small">https://huggingface.co/google/mt5-small</a></p>
 <p><img src="https://blog.gojiteji.com/images/vocab/T5vsmT5.png" width="50%"></img></p>
 <p>データセットがC4より多いmC4を使っているだけあって，mT5の方が語彙サイズがとても大きいことがわかります．</p>
-<h2 id="mBART25-vs-mBART50-vs-mT5"><a href="#mBART25-vs-mBART50-vs-mT5" class="headerlink" title="mBART25 vs mBART50 vs mT5"></a>mBART25 vs mBART50 vs mT5</h2><p>mBART25:<a target="_blank" rel="noopener" href="https://huggingface.co/facebook/facebook/mbart-large-cc25">https://huggingface.co/facebook/facebook/mbart-large-cc25</a></p>
-<p>mBART50:<a target="_blank" rel="noopener" href="https://huggingface.co/google/facebook/mbart-large-50">https://huggingface.co/google/facebook/mbart-large-50</a></p>
-<table>
+<h2 id="mBART25-vs-mBART50-vs-mT5"><a href="#mBART25-vs-mBART50-vs-mT5" class="headerlink" title="mBART25 vs mBART50 vs mT5"></a>mBART25 vs mBART50 vs mT5</h2><table>
 <thead>
 <tr>
 <th>モデル名</th>
 <th>トークン化手法</th>
 <th>データセット</th>
+<th>リンク</th>
 </tr>
 </thead>
 <tbody><tr>
-<td></td>
-<td></td>
-<td></td>
+<td>mBART25</td>
+<td>SentencePiece</td>
+<td>Common Crawl</td>
+<td><a target="_blank" rel="noopener" href="https://huggingface.co/facebook/facebook/mbart-large-cc25">https://huggingface.co/facebook/facebook/mbart-large-cc25</a></td>
+</tr>
+<tr>
+<td>mBART50</td>
+<td>SentencePiece</td>
+<td>Same as mBART25</td>
+<td><a target="_blank" rel="noopener" href="https://huggingface.co/google/facebook/mbart-large-50">https://huggingface.co/google/facebook/mbart-large-50</a></td>
+</tr>
+<tr>
+<td>mT5</td>
+<td>SentencePiece</td>
+<td>mC4</td>
+<td><a target="_blank" rel="noopener" href="https://huggingface.co/google/mt5-small">https://huggingface.co/google/mt5-small</a></td>
 </tr>
 </tbody></table>
 <p><img src="https://blog.gojiteji.com/images/vocab/mBART25vsmBART50vsmT5.png" width="50%"></img></p>
@@ -49,58 +67,36 @@
 <blockquote>
 <p>‘af_ZA’,’az_AZ’,’bn_IN’,’fa_IR’,’gl_ES’,’he_IL’,’hr_HR’,’id_ID’,’ka_GE’,’km_KH’,’mk_MK’,’ml_IN’,’mn_MN’,’mr_IN’,’pl_PL’,’ps_AF’,’pt_XX’,’sl_SI’,’sv_SE’,’sw_KE’,’ta_IN’,’te_IN’,’th_TH’,’tl_XX’,’uk_UA’,’ur_PK’,’xh_ZA’</p>
 </blockquote>
-<h2 id="GPT-J-vs-GPT-2"><a href="#GPT-J-vs-GPT-2" class="headerlink" title="GPT-J vs GPT-2"></a>GPT-J vs GPT-2</h2><p>GPT-J:<a target="_blank" rel="noopener" href="https://huggingface.co/EleutherAI/gpt-j-6B">https://huggingface.co/EleutherAI/gpt-j-6B</a></p>
-<p>GPT-2:<a target="_blank" rel="noopener" href="https://huggingface.co/gpt2">https://huggingface.co/gpt2</a></p>
-<table>
+<h2 id="GPT-J-vs-GPT-2-x2F-3"><a href="#GPT-J-vs-GPT-2-x2F-3" class="headerlink" title="GPT-J vs GPT-2&#x2F;3"></a>GPT-J vs GPT-2&#x2F;3</h2><p>これは<a target="_blank" rel="noopener" href="https://github.com/kingoflolz/mesh-transformer-jax/">GPT-JのGitHubに書いてありますが</a>，GPT-2&#x2F;3と同じtokenizer(Byte Pair Encoding)を使っているそうです．(以下略)</p>
+<h2 id="GPT-japanese-vs-BERT-japanese-vs-T5-japanese"><a href="#GPT-japanese-vs-BERT-japanese-vs-T5-japanese" class="headerlink" title="GPT-japanese vs BERT-japanese vs T5-japanese"></a>GPT-japanese vs BERT-japanese vs T5-japanese</h2><table>
 <thead>
 <tr>
 <th>モデル名</th>
 <th>トークン化手法</th>
 <th>データセット</th>
+<th>リンク</th>
 </tr>
 </thead>
 <tbody><tr>
-<td></td>
-<td></td>
-<td></td>
+<td>GPT-japanese</td>
+<td>SentencePiece</td>
+<td>Wikipedia(ja)</td>
+<td><a target="_blank" rel="noopener" href="https://huggingface.co/rinna/japanese-gpt2-medium">https://huggingface.co/rinna/japanese-gpt2-medium</a></td>
 </tr>
-</tbody></table>
-<p><img src="https://blog.gojiteji.com/images/vocab/GPTJvsGPT2.png" width="50%"></img></p>
-<p>これは<a target="_blank" rel="noopener" href="https://github.com/kingoflolz/mesh-transformer-jax/">GPT-JのGitHubに書いてありますが</a>，GPT-2&#x2F;3と同じtokenizerを使っているそうです．</p>
-<h2 id="BERT-vs-RoBERTa"><a href="#BERT-vs-RoBERTa" class="headerlink" title="BERT vs RoBERTa"></a>BERT vs RoBERTa</h2><p>BERT:<a target="_blank" rel="noopener" href="https://huggingface.co/bert-base-cased">https://huggingface.co/bert-base-cased</a></p>
-<p>RoBERTa:<a target="_blank" rel="noopener" href="https://huggingface.co/roberta-base">https://huggingface.co/roberta-base</a></p>
-<table>
-<thead>
 <tr>
-<th>モデル名</th>
-<th>トークン化手法</th>
-<th>データセット</th>
+<td>BERT-japanese</td>
+<td>WordPiece</td>
+<td>IPA dictionary</td>
+<td><a target="_blank" rel="noopener" href="https://huggingface.co/cl-tohoku/bert-base-japanese">https://huggingface.co/cl-tohoku/bert-base-japanese</a></td>
 </tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
+<tr>
+<td>T5-japanese</td>
+<td>SentencePiece</td>
+<td>Wikipedia(ja),OSCAR(ja),CC-100(ja))</td>
+<td><a target="_blank" rel="noopener" href="https://huggingface.co/sonoisa/t5-base-japanese">https://huggingface.co/sonoisa/t5-base-japanese</a></td>
 </tr>
 </tbody></table>
-<p><img src="https://blog.gojiteji.com/images/vocab/BERTvsRoBERTa.png" width="50%"></img></p>
-<h2 id="GPT-2-japanese-vs-BERT-japanese-vs-T5-japanese"><a href="#GPT-2-japanese-vs-BERT-japanese-vs-T5-japanese" class="headerlink" title="GPT-2-japanese vs BERT-japanese vs T5-japanese"></a>GPT-2-japanese vs BERT-japanese vs T5-japanese</h2><p>GPT-2-japanese:<a target="_blank" rel="noopener" href="https://huggingface.co/rinna/japanese-gpt2-small">https://huggingface.co/rinna/japanese-gpt2-small</a></p>
-<p>BERT-japanese:<a target="_blank" rel="noopener" href="https://huggingface.co/cl-tohoku/bert-base-japanese">https://huggingface.co/cl-tohoku/bert-base-japanese</a></p>
-<p>T5-japanese:<a target="_blank" rel="noopener" href="https://huggingface.co/sonoisa/t5-base-japanese">https://huggingface.co/sonoisa/t5-base-japanese</a></p>
 <p><img src="https://blog.gojiteji.com/images/vocab/GPTjavsBERTjavsT5ja.png" width="50%"></img></p>
-<table>
-<thead>
-<tr>
-<th>モデル名</th>
-<th>トークン化手法</th>
-<th>データセット</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
+<p>同じ日本語wikipediaをトークナイザの学習に使っているため，GPT-japaneseとT5-japaneseの共通部分が大きいですね．微妙に異なる部分がるのは，special tokensやdumpの時期の違いによるものでしょうか．（何かご存知の方いらっしゃったらご教授ください）</p>
 <h2 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h2><p>モデルとトークナイザは学習が独立していることが多いため，トークナイザが単体でどのような挙動をしているかを知っておくことも重要なのだと思いました．<br>エンコード手法が優れているため，未知語はほぼ発生しない状況ですが，データセットが違うと，思った以上に語彙は違うものを獲得しているのだなと思いました．</p>
 <!-- flag of hidden posts --></div></article></div></main><footer><div class="paginator"></div><div class="copyright"><p>© 2020 - 2022 <a href="https://blog.gojtieji.com">gojiteji</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
