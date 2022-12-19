@@ -6,7 +6,7 @@
   <link href="https://blog.gojtieji.com/atom.xml" rel="self"/>
   
   <link href="https://blog.gojtieji.com/"/>
-  <updated>2022-12-13T15:25:57.517Z</updated>
+  <updated>2022-12-19T10:48:51.434Z</updated>
   <id>https://blog.gojtieji.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NAGIシステムの概要</title>
+    <link href="https://blog.gojtieji.com/2022/12/21/nagi-system/"/>
+    <id>https://blog.gojtieji.com/2022/12/21/nagi-system/</id>
+    <published>2022-12-20T15:00:00.000Z</published>
+    <updated>2022-12-19T10:48:51.434Z</updated>
+    
+    <content type="html"><![CDATA[<style>@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@800&display=swap');</style><p><strong>これは</strong><br><font face="Shippori Mincho"><br><br><strong><h1><a href="https://qiita.com/advent-calendar/2022/naist">N</a></strong><br><br><strong><a href="https://qiita.com/advent-calendar/2022/naist">A</a></strong><br><br><strong><a href="https://qiita.com/advent-calendar/2022/naist">I</a></strong><br><br><strong><a href="https://qiita.com/advent-calendar/2022/naist">S</a></strong><br><a href="https://qiita.com/advent-calendar/2022/naist">Tアドカレ</a> </h1><br></font><br><strong>21日目の投稿です。</strong></p><p>先日HuggingFace Spacesにて，3つのAIによる決議システム「<a href="https://huggingface.co/spaces/gojiteji/NAGISystem">NAGI System</a>」を公開しました．その仕組みを簡単に紹介します．</p><h2 id="仕組み"><a href="#仕組み" class="headerlink" title="仕組み"></a>仕組み</h2><p>promptという手法を使っています．近年の機械学習モデルを特定のタスクに当てるとなると，以下の二つのステップが必要です．</p><ol><li>事前学習と呼ばれる，大量のデータからパラメータを学習するステップと，</li><li>fine-tuningという，特定のタスクに特化させるステップ</li></ol><p>が必要です．一方で，promptというのは，1. は同じですが，その次にfine-tuningを行いません．じゃあどうしているかというと，1. 事前学習のタスクに近い形でタスク情報を入力してやれば，fine-tuningせずとも，特定タスクを解く性能はすでに持っているのではないか，といった感じで解いています．<br>具体的には，次のようなタスクを解いています．</p><h2 id="BERTの場合"><a href="#BERTの場合" class="headerlink" title="BERTの場合"></a>BERTの場合</h2><p>BERTは事前学習で入力文章の<code>[MASK]</code>部分を埋めるタスクを解いています．<br>なので，promptでは2022&#x2F;12&#x2F;19時点で以下のような入力をBERTに与えています．</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;MELCHIORは科学者としての人格を持っています。人間とMELCHIORの対話です。人間「&quot;</span>+sue+<span class="string">&quot;。承認 か 否定 のどちらかで答えてください。」&quot;</span>+<span class="string">&quot;MELCHIOR 「[MASK]」&quot;</span></span><br></pre></td></tr></table></figure><p><a href="https://huggingface.co/spaces/gojiteji/NAGISystem/blob/main/app.py#L24">ソースコード</a></p><h2 id="GPT2の場合"><a href="#GPT2の場合" class="headerlink" title="GPT2の場合"></a>GPT2の場合</h2><p>GPT2は事前学習で入力文章の次単語を予測するタスクを解いています．<br>なので，promptでは2022&#x2F;12&#x2F;19時点で以下のような入力をGPT2に与えています．</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;CASPERは女としての人格を持っています。人間とCASPERの対話です。人間「&#x27;</span>+sue+<span class="string">&#x27;。承認 か 否定 のどちらかで答えてください。」&#x27;</span>+<span class="string">&quot;CASPER 「&quot;</span></span><br></pre></td></tr></table></figure><p><a href="https://huggingface.co/spaces/gojiteji/NAGISystem/blob/main/app.py#L50">ソースコード</a></p><h2 id="mT5の場合"><a href="#mT5の場合" class="headerlink" title="mT5の場合"></a>mT5の場合</h2><p>mT5は事前学習で<code>&lt;X&gt;</code>や<code>&lt;Y&gt;</code>でマスクされた文を予測するタスクを解いています．<br>なので，promptでは2022&#x2F;12&#x2F;19時点で以下のような入力をmT5に与えています．</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;BALTHASARは母としての人格としての人格を持っています。人間とBALTHASARの対話です。人間「&#x27;</span>+sue+<span class="string">&#x27;。承認 か 否定 のどちらかで答えてください。」&#x27;</span>+<span class="string">&quot;BALTHASAR 「&lt;X&gt;」&quot;</span></span><br></pre></td></tr></table></figure><p><a href="https://huggingface.co/spaces/gojiteji/NAGISystem/blob/main/app.py#L30">ソースコード</a></p><p>こういったことが簡単にできる，AIの民主化を大きく進めてくれたHuggingFace社には感謝しかないですね🤗</p><h2 id="終わりに"><a href="#終わりに" class="headerlink" title="終わりに"></a>終わりに</h2><p>近年のStable Diffusion関連の話題で聞いたことある単語が出てきたって人もいるのではないでしょうか．少しでもAI・機械学習分野の中身に興味を持っていただけたら幸いです！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;style&gt;
+@import url(&#39;https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@800&amp;display=swap&#39;);
+&lt;/style&gt;
+&lt;p&gt;&lt;strong&gt;これは&lt;/strong&gt;&lt;br&gt;&lt;</summary>
+      
+    
+    
+    
+    
+    <category term="NLP" scheme="https://blog.gojtieji.com/tags/NLP/"/>
+    
+    <category term="AI" scheme="https://blog.gojtieji.com/tags/AI/"/>
+    
+  </entry>
   
   <entry>
     <title>言語モデルの語彙の違いを見てみる</title>
@@ -454,29 +481,6 @@
     <category term="TPU" scheme="https://blog.gojtieji.com/tags/TPU/"/>
     
     <category term="ML" scheme="https://blog.gojtieji.com/tags/ML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>北大ハッカソン参加記</title>
-    <link href="https://blog.gojtieji.com/2020/08/03/hu-hack/"/>
-    <id>https://blog.gojtieji.com/2020/08/03/hu-hack/</id>
-    <published>2020-08-03T11:38:10.000Z</published>
-    <updated>2022-04-22T22:49:23.182Z</updated>
-    
-    <content type="html"><![CDATA[<p>7&#x2F;18・19と、8&#x2F;1・2の4日間、弊校にてハッカソンがありました。<strong>「スマートフォンアプリケーション作成を通し，論理的思考を学ぼう」</strong> という題目でして、事前アンケートで興味のあるお題を選択し、その後(おそらく)各々興味があった内容ごとに4チーム(各6人)分けされ、開発を行いました。お題は漁獲量安定の問題、野菜の販売の問題×2、テレワークと遊休施設施設の課題の4つであり、最後のものが私たちのチームに与えられた課題でした。実施日は4日でしたが、その間に土日を挟んでおり、実質2週間(期末テスト含む)の開発期間が与えられました。</p><span id="more"></span><p>(ググったら公開資料がありました：<a href="https://www.hokudai.ac.jp/news/pdf/20200512_pr.pdf">https://www.hokudai.ac.jp/news/pdf/20200512_pr.pdf</a>)</p><h2 id="作ったもの"><a href="#作ったもの" class="headerlink" title="作ったもの"></a>作ったもの</h2><p>hoteleworkというアプリを作りました。発表時のスライドの抜粋を埋め込んでおきます。<br>簡単にいうと、観光地版we workのイメージです。遊休施設をオフィスとして会社に貸し出し、社員は観光地で働き、観光地は平日でも安定した収入が得られ、会社はオフィス面積の削減、社員は家より開放感のある場所で働けるという物です。加えて、<strong>hoteleworkが施設ごとにコミュニティを奨励することで、例えば、企業家がたくさん集まる施設だとか、趣味がたくさん集まる施設だとかが発生するアプリ</strong>にしました。</p><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQd8V-TUonl0ZrEFhU-n-WaLHnNXTdyYOHXysxk21EFJOQoW8vXrzp3IerN3oRME5A22Di082-Q6pOf/embed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe><p>設計は以下の通りです。内容的には企業とその社員がwebから、グループウェアのアカウントを用いて予約を行う物ですが、ハッカソンの趣旨がスマホアプリなので、PWAで動作するようフロントチームが頑張ってくれました。</p><p><img src="https://blog.gojiteji.com/images/hu_hack/architecture.png"></p><p><a href="https://github.com/team4-BBA">github link</a></p><p>担当箇所はバックエンド(設計図右側)でした。バックエンドをgo(gin)で、データベースはredis、ユーザとホテルの一致度をword2vecでベクトルのcos類似度からレコメンドする(Cloud Function動作)という物です。スライドや企画も一部携わりました。</p><h2 id="結果や講評"><a href="#結果や講評" class="headerlink" title="結果や講評"></a>結果や講評</h2><p>発表ごとに協力会社さんから講評や質問がもらえ、想像以上に好評でした。質問はビジネスモデルに関する物が多く、技術的な内容はあまり聞かれませんでした。公開講座のためか、特に賞があるわけではありませんでしたが、**参加者投票で一番得票数が多かったです(ありがたい)**。</p><h2 id="反省点"><a href="#反省点" class="headerlink" title="反省点"></a>反省点</h2><p>もうちょっと担当を細分化できたらよかったなというのと、バックエンドとフロントエンドの結合をこまめにしておくべきだったたなと思いました。(機能は実装できていても結合がうまくいかず、デモでは一部ダミーデータを用いました)<br>アイデアに関しては、いくら会社にとってオフィスの面積が減るとはいえ、それ以上のメリットがあまりなくないか・・・?というところは再考が必要そう。</p><h2 id="所感"><a href="#所感" class="headerlink" title="所感"></a>所感</h2><p>やはり同じようなアイデアは日本中で出ているようで、workationやらwork**とかいろいろなサービスや言葉が開発期間に目に触れ、「オリジナリティは一体..?」とメンタルがやられかける場面が多かったです。</p><p>また、新型コロナウイルス🦠の影響により、編入後も未だに一度も授業を学校で受けていなかったため、通学したはこれが初めてでした。日に日にリモートでできることが増えていますが、現時点ではでっかいホワイトボードの前に数人でジェスチャー交えて話し合う行為はまだリモートでは置き換えきれないなぁ、と企画時にしみじみと思いました。</p><p>こんなぽっと出の編入者にわざわざ付き合ってくれた学生の皆さんにも感謝です。</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;7&amp;#x2F;18・19と、8&amp;#x2F;1・2の4日間、弊校にてハッカソンがありました。&lt;strong&gt;「スマートフォンアプリケーション作成を通し，論理的思考を学ぼう」&lt;/strong&gt; という題目でして、事前アンケートで興味のあるお題を選択し、その後(おそらく)各々興味があった内容ごとに4チーム(各6人)分けされ、開発を行いました。お題は漁獲量安定の問題、野菜の販売の問題×2、テレワークと遊休施設施設の課題の4つであり、最後のものが私たちのチームに与えられた課題でした。実施日は4日でしたが、その間に土日を挟んでおり、実質2週間(期末テスト含む)の開発期間が与えられました。&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="NLP" scheme="https://blog.gojtieji.com/tags/NLP/"/>
-    
-    <category term="hackathon" scheme="https://blog.gojtieji.com/tags/hackathon/"/>
-    
-    <category term="Go" scheme="https://blog.gojtieji.com/tags/Go/"/>
     
   </entry>
   
