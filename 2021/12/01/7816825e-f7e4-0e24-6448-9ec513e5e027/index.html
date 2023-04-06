@@ -17,7 +17,7 @@
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Meet GitHub Copilot - your AI pair programmer. <a target="_blank" rel="noopener" href="https://t.co/eWPueAXTFt">https://t.co/eWPueAXTFt</a> <a target="_blank" rel="noopener" href="https://t.co/NPua5K2vFS">pic.twitter.com/NPua5K2vFS</a></p>&mdash; GitHub (@github) <a target="_blank" rel="noopener" href="https://twitter.com/github/status/1409883156333879300?ref_src=twsrc%5Etfw">June 29, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <p>GPT-3がMicrosoftの独占ライセンスにあり、API経由でしか利用できないのに対し、GPT-J-6Bはオープンソースとして利用可能です。名前にある通り、60億(6 Billion)個程の巨大なパラメータからなる事前学習済みモデルです。Zero -Shotの評価でGPT-3の67億個パラメータ版と同じくらいの精度だそうです。</p>
-<p>学習は、入力に対する次の単語を予測するタスクを行っています。従って、自分が生成した文章を再び入力にすれば無限に文章が生成できます。</p>
+<p>学習は、入力に対する次の単語を予測するタスクを行っています。従って、自分が生成した文章を再び入力にすれば<del>無限に</del>(訂正：positional embeddingの次元が許すまで)文章が生成できます。</p>
 <p>さらに、<strong>マルチタスクにも対応可能</strong>で、</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Translate English to Franch:&#123;英文&#125;</span><br></pre></td></tr></table></figure>
 <p>と入力すれば翻訳タスクを実行でき、</p>

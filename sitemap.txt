@@ -1,3 +1,4 @@
+https://blog.gojtieji.com/2021/12/01/7816825e-f7e4-0e24-6448-9ec513e5e027/
 https://blog.gojtieji.com/2023/02/06/CLIPdistance/
 https://blog.gojtieji.com/2022/12/21/nagi-system/
 https://blog.gojtieji.com/2022/12/14/languagemodels/
@@ -28,7 +29,6 @@ https://blog.gojtieji.com/2020/08/03/hu-hack/
 https://blog.gojtieji.com/2021/05/09/heroku/
 https://blog.gojtieji.com/2020/12/11/huit2020/
 https://blog.gojtieji.com/2020/02/28/ja2th/
-https://blog.gojtieji.com/2021/12/01/7816825e-f7e4-0e24-6448-9ec513e5e027/
 https://blog.gojtieji.com/2020/12/31/2020/
 https://blog.gojtieji.com/2020/05/25/blobmemo/
 https://blog.gojtieji.com/2020/06/30/ca-2days-intern/
