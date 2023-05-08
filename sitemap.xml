@@ -173,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2020/03/15/kagglenl/</loc>
+    <loc>https://blog.gojtieji.com/2021/11/01/jphacks2021/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -182,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2020/04/27/mothman-current-report/</loc>
+    <loc>https://blog.gojtieji.com/2020/03/15/kagglenl/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2021/11/01/jphacks2021/</loc>
+    <loc>https://blog.gojtieji.com/2020/04/27/mothman-current-report/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -218,7 +218,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2020/09/10/contradictor-ymydearwatson/</loc>
+    <loc>https://blog.gojtieji.com/2020/10/26/discoveryhackathon/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -227,7 +227,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2020/10/26/discoveryhackathon/</loc>
+    <loc>https://blog.gojtieji.com/2020/09/10/contradictor-ymydearwatson/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -254,7 +254,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2020/08/03/hu-hack/</loc>
+    <loc>https://blog.gojtieji.com/2021/05/09/heroku/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -263,7 +263,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2021/05/09/heroku/</loc>
+    <loc>https://blog.gojtieji.com/2020/08/03/hu-hack/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -299,15 +299,6 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2020/05/25/blobmemo/</loc>
-    
-    <lastmod>2022-04-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.gojtieji.com/2020/06/30/ca-2days-intern/</loc>
     
     <lastmod>2022-04-22</lastmod>
@@ -317,7 +308,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/2020/07/13/cdn/</loc>
+    <loc>https://blog.gojtieji.com/2020/05/25/blobmemo/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -327,6 +318,15 @@
   
   <url>
     <loc>https://blog.gojtieji.com/2020/05/17/coding-Cbrowser-game2/</loc>
+    
+    <lastmod>2022-04-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/2020/07/13/cdn/</loc>
     
     <lastmod>2022-04-22</lastmod>
     
@@ -344,6 +344,13 @@
 
   
   <url>
+    <loc>https://blog.gojtieji.com/tags/poem/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.gojtieji.com/tags/NLP/</loc>
     <lastmod>2023-05-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -358,7 +365,28 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/tags/poem/</loc>
+    <loc>https://blog.gojtieji.com/tags/OSS/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/internship/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/AI/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/Text2Image/</loc>
     <lastmod>2023-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -393,7 +421,21 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/tags/internship/</loc>
+    <loc>https://blog.gojtieji.com/tags/Web/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/Game/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/Go/</loc>
     <lastmod>2023-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -428,14 +470,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/tags/Web/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/Game/</loc>
+    <loc>https://blog.gojtieji.com/tags/hackathon/</loc>
     <lastmod>2023-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -463,21 +498,28 @@
   </url>
   
   <url>
-    <loc>https://blog.gojtieji.com/tags/hackathon/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/Go/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.gojtieji.com/tags/heroku/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/HuggingFace/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/Resarch/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/Machine-Translation/</loc>
     <lastmod>2023-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -492,6 +534,20 @@
   
   <url>
     <loc>https://blog.gojtieji.com/tags/Bluetooth/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/portfolio/</loc>
+    <lastmod>2023-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.gojtieji.com/tags/hakathon/</loc>
     <lastmod>2023-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -520,62 +576,6 @@
   
   <url>
     <loc>https://blog.gojtieji.com/tags/AR/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/OSS/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/portfolio/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/hakathon/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/Resarch/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/AI/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/Machine-Translation/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/HuggingFace/</loc>
-    <lastmod>2023-05-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/tags/Text2Image/</loc>
     <lastmod>2023-05-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
