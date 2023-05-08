@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.gojtieji.com/2020/05/11/coding-cbrowser-game-md/</loc>
+    
+    <lastmod>2023-05-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.gojtieji.com/2021/12/01/7816825e-f7e4-0e24-6448-9ec513e5e027/</loc>
     
     <lastmod>2023-04-06</lastmod>
@@ -318,15 +327,6 @@
   
   <url>
     <loc>https://blog.gojtieji.com/2020/05/17/coding-Cbrowser-game2/</loc>
-    
-    <lastmod>2022-04-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.gojtieji.com/2020/05/11/coding-cbrowser-game-md/</loc>
     
     <lastmod>2022-04-22</lastmod>
     

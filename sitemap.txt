@@ -1,3 +1,4 @@
+https://blog.gojtieji.com/2020/05/11/coding-cbrowser-game-md/
 https://blog.gojtieji.com/2021/12/01/7816825e-f7e4-0e24-6448-9ec513e5e027/
 https://blog.gojtieji.com/2023/02/06/CLIPdistance/
 https://blog.gojtieji.com/2022/12/21/nagi-system/
@@ -34,7 +35,6 @@ https://blog.gojtieji.com/2020/05/25/blobmemo/
 https://blog.gojtieji.com/2020/06/30/ca-2days-intern/
 https://blog.gojtieji.com/2020/07/13/cdn/
 https://blog.gojtieji.com/2020/05/17/coding-Cbrowser-game2/
-https://blog.gojtieji.com/2020/05/11/coding-cbrowser-game-md/
 https://blog.gojtieji.com/
 https://blog.gojtieji.com/tags/NLP/
 https://blog.gojtieji.com/tags/GPT/
