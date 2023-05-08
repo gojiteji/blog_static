@@ -33,8 +33,8 @@ https://blog.gojtieji.com/2020/12/31/2020/
 https://blog.gojtieji.com/2020/05/25/blobmemo/
 https://blog.gojtieji.com/2020/06/30/ca-2days-intern/
 https://blog.gojtieji.com/2020/07/13/cdn/
-https://blog.gojtieji.com/2020/05/11/coding-Cbrowser-game-md/
 https://blog.gojtieji.com/2020/05/17/coding-Cbrowser-game2/
+https://blog.gojtieji.com/2020/05/11/coding-cbrowser-game-md/
 https://blog.gojtieji.com/
 https://blog.gojtieji.com/tags/NLP/
 https://blog.gojtieji.com/tags/GPT/
